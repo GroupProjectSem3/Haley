@@ -1,5 +1,4 @@
 # Django
  First commit
  
-
-# Group members
+#Vaibha Gala
