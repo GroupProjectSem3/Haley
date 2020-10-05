@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "babel src -d lib",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^26.5.0"
+  }
+}
