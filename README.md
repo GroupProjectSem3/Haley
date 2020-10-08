@@ -6,11 +6,10 @@ Additionally, the users will be given a list of General Practitioners based on t
  
  Running the application steps:
 
-virtualenv venv -p python
-.\env\Scripts\activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-
-development server at http://127.0.0.1:8000/
+* Create virtual environment: virtualenv venv -p python
+* Activate the environment: .\env\Scripts\activate
+* Install all requirements: pip install -r requirements.txt
+* Migrate all changes to Database: python manage.py migrate
+* Run the server: python manage.py runserver
+  (Server at http://127.0.0.1:8000/)
 
