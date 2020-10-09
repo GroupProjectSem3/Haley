@@ -1,6 +1,9 @@
 # HALEY :dancer: 
+[![GitHub issues](https://img.shields.io/github/issues/GroupProjectSem3/Haley)](https://github.com/GroupProjectSem3/Haley/issues)
+[![GitHub forks](https://img.shields.io/github/forks/GroupProjectSem3/Haley)](https://github.com/GroupProjectSem3/Haley/network)
+[![GitHub stars](https://img.shields.io/github/stars/GroupProjectSem3/Haley)](https://github.com/GroupProjectSem3/Haley/stargazers)
 [![Python Version](https://img.shields.io/badge/Python-3.5|3.6-blue.svg)](https://shields.io/)
-[![GitHub license](https://img.shields.io/github/license/Rishit-dagli/Smart-Queuing-System-On-Edge)](https://github.com/Rishit-dagli/Smart-Queuing-System-On-Edge/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/GroupProjectSem3/Haley)](https://github.com/GroupProjectSem3/Haley/blob/master/LICENSE)
 ![Python Syntax](https://github.com/Rishit-dagli/Smart-Queuing-System-On-Edge/workflows/Python%20Syntax/badge.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
