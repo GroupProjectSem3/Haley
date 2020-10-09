@@ -1,8 +1,10 @@
-# HALEY :dancer:
+# HALEY :dancer: 
 [![Python Version](https://img.shields.io/badge/Python-3.5|3.6-blue.svg)](https://shields.io/)
 [![GitHub license](https://img.shields.io/github/license/Rishit-dagli/Smart-Queuing-System-On-Edge)](https://github.com/Rishit-dagli/Smart-Queuing-System-On-Edge/blob/master/LICENSE)
 ![Python Syntax](https://github.com/Rishit-dagli/Smart-Queuing-System-On-Edge/workflows/Python%20Syntax/badge.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+
+![IMAGE ALT TEXT HERE](https://github.com/GroupProjectSem3/Haley/blob/master/images/Haley.png)
 
 ## Table of Contents
 - [What it Does](#what-it-does)
