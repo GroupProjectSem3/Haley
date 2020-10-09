@@ -52,6 +52,6 @@ The Dataset we will use for this project is obtained by using the combine approa
 * [Kaggle questionnaire dataset](https://www.kaggle.com/moradnejad/nhanes-questionnaires-datasets-20172018-csv?)
 * [Kaggle heart diseases dataset](https://www.kaggle.com/johnsmith88/heart-disease-dataset)
 * [Kaggle Chronic Kidney diseases dataset](https://www.kaggle.com/mansoordaku/ckdisease)
-* [Kaggle diseases dataset](https://github.com/adalca/medical-datasets)
+* [GitHub Medical dataset](https://github.com/adalca/medical-datasets)
 
 
