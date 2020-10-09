@@ -53,7 +53,7 @@ To be announced
 
 
 ## Data Source
-The Dataset we will use for this project is obtained by using the combine approach of finding existing datasets and generating new ones. We are getting data from open source repository like Kaggle, GitHub, UCI and Google datasets as well as using real time experience from doctors to synthesize a dataset using java code. The java code ensures the elimination of conscious bias from the dataset. The final dataset contains 49 columns and 10001 rows amounting to 490001 data points. 
+The Dataset we will use for this project is obtained by using the combine approach of finding existing datasets and generating new ones. We are getting data from open source repository like Kaggle, GitHub, UCI and Google datasets as well as using real time experience from doctors to synthesize a dataset using java code. The java code ensures the elimination of conscious bias from the dataset. The final dataset contains 101 columns and 250001 rows amounting to 490001 data points. 
 * [Kaggle diseases dataset](https://www.kaggle.com/priya1207/diseases-dataset)
 * [Kaggle questionnaire dataset](https://www.kaggle.com/moradnejad/nhanes-questionnaires-datasets-20172018-csv?)
 * [Kaggle heart diseases dataset](https://www.kaggle.com/johnsmith88/heart-disease-dataset)
