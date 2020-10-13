@@ -62,5 +62,3 @@ The Dataset we will use for this project is obtained by using the combine approa
 * [Kaggle heart diseases dataset](https://www.kaggle.com/johnsmith88/heart-disease-dataset)
 * [Kaggle Chronic Kidney diseases dataset](https://www.kaggle.com/mansoordaku/ckdisease)
 * [GitHub Medical dataset](https://github.com/adalca/medical-datasets)
-
-
