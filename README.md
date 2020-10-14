@@ -48,7 +48,7 @@ To be announced
 
 ### Run the application 
 * Create virtual environment: virtualenv venv -p python
-* Activate the environment: .\env\Scripts\activate
+* Activate the environment: .\venv\Scripts\activate
 * Install all requirements: pip install -r requirements.txt
 * Migrate all changes to Database: python manage.py migrate
 * Run the server: python manage.py runserver
