@@ -1,0 +1,66 @@
+{% load cms_tags sekizai_tags %}
+{% load i18n %}
+
+{% addtoblock "js" %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.edit').click(function(){
+            var url = '{% url 'cms_saq_edit' %}';
+            var pk = $(this).attr('id').replace("edit-", "");
+
+            // Do a post request to enable editing of this set
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    submission: pk
+                },
+                success: function(){
+                    window.location.reload()
+                }
+            });
+        });
+
+        $('.delete').click(function(){
+            var url = '{% url 'cms_saq_edit' %}';
+            var pk = $(this).attr('id').replace("edit-", "");
+
+            var r = confirm("Completely remove these answers?");
+            if (r == true) {
+                // Do a post request to enable editing of this set
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        action: 'delete',
+                        submission: pk
+                    },
+                    success: function(){
+                        window.location.reload()
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+{% endaddtoblock %}
+
+{% if submission_sets %}
+<div class="submissions-sets">
+    <h2>{{ instance.label }}:</h2>
+    <ul>
+        {% for sset in submission_sets %}
+        <li>
+            <div>
+                <span class='label'>Answers:</span><span class='value'>{{ sset.submissions.count }} / {{ instance.num_questions }} </span>
+                <span class='label'>Updated:</span><span class='value'>{{ sset.updated }}</span>
+                <span id='edit-{{ sset.pk }}' class='op edit'>Edit</span>
+                <span id='edit-{{ sset.pk }}' class='op delete'>Delete</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{# vim:set filetype=htmldjango: #}
