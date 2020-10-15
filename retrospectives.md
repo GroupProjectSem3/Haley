@@ -28,3 +28,7 @@
 * A sponsored domain to host the Webapp, Amazon DynamoDb storage for 250 GB, AWS Lambda for around 5 Million hits per month, Amazon S3 for 50 GB storage.
 * Face to face team discussion is not possible
 * Early stage guidance with respect to how to work in an enterprise level project
+
+##Action Iteam- Assigned to ##
+
+* Look into project managment tecahniques - Geetika
