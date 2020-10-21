@@ -18,6 +18,7 @@
 - [Setup](#setup)
   * [Run the application](#run-the-application)
 - [Data Source](#data-source)
+- [Test Cases](#test-cases)
 
 
 ## What it Does
@@ -48,7 +49,7 @@ To be announced
 
 ### Run the application 
 * Create virtual environment: virtualenv venv -p python
-* Activate the environment: .\env\Scripts\activate
+* Activate the environment: .\venv\Scripts\activate
 * Install all requirements: pip install -r requirements.txt
 * Migrate all changes to Database: python manage.py migrate
 * Run the server: python manage.py runserver
@@ -62,3 +63,12 @@ The Dataset we will use for this project is obtained by using the combine approa
 * [Kaggle heart diseases dataset](https://www.kaggle.com/johnsmith88/heart-disease-dataset)
 * [Kaggle Chronic Kidney diseases dataset](https://www.kaggle.com/mansoordaku/ckdisease)
 * [GitHub Medical dataset](https://github.com/adalca/medical-datasets)
+
+
+## Test Cases
+Develop test cases to review work such as
+* Frontend - page navigation working properly,
+* Backend - Able to fetch and insert data into tables, and
+* Model - library call is successful
+
+can be found [here](https://drive.google.com/file/d/1eb_F5XE5R0ldAp-P0bCLveQUhN8HD6Jb/view?usp=sharing)
