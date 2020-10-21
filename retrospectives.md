@@ -60,7 +60,7 @@
 * More reading material
 * Meeting the team in person instead of a second lockdown.
 
-## Action Iteam ##
+## Action Items ##
 
 * Going to work directly on the main workspace/branch.
 * Maintaining all the work/tasks in zenhub board, burning the estimates and achieving them as per the process
