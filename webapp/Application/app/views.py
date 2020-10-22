@@ -61,7 +61,7 @@ def login(request):
     #user = User_profile.objects.filter(email=username,password=pwd).exists()
        user = User_profile.objects.filter(email=username,password=pwd)
        if user is not None:
-          return render(request,'app/userhomepage.html',{'Uname':user.get().first_name})
+          return render(request,'app/userHome.html',{'Uname':user.get().first_name})
        else:
             messages.info(request,'invalid credentials ')
             return render(request,'app/login1.html')
