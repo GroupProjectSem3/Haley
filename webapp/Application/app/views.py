@@ -94,4 +94,9 @@ def register(request):
           return redirect( 'register')
 
     else:
-       return render(request , 'app/register.html')    
+       return render(request , 'app/register.html') 
+
+def diagnosticTool(request):
+    return render(request,'app/diagnosticTool.html')          
+
+    
