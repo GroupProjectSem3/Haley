@@ -98,15 +98,10 @@ def register(request):
           return redirect( 'register')
 
     else:
-<<<<<<< HEAD
+
          return render(request , 'app/register.html')
 
 
-=======
-       return render(request , 'app/register.html') 
-
+       
 def diagnosticTool(request):
-    return render(request,'app/diagnosticTool.html')          
-
-    
->>>>>>> a0a6f5b3b0db2580a640ffc3d672754388315041
+    return render(request,'app/diagnosticTool.html') 
