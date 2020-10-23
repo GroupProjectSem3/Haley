@@ -49,19 +49,19 @@ from django.contrib import messages
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/userHome.html')
+    return render(request,'app/userProfile.html')
 
 
 def login(request):
     if request.method == 'POST':
-       username=request.POST['username']
+       email=request.POST['email']
        pwd =request.POST['password']
         
        #user = auth.authenticate(username=username,password=password)
     #user = User_profile.objects.filter(email=username,password=pwd).exists()
-       user = User_profile.objects.filter(email=username,password=pwd)
-       if user is not None:
-          return render(request,'app/userHome.html',{'Uname':user.get().first_name})
+       user = User_profile.objects.filter(email=email,password=pwd)
+       if User_profile.objects.filter(email=email,password=pwd).exists():
+          return render(request,'app/userProfile.html',{'fname':user.get().first_name,'lname':user.get().last_name,'email':user.get().email})
        else:
             messages.info(request,'invalid credentials ')
             return render(request,'app/login1.html')
@@ -70,6 +70,10 @@ def login(request):
 
 def logout(request):
     return render(request,'app/login1.html')
+
+ 
+
+
 
 def register(request):
     if  request.method == 'POST':
@@ -80,7 +84,7 @@ def register(request):
           confirmPassword =request.POST['confirmPassword']
        
           if pwd==confirmPassword:
-             if User.objects.filter(email=emailId).exists():
+             if User_profile.objects.filter(email=emailId).exists():
                   messages.info(request ,'Email Taken')
                   return redirect( 'register')
              else:
@@ -94,4 +98,6 @@ def register(request):
           return redirect( 'register')
 
     else:
-       return render(request , 'app/register.html')    
+         return render(request , 'app/register.html')
+
+

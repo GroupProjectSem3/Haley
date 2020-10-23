@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^register', app.views.register, name='register'),
     url(r'^login', app.views.login, name='login'),
     url(r'^logout', app.views.logout, name='logout'),
+    # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     # url(r'^contact$', app.views.contact, name='contact'),
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
