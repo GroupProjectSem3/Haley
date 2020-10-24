@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^diagnosticTool', app.views.diagnosticTool, name='diagnosticTool'),
     url(r'^nextButtonclick', app.views.nextButtonclick, name='nextButtonclick'),
     url(r'^addButton', app.views.addButton, name='addButton'),
-    # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
+    url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
 
    
 

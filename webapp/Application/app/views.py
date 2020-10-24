@@ -61,7 +61,9 @@ def login(request):
     #user = User_profile.objects.filter(email=username,password=pwd).exists()
        user = User_profile.objects.filter(email=email,password=pwd)
        if User_profile.objects.filter(email=email,password=pwd).exists():
-          return render(request,'app/userProfile.html',{'fname':user.get().first_name,'lname':user.get().last_name,'email':user.get().email})
+           request.session['user_id'] = user.get().email
+           print(request.session['user_id'])
+           return render(request,'app/userProfile.html',{'fname':user.get().first_name,'lname':user.get().last_name,'email':user.get().email})
        else:
             messages.info(request,'invalid credentials ')
             return render(request,'app/login1.html')
@@ -69,9 +71,39 @@ def login(request):
          return render(request,'app/login1.html')
 
 def logout(request):
+    if(request.session.has_key('user_id')):
+        print(request.session['user_id'])
+        del request.session['user_id']
     return render(request,'app/login1.html')
 
- 
+
+def update_Profile(request):
+    if request.method == 'POST':
+           address =request.POST['address']
+           country=request.POST['country']
+           city=request.POST['city']
+           zipcode =request.POST['zipcode']
+           dob=request.POST['dob']
+           gender =request.POST['gender']
+           weight =request.POST['weight']
+           height =request.POST['height']
+        
+           if(request.session.has_key('user_id')):
+                userid = request.session['user_id']
+                if User_profile.objects.filter(email = userid).exists():
+                     user= User_profile.objects.create(address=address,city=city,country=country,zipcode=zipcode,dob=dob,gender=gender,weight=weight,height=height)
+                     user.save()
+                     print ('user updated')
+                     return render(request,'app/userProfile.html')
+
+                else:
+                     print ('login first')
+           else:
+                 return render(request,'app/userProfile.html')
+    else: 
+          return render(request,'app/userProfile.html')
+
+
 
 
 
