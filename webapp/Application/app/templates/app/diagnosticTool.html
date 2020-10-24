@@ -236,6 +236,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <br>
 
+            <form action="addButton" method="POST">
+              {% csrf_token %}	
              <div class="card card-primary card-outline">
               <div class="card-header">
 
@@ -244,20 +246,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
 
               <div class="input-group mb-3">
-                <input type="text" class="form-inline">
+                <input type="text" class="form-inline" name="txtSymptom">
                 <span class="input-group-append">
-                  <button type="button" class="btn btn-info btn-flat">Add</button>
+                  <!-- <button type="button" class="btn btn-info btn-flat">Add</button> -->
+                  <button type="submit" class="btn btn-info btn-flat">Add</button>
                 </span>
               </div>
 
              </div>
             </div>
+          </form>
 
 
-
+          <form action="nextButtonclick" method="POST">
+            {% csrf_token %}	
             <div class="card card-primary card-outline">
               <div class="card-header">
                 <h5 class="m-0">How long has it been causing problems for you ?</h5>
+                <h5>{{ question }}</h5>
               </div>
               <!-- <div class="card-body">
                 <a href="#">One Year</a><br>
@@ -278,6 +284,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <input type="radio" value="5" name="wt"> 5 <br>
                 </div>
             </div>
+
+            <div class="card-header">
+              <!-- <button type="button" id="btn" name="btnNext" onclick="location.href='{% url 'nextButtonclick' %}'"> Next </button> -->
+              
+              <button type="submit" > Next</button>
+            </div>
+          </form>
 
             <div class="card card-primary card-outline">
               <div class="card-header">
