@@ -104,4 +104,48 @@ def register(request):
 
        
 def diagnosticTool(request):
-    return render(request,'app/diagnosticTool.html') 
+    print ('Inside diagnostic tool first page')
+    return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+
+
+def nextButtonclick(request):
+    if request.method == 'POST':
+       weight = int(request.POST.get('wt', None))
+       print (weight)
+       print ('testgingggg')       
+       return render(request,'app/diagnosticTool.html')
+
+      #  if(request.session.has_key('filteredList')):
+      #   disease_symptoms_list = request.session['filteredList']
+      #   disease_symptoms_list  = disease_symptoms_list.filter(symptom_details={"symptom_id":sympId})
+      #  else:
+      #   disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
+
+      #    request.session['filteredList'] = disease_symptoms_list
+      #    finishedSymp = dict()
+      #    for dis_symp in disease_symptoms_list:
+      #       if(Diagnosis.symptomWithWeightExists(dis_symp.symptom_details,sympId,weight)):
+      #             for symp_det in dis_symp.symptom_details:
+      #                #nextSymp[sympId] =  weight
+      #                if(symp_det['symptom_id'] !=sympId):
+      #                   if(symp_det['symptom_id'] in finishedSymp):
+      #                         finishedSymp[symp_det['symptom_id']] += symp_det['weight']
+      #                   else:
+      #                         finishedSymp[symp_det['symptom_id']] = symp_det['weight']
+         
+      #    nextSymptom = max(finishedSymp, key=finishedSymp.get)
+      #    context = {'id': nextSymptom}
+    else:
+       print ('Into else part')
+       return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
+
+
+def addButton(request):
+    if request.method == 'POST':
+       symptom = request.POST.get('txtSymptom', None)
+       print (symptom)
+       print ('add button')
+       return render(request,'app/diagnosticTool.html',{'question':'How severe suffering with the symptom - '+symptom})
+    else:
+       print ('Into else part')
+       return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
