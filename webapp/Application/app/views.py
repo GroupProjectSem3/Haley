@@ -49,7 +49,7 @@ from django.contrib import messages
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/changePassword.html')
+    return render(request,'app/register.html')
 
 
 def login(request):
@@ -184,3 +184,12 @@ def addButton(request):
     else:
        print ('Into else part')
        return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
+
+def userProfile(request):
+       return render(request,'app/userProfile.html') 
+
+def changePassword(request):
+       return render(request,'app/changePassword.html') 
+
+def forgotPassword(request):
+    return render(request,'app/forgotPassword.html') 
