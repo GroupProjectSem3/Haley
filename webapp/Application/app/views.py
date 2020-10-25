@@ -49,7 +49,7 @@ from django.contrib import messages
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/userProfile.html')
+    return render(request,'app/changePassword.html')
 
 
 def login(request):
@@ -78,6 +78,7 @@ def logout(request):
 
 
 def update_Profile(request):
+    print('inside update')
     if request.method == 'POST':
            address =request.POST['address']
            country=request.POST['country']
@@ -87,24 +88,26 @@ def update_Profile(request):
            gender =request.POST['gender']
            weight =request.POST['weight']
            height =request.POST['height']
-        
-           if(request.session.has_key('user_id')):
-                userid = request.session['user_id']
-                if User_profile.objects.filter(email = userid).exists():
-                     user= User_profile.objects.create(address=address,city=city,country=country,zipcode=zipcode,dob=dob,gender=gender,weight=weight,height=height)
-                     user.save()
-                     print ('user updated')
-                     return render(request,'app/userProfile.html')
 
-                else:
+           print(request.session['user_id'])
+           if(request.session.has_key('user_id')):
+                 userid = request.session['user_id']
+                 if User_profile.objects.filter(email = userid).exists():
+                    user =   User_profile.objects.create({"email":userid},{set: {"address" : address ,"city":city,"country":country,"zipcode":zipcode,"dob":dob,"gender":gender,"weight":weight,"height":height}})
+                    print ('user details') 
+                    user.save()
+                    print ('user updated')
+                    return render(request,'app/userProfile.html')
+
+                 else:
                      print ('login first')
            else:
                  return render(request,'app/userProfile.html')
+          
+ 
     else: 
           return render(request,'app/userProfile.html')
-
-
-
+ 
 
 
 def register(request):
