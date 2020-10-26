@@ -8,6 +8,7 @@ from django.template import RequestContext
 from datetime import datetime
 from .models import User_profile
 from django.contrib import messages
+from django.http import JsonResponse
 
 # def home(request):
 #     """Renders the home page."""
@@ -91,16 +92,16 @@ def update_Profile(request):
 
            print(request.session['user_id'])
            if(request.session.has_key('user_id')):
-                 userid = request.session['user_id']
-                 if User_profile.objects.filter(email = userid).exists():
-                    user =   User_profile.objects.create({"email":userid},{set: {"address" : address ,"city":city,"country":country,"zipcode":zipcode,"dob":dob,"gender":gender,"weight":weight,"height":height}})
-                    print ('user details') 
-                    user.save()
-                    print ('user updated')
-                    return render(request,'app/userProfile.html')
+                    userid = request.session['user_id']
+                    if User_profile.objects.filter(email = userid).exists():
+                      User_profile.objects.filter(email = userid).update(address=address,city=city,country=country,zipcode=zipcode,dob=dob,gender=gender,weight=weight,height=height)
+                      print ('user details') 
+                    # user.save()
+                      print ('user updated')
+                      return render(request,'app/userProfile.html')
 
-                 else:
-                     print ('login first')
+                    else:
+                        print ('login first')
            else:
                  return render(request,'app/userProfile.html')
           
@@ -180,7 +181,7 @@ def addButton(request):
        symptom = request.POST.get('txtSymptom', None)
        print (symptom)
        print ('add button')
-       return render(request,'app/diagnosticTool.html',{'question':'How severe suffering with the symptom - '+symptom})
+       return render(request,'app/diagnosticTool.html',{'question':'How do you rate the severity of this symptom - '+symptom})
     else:
        print ('Into else part')
        return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
@@ -193,3 +194,12 @@ def changePassword(request):
 
 def forgotPassword(request):
     return render(request,'app/forgotPassword.html') 
+
+    from django.http import JsonResponse
+
+def validate_email(request):
+   email = request.GET.get('email', None)
+   data = {
+        'is_taken': User_profile.objects.filter(email__iexact=email).exists()
+    }
+   return JsonResponse(data)
