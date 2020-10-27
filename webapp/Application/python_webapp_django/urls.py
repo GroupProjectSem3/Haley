@@ -18,6 +18,7 @@ import app.views
 urlpatterns = [
     # Examples:
     url(r'^$', app.views.home, name='home'),
+    url(r'^userHome', app.views.userHome, name='userHome'),
     url(r'^register', app.views.register, name='register'),
     url(r'^login', app.views.login, name='login'),
     url(r'^logout', app.views.logout, name='logout'),

@@ -52,6 +52,24 @@ def home(request):
     #return HttpResponse("Hello. This is the page in app")
     return render(request,'app/register.html')
 
+def userHome(request):
+    if request.method == 'GET':
+        print('inside changePassword method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/userHome.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userProfile.html')
 
 def login(request):
     if request.method == 'POST':
@@ -233,24 +251,24 @@ def updatePassword(request):
    if request.method == 'POST':
            npass =request.POST['pass1']
            cpass=request.POST['pass2']
-       
-
+           userid = request.session['user_id']
+           user =User_profile.objects.filter(email = userid)[0]
            print(request.session['user_id'])
            if(request.session.has_key('user_id')):
-                    userid = request.session['user_id']
+                   
                     if (npass==cpass):
                         print('password change')
-                        User_profile.objects.filter(email = userid).update(password=cpass)
+                        User_profile.objects.filter(email = userid).update(password=cpass,confirm_password=cpass)
                    
                     # user.save()
                         print ('pass updated')
-                        return render(request,'app/userProfile.html')
+                        return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})
 
                     else:
                         print ('password not matches')
                         return render(request,'app/changePassword.html')
            else:
-                 return render(request,'app/userProfile.html')
+                 return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})
           
  
    else: 
@@ -259,7 +277,24 @@ def updatePassword(request):
 
 
 def changePassword(request):
-    return render(request,'app/changePassword.html')
+    if request.method == 'GET':
+        print('inside changePassword method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userProfile.html')
+
 def forgotPassword(request):
     return render(request,'app/forgotPassword.html') 
 
