@@ -42,13 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'python_webapp_django.wsgi.application'
+#WSGI_APPLICATION = 'python_webapp_django.wsgi.application'
 
 
 # Database
@@ -79,8 +79,17 @@ WSGI_APPLICATION = 'python_webapp_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            'name' : 'Haley',
+           'host':'mongodb+srv://D19123919:D19123919@haley.tdyg9.mongodb.net/Haley?retryWrites=true&w=majority',
+            'username': 'D19123919',
+            'password': 'D19123919',
+            'authMechanism': 'SCRAM-SHA-1',
+        },
     }
 }
 

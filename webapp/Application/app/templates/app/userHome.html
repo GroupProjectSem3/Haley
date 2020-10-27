@@ -73,11 +73,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        
         <div class="image">
           <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-         <a href="#" class="d-block">{{Uname}} 
+          <a href="{% url 'userProfile' %}" class="d-block">{{fname}} {{lname}} 
             <!-- <i class="right fas fa-angle-left" style="padding-left: 37px;"></i> -->
           
           
@@ -108,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           
                <li class="nav-item">
-            <a href="#" class="nav-link ">
+            <a href="{% url 'diagnosticTool' %}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Daignostic Tool
@@ -241,7 +242,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                              <br><br>
                                         You just need to click on start diagnosis.</p>
                         <div style="padding-left:400px">
-                            <button  class="btn btn-dark">Start diagnosis  <i class="nav-icon fas fa-tachometer-alt"></i></button>
+                            <button  class="btn btn-dark" onclick="location.href='{% url 'diagnosticTool' %}'">Start diagnosis  <i class="nav-icon fas fa-tachometer-alt"></i></button>
                    
                 </div>
                   </div>

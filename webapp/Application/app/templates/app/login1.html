@@ -20,7 +20,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Haley</b></a>
+    <a href=""><b>Haley</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -30,9 +30,9 @@
       <form action="login" method="post">
         {% csrf_token %}
 
-          {{form}}
+       
         <div class="input-group mb-3">
-          <input type="username" class="form-control" name="username" placeholder="Email">
+          <input type="username" class="form-control" name="email" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -78,7 +78,7 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="{% url 'forgotPassword' %}">I forgot my password</a>
       </p>
       <p class="mb-0">
         <a href="{% url 'register' %}" class="text-center">Register a new user</a>
