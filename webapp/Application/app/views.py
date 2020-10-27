@@ -79,8 +79,8 @@ def logout(request):
 
 
 def update_Profile(request):
-    print('inside update')
-    if request.method == 'POST':
+   print('inside update')
+   if request.method == 'POST':
            address =request.POST['address']
            country=request.POST['country']
            city=request.POST['city']
@@ -106,8 +106,8 @@ def update_Profile(request):
                  return render(request,'app/userProfile.html')
           
  
-    else: 
-          return render(request,'app/userProfile.html')
+   else: 
+       return render(request,'app/userProfile.html')
  
 
 
@@ -229,9 +229,37 @@ def userProfile(request):
            return render(request,'app/userHome.html')
     
 
-def changePassword(request):
-       return render(request,'app/changePassword.html') 
+def updatePassword(request):
+   if request.method == 'POST':
+           npass =request.POST['pass1']
+           cpass=request.POST['pass2']
+       
 
+           print(request.session['user_id'])
+           if(request.session.has_key('user_id')):
+                    userid = request.session['user_id']
+                    if (npass==cpass):
+                        print('password change')
+                        User_profile.objects.filter(email = userid).update(password=cpass)
+                   
+                    # user.save()
+                        print ('pass updated')
+                        return render(request,'app/userProfile.html')
+
+                    else:
+                        print ('password not matches')
+                        return render(request,'app/changePassword.html')
+           else:
+                 return render(request,'app/userProfile.html')
+          
+ 
+   else: 
+         return render(request,'app/userProfile.html')
+
+
+
+def changePassword(request):
+    return render(request,'app/changePassword.html')
 def forgotPassword(request):
     return render(request,'app/forgotPassword.html') 
 

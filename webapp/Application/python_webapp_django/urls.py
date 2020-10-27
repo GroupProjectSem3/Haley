@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^addButton', app.views.addButton, name='addButton'),
     url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     url(r'^userProfile', app.views.userProfile, name='userProfile'),
+    url(r'^updatePassword', app.views.updatePassword, name='updatePassword'),
     url(r'^changePassword', app.views.changePassword, name='changePassword'),
     url(r'^forgotPassword', app.views.forgotPassword, name='forgotPassword'),
     url(r'^ajax/validate_email/$', app.views.validate_email, name='validate_email'),
