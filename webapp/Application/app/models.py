@@ -20,8 +20,8 @@ class User_profile(models.Model):
     gender=models.CharField(max_length=10)
     height=models.DecimalField(max_digits=10, decimal_places=3)
     weight=models.DecimalField(max_digits=10, decimal_places=3)
-
-
+    
+    
 class Disease(models.Model):
     disease_id = models.AutoField(primary_key=True)
     disease_name = models.CharField(max_length=100)

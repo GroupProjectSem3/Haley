@@ -57,8 +57,26 @@ from .symptomEnum import symptomEnum
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/userProfile.html')
+    return render(request,'app/register.html')
 
+def userHome(request):
+    if request.method == 'GET':
+        print('inside changePassword method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/userHome.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userProfile.html')
 
 def login(request):
     if request.method == 'POST':
@@ -69,7 +87,9 @@ def login(request):
     #user = User_profile.objects.filter(email=username,password=pwd).exists()
        user = User_profile.objects.filter(email=email,password=pwd)
        if User_profile.objects.filter(email=email,password=pwd).exists():
-          return render(request,'app/userProfile.html',{'fname':user.get().first_name,'lname':user.get().last_name,'email':user.get().email})
+           request.session['user_id'] = user.get().email
+           print(request.session['user_id'])
+           return render(request,'app/userHome.html',{'fname':user.get().first_name,'lname':user.get().last_name}) #'email':user.get().email,'address':user.get().address,'dob':user.get().dob,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
        else:
             messages.info(request,'invalid credentials ')
             return render(request,'app/login1.html')
@@ -77,10 +97,44 @@ def login(request):
          return render(request,'app/login1.html')
 
 def logout(request):
+    if(request.session.has_key('user_id')):
+        print(request.session['user_id'])
+        del request.session['user_id']
     return render(request,'app/login1.html')
 
- 
 
+def update_Profile(request):
+   print('inside update')
+   if request.method == 'POST':
+           address =request.POST['address']
+           country=request.POST['country']
+           city=request.POST['city']
+           zipcode =request.POST['zipcode']
+           dob=request.POST['dob']
+           gender =request.POST['gender']
+           weight =request.POST['weight']
+           height =request.POST['height']
+
+           print(request.session['user_id'])
+           if(request.session.has_key('user_id')):
+                    userid = request.session['user_id']
+
+                    if User_profile.objects.filter(email = userid).exists():
+                      User_profile.objects.filter(email = userid).update(address=address,city=city,country=country,zipcode=zipcode,dob=dob,gender=gender,weight=weight,height=height)
+                      print ('user details') 
+                    # user.save()
+                      user =User_profile.objects.filter(email = userid)[0]
+                      print ('user updated')
+                      return render(request,'app/userProfile.html',{'fname':user.first_name,'lname':user.last_name,'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+                    else:
+                        print ('login first')
+           else:
+                 return render(request,'app/userProfile.html')
+          
+ 
+   else: 
+       return render(request,'app/userProfile.html')
+ 
 
 
 def register(request):
@@ -183,3 +237,114 @@ def symptom_autocomplete(request):
 
 
 
+def addButton(request):
+    if request.method == 'POST':
+       symptom = request.POST.get('txtSymptom', None)
+       print (symptom)
+       print ('add button')
+       return render(request,'app/diagnosticTool.html',{'question':'How do you rate the severity of this symptom - '+symptom})
+    else:
+       print ('Into else part')
+       return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
+
+def userProfile(request):
+    #   if  request.method == 'GET':
+    #       fName =request.GET['first_name']
+    #       lName =request.GET['last_name']
+    #       emailId =request.GET['email']
+    #       pwd =request.GET['password']
+    #       confirmPassword =request.GET['confirmPassword']
+    #       address =request.GET['address']
+    #       country=request.GET['country']
+    #       city=request.GET['city']
+    #       zipcode =request.GET['zipcode']
+    #       dob=request.GET['dob']
+    #       gender =request.GET['gender']
+    #       weight =request.GET['weight']
+    #       height =request.GET['height']
+
+    #       user = User_profile.objects.filter(email=emailId,password=pwd)
+    #       if User_profile.objects.filter(email=emailId,password=pwd).exists():
+            
+          
+    #          return render(request,'app/userProfile.html',{'fname':user.get().fName,'lname':user.get().lName,'email':user.get().emailId,'address':user.get().address,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
+    #       else:
+    #         messages.info(request,'invalid credentials ')
+    #   return render(request,'app/login1.html')
+    if request.method == 'GET':
+        print('inside user Profile method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/userProfile.html',{'fname':user.first_name,'lname':user.last_name,'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userHome.html')
+    
+
+def updatePassword(request):
+   if request.method == 'POST':
+           npass =request.POST['pass1']
+           cpass=request.POST['pass2']
+           userid = request.session['user_id']
+           user =User_profile.objects.filter(email = userid)[0]
+           print(request.session['user_id'])
+           if(request.session.has_key('user_id')):
+                   
+                    if (npass==cpass):
+                        print('password change')
+                        User_profile.objects.filter(email = userid).update(password=cpass,confirm_password=cpass)
+                   
+                    # user.save()
+                        print ('pass updated')
+                        return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})
+
+                    else:
+                        print ('password not matches')
+                        return render(request,'app/changePassword.html')
+           else:
+                 return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})
+          
+ 
+   else: 
+         return render(request,'app/userProfile.html')
+
+
+
+def changePassword(request):
+    if request.method == 'GET':
+        print('inside changePassword method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userProfile.html')
+
+def forgotPassword(request):
+    return render(request,'app/forgotPassword.html') 
+
+def validate_email(request):
+   email = request.GET.get('email', None)
+   data = {
+        'is_taken': User_profile.objects.filter(email__iexact=email).exists(), 
+        
+    }
+   return JsonResponse(data)
