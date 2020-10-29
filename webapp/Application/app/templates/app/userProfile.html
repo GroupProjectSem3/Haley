@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-         <a href="#" class="d-block">{{fname}} {{lname}} 
+          <a href="{% url 'userHome' %}" class="d-block">{{fname}} {{lname}} 
             <!-- <i class="right fas fa-angle-left" style="padding-left: 37px;"></i> -->
           
           
@@ -267,7 +267,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="text-center">
                 <br>
                 <h5 class="h3">
-                  Jessica Jones
+                  
                   <!-- <span class="font-weight-light">, 27</span> -->
                 </h5>
                 <!-- <div class="h5 font-weight-300">
@@ -292,7 +292,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card-header">
                   <div class="row align-items-center">
                     <div class="col-8">
-                      <h3 class="mb-0">MY profile </h3>
+                      <h3 class="mb-0">My Profile </h3>
                     </div>
                     <div class="col-4 text-right">
                       <a href="{% url 'changePassword' %}" class="btn btn-sm btn-primary">Change Password</a>
@@ -350,7 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="form-control-label" for="input-address">Address</label>
-                            <input id="input-address" class="form-control" placeholder="Home Address" name="address" value={{address}} type="text">
+                            <input type="text" id="input-address" class="form-control" placeholder="Home Address" name="address" value={{address}} >
                           </div>
                         </div>
                       </div>
@@ -403,7 +403,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-8"></div>
                         <div class="col-4 text-right">
                           <br>
-                        <a>  <button type="submit" class="btn btn-sm btn-primary">Update PRofile
+                        <a>  <button type="submit" class="btn btn-sm btn-primary">Update Profile
                           </button>
                         </a>
                         </div>

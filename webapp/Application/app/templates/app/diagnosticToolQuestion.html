@@ -8,19 +8,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Haley </title>
-  
+  <title>AdminLTE 3 </title>
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-  <!-- Navbar -->   
+  <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -35,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li> -->
     </ul>
 
-    <!-- SEARCH FORM 
+    <!-- SEARCH FORM
     <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -49,13 +51,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-     
-        
-     
+
+
+
       <li class="nav-item">
-        <a href="{% url 'logout' %}" class="btn btn-dark">Log Out <i class="fas fa-account-logout"></i></a>
-       
-       
+
+          <a href="#" class="btn btn-dark">Log Out <i class="fas fa-account-logout"></i></a>
+
       </li>
     </ul>
   </nav>
@@ -65,8 +67,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <!-- <img src="#" alt="Haley Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <span class="brand-text font-weight-light">Haley Logo</span>
+      <img src="{% static 'dist/img/user2-160x160.jpg' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
     <!-- Sidebar -->
@@ -77,16 +79,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{% url 'userProfile' %}" class="d-block">{{fname}} {{lname}} 
+         <a href="#" class="d-block">Alexander Pierce
             <!-- <i class="right fas fa-angle-left" style="padding-left: 37px;"></i> -->
-          
-          
+
+
           </a>
-         
-         
+
+
         </div>
-        
-      </div> 
+
+      </div>
 
 <!--------Profile -->
 
@@ -96,26 +98,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-      
+
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+		<nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
-               
 
-          
+
+
+
                <li class="nav-item">
             <a href="{% url 'diagnosticTool' %}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Daignostic Tool
-                
+
               </p>
             </a>
-         
+
           </li>
 
 
@@ -125,10 +127,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Assessments
-              
+
               </p>
             </a>
-           
+
           </li>
 
 
@@ -138,12 +140,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Symptoms Tracker
-                
+
               </p>
             </a>
-            
+
           </li>
-          
+
 
           <li class="nav-item ">
             <a href="#" class="nav-link ">
@@ -172,7 +174,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>About Haley</p>
                 </a>
               </li>
-              
+
             </ul>
           </li>
 
@@ -181,129 +183,153 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Feedback
-              
+
               </p>
             </a>
-           
+
           </li>
           <li class="nav-item ">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Location
-              
+
               </p>
             </a>
-           
+
           </li>
         </ul>
-      
-        
+
+
       </nav>
       <!-- /.sidebar-menu -->
-    
+
     <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <!-- <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <!-- <h1 class="m-0" style="text-align: center;">Starter Page</h1> -->
+          <div class="col-lg-6">
+              br
+
+            <h1 class="m-0" style="text-align: center;">Welcome to Haley  "User Name!"</h1>
+
           </div><!-- /.col -->
           <!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+        <!-- </div><!-- /.row
+      </div><!-- /.container-fluid
+    </div> -->
     <!-- /.content-header -->
-    {% block content %}
+
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <br>
-        <br>
-        <br>
         <div class="row">
-          
-          <!-- /.col-md-6 -->
-        <!-----Picture--------->
-      
-          <!-----Picture--------->
-         
-            <!-- <div>
-             -->
-            
-             <div class="col-3"></div>
-            
-            <div class="col-xl-5 order-xl-1">
-              <div class="card">
-                <div class="card-header">
-                  <div class="row align-items-center">
-                   
-                    <div class="col-8">
-                      <h3 class="mb-0">Change Password </h3>
-                    </div>
-                    <div class="col-4 text-right">
-                      <a href="{% url 'userProfile' %}" class="btn btn-sm btn-primary">Edit Profile</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <form action="{% url 'updatePassword' %}"  method="POST" >
-                    {% csrf_token %}
 
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="pass1" placeholder="Password">
-                        <div class="input-group-append">
-                          <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="pass2" placeholder="Confirm Password">
-                        <div class="input-group-append">
-                          <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-3">
-                          <button href="" type="submit"   class="btn btn-primary btn-block">Cancel</button>
-                        </div>
-                        <div class="col-3">
-                          <button  href=""  type="submit" class="btn btn-primary btn-block">Save</button>
-                        </div>
-                        <!-- /.col -->
-                      </div>
-             
-                  </form>
-                </div>
+            <div class="col-lg-2"></div>
+
+
+
+         <div class="col-lg-6">
+
+            <br>
+
+            <!-- <form action="addButton" method="POST">
+              {% csrf_token %}	 -->
+             <!-- <div class="card card-primary card-outline">
+              <div class="card-header">
+
+                <h5 class="m-0">Let's start with the symptoms troubling you the most ?</h5>
               </div>
+              <div class="card-body">
+
+              <div class="input-group mb-3">
+                <input type="text" class="form-inline" name="txtSymptom">
+                <span class="input-group-append">
+                  <button type="submit" class="btn btn-info btn-flat">Add</button>
+                </span>
+              </div>
+
+             </div>
+            </div> -->
+          <!-- </form> -->
+
+
+          <form method="POST">
+            {% csrf_token %}	
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">How long has it been causing problems for you ?</h5>
+                <h5 class="m-0">How severe suffering with the symptom - ?</h5>
+                <label>How about - </label>
+                <label id="lblFirst">{{ question }}</label>
+                <label id="lblSymp"></label>
+              </div>
+                <div class="card-body">
+                  <input type="radio" value="0" name="wt" id="wtt"> 0 <br>
+                  <input type="radio" value="1" name="wt" id="wtt"> 1 <br>
+                  <input type="radio" value="2" name="wt" id="wtt"> 2 <br>
+                  <input type="radio" value="3" name="wt" id="wtt"> 3 <br>
+                  <input type="radio" value="4" name="wt" id="wtt"> 4 <br>
+                  <input type="radio" value="5" name="wt" id="wtt"> 5 <br>
+                </div>
             </div>
- 
+
+            <div class="card-header">
+              <button type="button" id="btnTest" value="testing" name="btnTest"> Next >> </button>
+            </div>
+          </form>
+          
+          <!-- <form method="POST" action="sampleone">
+            {% csrf_token %}	
+          <button id="button" value="Analyze" onclick="analyzeText()"> analyse </button>
+        </form> -->
+            <!-- <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">Do you have this symptom ?</h5>
+              </div>
+              <div class="card-body">
+                <a href="#"> Yes</a><br>
+
+                <a href="#">No</a> <br>
+                <a href="#">I dont Know</a><br>
+
+              </div>
+            </div> -->
+            </div>
+
+              <div class="col-lg-2"></div>
 
 
- 
- 
-        </div>
-       
           <!-- /.col-md-6 -->
         </div>
       </div><!-- /.container-fluid -->
-      {% endblock content %}
-    </div> 
+    </div>
+
+    <!-- /.content -->
+
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <!-- <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <!-- <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside> -->
+  <!-- /.control-sidebar -->
+</div>
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
     <div style="text-align: end;">
-     
-    
+
+
     <!-- Default to the left -->
     <strong>Copyright &copy; 2020-21 <a href="#">Haley</a>.</strong> All rights reserved.
   </div>
@@ -319,5 +345,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+{% block javascript %}
+<script>
+  $("#btnTest").click(function () {
+    var symptom = '';
+    if($("#lblFirst").is(":visible"))
+    {
+      symptom = $("#lblFirst").html();
+      //alert($("#lblFirst").html());
+    }
+    else
+    {
+      symptom = $("#lblSymp").html();
+      //alert($("#lblSymp").html());
+    }
+
+      $.ajax({
+        url: '/ajax/symptom_nextClick/',
+        data: {
+          'wt': $("input[name='wt']:radio:checked").val(),
+          // 'symp' : $("#lblSymp").val(),
+          'symp' : symptom,
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            $("#lblSymp").html(data.nextSymptom)
+            alert(data.nextSymptom);
+            $("input[name='wt']:radio:checked").prop('checked',false);
+            $("#lblFirst").hide();
+          }
+        }
+      });
+
+    });
+</script>
+{% endblock %}
 </body>
 </html>

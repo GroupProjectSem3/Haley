@@ -3,12 +3,19 @@ Definition of views.
 """
 from django.contrib.auth.models import User,auth
 from django.shortcuts import render ,redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext
 from datetime import datetime
 from .models import User_profile
 from django.contrib import messages
+from .models import Disease, Disease_symptom, symptom,Symptom_detail
+from .diagnosis import Diagnosis
 from django.http import JsonResponse
+from django.core.cache import cache
+import json
+from .symptomEnum import symptomEnum
+
+
 
 # def home(request):
 #     """Renders the home page."""
@@ -52,6 +59,24 @@ def home(request):
     #return HttpResponse("Hello. This is the page in app")
     return render(request,'app/register.html')
 
+def userHome(request):
+    if request.method == 'GET':
+        print('inside changePassword method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/userHome.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userProfile.html')
 
 def login(request):
     if request.method == 'POST':
@@ -79,8 +104,8 @@ def logout(request):
 
 
 def update_Profile(request):
-    print('inside update')
-    if request.method == 'POST':
+   print('inside update')
+   if request.method == 'POST':
            address =request.POST['address']
            country=request.POST['country']
            city=request.POST['city']
@@ -93,21 +118,22 @@ def update_Profile(request):
            print(request.session['user_id'])
            if(request.session.has_key('user_id')):
                     userid = request.session['user_id']
+
                     if User_profile.objects.filter(email = userid).exists():
                       User_profile.objects.filter(email = userid).update(address=address,city=city,country=country,zipcode=zipcode,dob=dob,gender=gender,weight=weight,height=height)
                       print ('user details') 
                     # user.save()
+                      user =User_profile.objects.filter(email = userid)[0]
                       print ('user updated')
-                      return render(request,'app/userProfile.html')
-
+                      return render(request,'app/userProfile.html',{'fname':user.first_name,'lname':user.last_name,'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
                     else:
                         print ('login first')
            else:
                  return render(request,'app/userProfile.html')
           
  
-    else: 
-          return render(request,'app/userProfile.html')
+   else: 
+       return render(request,'app/userProfile.html')
  
 
 
@@ -120,7 +146,7 @@ def register(request):
           confirmPassword =request.POST['confirmPassword']
        
           if pwd==confirmPassword:
-             if User_profile.objects.filter(email=emailId).exists():
+             if User_profile.objects.filter(email=emailId).exists(): 
                   messages.info(request ,'Email Taken')
                   return redirect( 'register')
              else:
@@ -138,42 +164,77 @@ def register(request):
          return render(request , 'app/register.html')
 
 
-       
 def diagnosticTool(request):
     print ('Inside diagnostic tool first page')
     return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
 
 
-def nextButtonclick(request):
+def addButton(request):
     if request.method == 'POST':
-       weight = int(request.POST.get('wt', None))
-       print (weight)
-       print ('testgingggg')       
-       return render(request,'app/diagnosticTool.html')
+       symptomName = request.POST.get('txtSymptom', None)
+       if symptom.objects.filter(symptom_name=symptomName).exists():
+          Diagnosis.clearCacheAndSession(request)
+          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
+       else:
+          messages.info(request,'Please Select from list')
+          return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+      #  symptom = request.POST.get('txtSymptom', None)
+      #  print (symptom)
+      #  print ('add button')
+      #  Diagnosis.clearCacheAndSession(request)
+      #  return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
 
-      #  if(request.session.has_key('filteredList')):
-      #   disease_symptoms_list = request.session['filteredList']
-      #   disease_symptoms_list  = disease_symptoms_list.filter(symptom_details={"symptom_id":sympId})
-      #  else:
-      #   disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
 
-      #    request.session['filteredList'] = disease_symptoms_list
-      #    finishedSymp = dict()
-      #    for dis_symp in disease_symptoms_list:
-      #       if(Diagnosis.symptomWithWeightExists(dis_symp.symptom_details,sympId,weight)):
-      #             for symp_det in dis_symp.symptom_details:
-      #                #nextSymp[sympId] =  weight
-      #                if(symp_det['symptom_id'] !=sympId):
-      #                   if(symp_det['symptom_id'] in finishedSymp):
-      #                         finishedSymp[symp_det['symptom_id']] += symp_det['weight']
-      #                   else:
-      #                         finishedSymp[symp_det['symptom_id']] = symp_det['weight']
-         
-      #    nextSymptom = max(finishedSymp, key=finishedSymp.get)
-      #    context = {'id': nextSymptom}
-    else:
-       print ('Into else part')
-       return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
+def symptom_nextClick(request):
+   weight = int(request.GET.get('wt', None))
+   symptomName = request.GET.get('symp', None)
+   #sympId = 'S7'
+   sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
+  
+   equipment_list = cache.get('disease_symptom_list')
+   if not equipment_list:
+      disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
+   else:
+      disease_symptoms_list = cache.get('disease_symptom_list')
+
+   x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
+   #test = ['S9','S10']
+   nxtSymptom = symptomEnum[x[0]].value
+   #nxtSymptom = symptom.objects.filter(symptom_id=id)[0].symptom_name
+
+   # For saving response data
+#    if(request.session.has_key('response_list')):
+#        resp_list = request.session['response_list'] 
+#    else:
+#        resp_list = list()
+#    resp = dict()
+#    resp['symptom_id'] = sympId
+#    resp['symptom_name'] = symptomName
+#    resp['weight'] = weight
+#    resp_list.append(resp)
+#    request.session['response_list'] = resp_list
+
+   data = {
+        'is_taken': True, 
+        'nextSymptom': nxtSymptom,
+    }
+   return JsonResponse(data, safe=False)
+
+
+def symptom_autocomplete(request):
+    if request.is_ajax():
+        query = request.GET.get("term", "")
+        symptoms = symptom.objects.filter(symptom_name__startswith=query)
+        results = []
+        for company in symptoms:
+            place_json = company.symptom_name
+            results.append(place_json)
+        data = json.dumps(results)
+    mimetype = "application/json"
+    return HttpResponse(data, mimetype)
+
+
+
 
 
 def addButton(request):
@@ -229,8 +290,53 @@ def userProfile(request):
            return render(request,'app/userHome.html')
     
 
+def updatePassword(request):
+   if request.method == 'POST':
+           npass =request.POST['pass1']
+           cpass=request.POST['pass2']
+           userid = request.session['user_id']
+           user =User_profile.objects.filter(email = userid)[0]
+           print(request.session['user_id'])
+           if(request.session.has_key('user_id')):
+                   
+                    if (npass==cpass):
+                        print('password change')
+                        User_profile.objects.filter(email = userid).update(password=cpass,confirm_password=cpass)
+                   
+                    # user.save()
+                        print ('pass updated')
+                        return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})
+
+                    else:
+                        print ('password not matches')
+                        return render(request,'app/changePassword.html')
+           else:
+                 return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})
+          
+ 
+   else: 
+         return render(request,'app/userProfile.html')
+
+
+
 def changePassword(request):
-       return render(request,'app/changePassword.html') 
+    if request.method == 'GET':
+        print('inside changePassword method') 
+        print(request.session['user_id'])
+        userid=request.session['user_id']
+        print(userid)
+
+        #user = User_profile.objects.get(email=userid).first_name
+        # request.session['user_id'] = user.get().email
+        # print(request.session['user_id'])
+       
+        user =User_profile.objects.filter(email = userid)[0]
+        print(user.dob)
+        print(user)
+        print('inside if') 
+        return render(request,'app/changePassword.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+    else:
+           return render(request,'app/userProfile.html')
 
 def forgotPassword(request):
     return render(request,'app/forgotPassword.html') 
