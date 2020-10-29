@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -109,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                <li class="nav-item">
-            <a href="#" class="nav-link ">
+            <a href="{% url 'diagnosticTool' %}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Daignostic Tool
@@ -237,9 +238,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <br>
 
-            <form action="addButton" method="POST">
-              {% csrf_token %}	
-             <div class="card card-primary card-outline">
+            <!-- <form action="addButton" method="POST">
+              {% csrf_token %}	 -->
+             <!-- <div class="card card-primary card-outline">
               <div class="card-header">
 
                 <h5 class="m-0">Let's start with the symptoms troubling you the most ?</h5>
@@ -247,47 +248,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
 
               <div class="input-group mb-3">
-                <input type="text" class="form-inline" id="txtSymptom" name="txtSymptom">
+                <input type="text" class="form-inline" name="txtSymptom">
                 <span class="input-group-append">
-                  <!-- <button type="button" class="btn btn-info btn-flat">Add</button> -->
                   <button type="submit" class="btn btn-info btn-flat">Add</button>
                 </span>
               </div>
-              {% for message in messages %} 
-              <!-- <h6> {{message}}</h6> -->
-              <label id="lblMsg">{{ message }}</label>
-              {% endfor %}
+
              </div>
-            </div>
-            
+            </div> -->
           <!-- </form> -->
 
 
-          <!-- <form action="nextButtonclick" method="POST">
-            {% csrf_token %}	 -->
-            <!-- <div class="card card-primary card-outline">
+          <form method="POST">
+            {% csrf_token %}	
+            <div class="card card-primary card-outline">
               <div class="card-header">
                 <h5 class="m-0">How long has it been causing problems for you ?</h5>
-                <h5>{{ question }}</h5>
-                <input type="text" name = "txtSympId" value="{{ symptomId }}" style="visibility: hidden;">
+                <h5 class="m-0">How severe suffering with the symptom - ?</h5>
+                <label>How about - </label>
+                <label id="lblFirst">{{ question }}</label>
+                <label id="lblSymp"></label>
               </div>
-              
                 <div class="card-body">
-                  <input type="radio" value="0" name="wt"> 0 <br>
-                  <input type="radio" value="1" name="wt"> 1 <br>
-                  <input type="radio" value="2" name="wt"> 2 <br>
-                  <input type="radio" value="3" name="wt"> 3 <br>
-                  <input type="radio" value="4" name="wt"> 4 <br>
-                  <input type="radio" value="5" name="wt"> 5 <br>
+                  <input type="radio" value="0" name="wt" id="wtt"> 0 <br>
+                  <input type="radio" value="1" name="wt" id="wtt"> 1 <br>
+                  <input type="radio" value="2" name="wt" id="wtt"> 2 <br>
+                  <input type="radio" value="3" name="wt" id="wtt"> 3 <br>
+                  <input type="radio" value="4" name="wt" id="wtt"> 4 <br>
+                  <input type="radio" value="5" name="wt" id="wtt"> 5 <br>
                 </div>
             </div>
+
             <div class="card-header">
-              <button type="submit" > Next</button>
-            </div> -->
+              <button type="button" id="btnTest" value="testing" name="btnTest"> Next >> </button>
+            </div>
           </form>
+          
           <!-- <form method="POST" action="sampleone">
             {% csrf_token %}	
-            <input type="text" name = "newsymp" value="{{ symptomId }}" style="visibility: hidden;">
           <button id="button" value="Analyze" onclick="analyzeText()"> analyse </button>
         </form> -->
             <!-- <div class="card card-primary card-outline">
@@ -349,29 +347,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-
-<!-- jQuery !-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
-<!-- jQuery UI !-->
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
-
 {% block javascript %}
-<!-- <script> -->
-<script type="text/javascript">  
-  $(function() {
-    $("#txtSymptom").autocomplete({
-      source: "{% url 'symptom-autocomplete' %}",
-      minLength: 1,
-    });
-  });
+<script>
+  $("#btnTest").click(function () {
+    var symptom = '';
+    if($("#lblFirst").is(":visible"))
+    {
+      symptom = $("#lblFirst").html();
+      //alert($("#lblFirst").html());
+    }
+    else
+    {
+      symptom = $("#lblSymp").html();
+      //alert($("#lblSymp").html());
+    }
 
-    $('#txtSymptom').on('autocompleteselect', function (e, ui) {
-      $("#lblMsg").html("");
-    });
+      $.ajax({
+        url: '/ajax/symptom_nextClick/',
+        data: {
+          'wt': $("input[name='wt']:radio:checked").val(),
+          // 'symp' : $("#lblSymp").val(),
+          'symp' : symptom,
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            $("#lblSymp").html(data.nextSymptom)
+            alert(data.nextSymptom);
+            $("input[name='wt']:radio:checked").prop('checked',false);
+            $("#lblFirst").hide();
+          }
+        }
+      });
 
+    });
 </script>
 {% endblock %}
-
 </body>
 </html>

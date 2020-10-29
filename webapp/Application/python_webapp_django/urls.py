@@ -22,9 +22,12 @@ urlpatterns = [
     url(r'^login', app.views.login, name='login'),
     url(r'^logout', app.views.logout, name='logout'),
     url(r'^diagnosticTool', app.views.diagnosticTool, name='diagnosticTool'),
-    url(r'^nextButtonclick', app.views.nextButtonclick, name='nextButtonclick'),
+    # url(r'^nextButtonclick', app.views.nextButtonclick, name='nextButtonclick'),
     url(r'^addButton', app.views.addButton, name='addButton'),
     # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
+    # url(r'^newDiagnosticPageClick/(?:(?P<question>.+)/)?$', app.views.newDiagnosticPageClick, name='newDiagnosticPageClick'),
+    url(r'^ajax/symptom_nextClick/$', app.views.symptom_nextClick, name='symptom_nextClick'),
+    url(r'^api/symptom-autocomplete/', app.views.symptom_autocomplete, name='symptom-autocomplete'),
 
    
 
