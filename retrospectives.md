@@ -70,3 +70,37 @@
 * Velocity report and Burndown chart for the week
 * Look for more reading material and talk to people
 
+## Project Retrospective Board - Sprint 6
+
+
+## Liked / Glad ##
+
+* Interim insight into our project.
+* Redirect our project plan to prioritize how to proceed next.
+* Learnt how our vision of Haley is coming into reality.
+* Structured product development.
+* Many story points covered.
+
+## Learned ##
+
+* How to write interim report.
+* Working with technologies for employability in the upcoming months.
+* Research on Web Technologies.
+* Learnt to convert architecture to a technical solution.
+* Research on proposed model which is a combination of convolution neural networks and Bayesian posterior distribution.
+* Prioritize the report to more interactive than just technical in nature.
+
+## Lacked / Mad ##
+
+* Structured approach to make a documentation of an ongoing product development.
+* Prioritizing of coding and documentation simultaneously. 
+
+## Longed For/ Sad ##
+
+* More time to submit the interim report and presentation with weekly video recording and demo of our app.
+* Timely submission of our project.
+
+## Action Items ##
+
+* We took a break from work together and then focussed back on the problem (delay) at hand to provide a quality work.
+* Redistributed work both report and code among the team instead of one person handling one thing only (at the end we did everything together as one team).
