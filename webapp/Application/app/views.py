@@ -111,13 +111,14 @@ def update_Profile(request):
            print(request.session['user_id'])
            if(request.session.has_key('user_id')):
                     userid = request.session['user_id']
+
                     if User_profile.objects.filter(email = userid).exists():
                       User_profile.objects.filter(email = userid).update(address=address,city=city,country=country,zipcode=zipcode,dob=dob,gender=gender,weight=weight,height=height)
                       print ('user details') 
                     # user.save()
+                      user =User_profile.objects.filter(email = userid)[0]
                       print ('user updated')
-                      return render(request,'app/userProfile.html')
-
+                      return render(request,'app/userProfile.html',{'fname':user.first_name,'lname':user.last_name,'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
                     else:
                         print ('login first')
            else:
