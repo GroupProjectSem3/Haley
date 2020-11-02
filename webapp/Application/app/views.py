@@ -57,7 +57,7 @@ from .symptomEnum import symptomEnum
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/home.html')
+    return render(request,'app/login1.html')
 
 def userHome(request):
     if request.method == 'GET':
@@ -166,7 +166,11 @@ def register(request):
 
 def diagnosticTool(request):
     print ('Inside diagnostic tool first page')
-    return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+    #return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+    userid = request.session['user_id']
+    user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/diagnosticTool.html',{'fname':user.first_name,'lname':user.last_name})   
+
 
 
 def addButton(request):
@@ -174,7 +178,10 @@ def addButton(request):
        symptomName = request.POST.get('txtSymptom', None)
        if symptom.objects.filter(symptom_name=symptomName).exists():
           Diagnosis.clearCacheAndSession(request)
-          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
+          #return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
+          userid = request.session['user_id']
+          user =User_profile.objects.filter(email = userid)[0]
+          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName,'fname':user.first_name,'lname':user.last_name})
        else:
           messages.info(request,'Please Select from list')
           return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
@@ -237,15 +244,15 @@ def symptom_autocomplete(request):
 
 
 
-def addButton(request):
-    if request.method == 'POST':
-       symptom = request.POST.get('txtSymptom', None)
-       print (symptom)
-       print ('add button')
-       return render(request,'app/diagnosticTool.html',{'question':'How do you rate the severity of this symptom - '+symptom})
-    else:
-       print ('Into else part')
-       return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
+# def addButton(request):
+#     if request.method == 'POST':
+#        symptom = request.POST.get('txtSymptom', None)
+#        print (symptom)
+#        print ('add button')
+#        return render(request,'app/diagnosticTool.html',{'question':'How do you rate the severity of this symptom - '+symptom})
+#     else:
+#        print ('Into else part')
+#        return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
 
 def userProfile(request):
     #   if  request.method == 'GET':
@@ -341,10 +348,10 @@ def changePassword(request):
 def forgotPassword(request):
     return render(request,'app/forgotPassword.html') 
 
-def validate_email(request):
-   email = request.GET.get('email', None)
-   data = {
-        'is_taken': User_profile.objects.filter(email__iexact=email).exists(), 
+# def validate_email(request):
+#    email = request.GET.get('email', None)
+#    data = {
+#         'is_taken': User_profile.objects.filter(email__iexact=email).exists(), 
         
-    }
-   return JsonResponse(data)
+#     }
+#    return JsonResponse(data)

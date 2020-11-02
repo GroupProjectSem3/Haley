@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 </title>
+  <title>Haley </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -56,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <li class="nav-item">
 
-          <a href="#" class="btn btn-dark">Log Out <i class="fas fa-account-logout"></i></a>
+          <a href="{% url 'logout' %}" class="btn btn-dark">Log Out <i class="fas fa-account-logout"></i></a>
 
       </li>
     </ul>
@@ -67,8 +67,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{% static 'dist/img/user2-160x160.jpg' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <!-- <img src="{% static 'dist/img/user2-160x160.jpg' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+      <span class="brand-text font-weight-light">Haley Logo</span>
     </a>
 
     <!-- Sidebar -->
@@ -79,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-         <a href="#" class="d-block">Alexander Pierce
+         <a href="#" class="d-block">{{fname}} {{lname}}
             <!-- <i class="right fas fa-angle-left" style="padding-left: 37px;"></i> -->
 
 
@@ -263,25 +263,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             {% csrf_token %}	
             <div class="card card-primary card-outline">
               <div class="card-header">
-                <h5 class="m-0">How long has it been causing problems for you ?</h5>
-                <h5 class="m-0">How severe suffering with the symptom - ?</h5>
-                <label>How about - </label>
+                <!-- <h5 class="m-0">How severe suffering with the symptom - ?</h5> -->
+                <label>How do you rate the severity of this symptom - </label>
                 <label id="lblFirst">{{ question }}</label>
                 <label id="lblSymp"></label>
               </div>
                 <div class="card-body">
-                  <input type="radio" value="0" name="wt" id="wtt"> 0 <br>
-                  <input type="radio" value="1" name="wt" id="wtt"> 1 <br>
-                  <input type="radio" value="2" name="wt" id="wtt"> 2 <br>
-                  <input type="radio" value="3" name="wt" id="wtt"> 3 <br>
-                  <input type="radio" value="4" name="wt" id="wtt"> 4 <br>
-                  <input type="radio" value="5" name="wt" id="wtt"> 5 <br>
+                  <input type="radio" value="0" name="wt" id="wtt"> 0<br>
+                  <input type="radio" value="1" name="wt" id="wtt"> 1<br>
+                  <input type="radio" value="2" name="wt" id="wtt"> 2<br>
+                  <input type="radio" value="3" name="wt" id="wtt"> 3<br>
+                  <input type="radio" value="4" name="wt" id="wtt"> 4<br>
+                  <input type="radio" value="5" name="wt" id="wtt"> 5<br>
                 </div>
+                <div class="col-lg-4"></div>
+                <button type="button" id="btnTest" value="testing" name="btnTest" class="btn btn-primary" style="width: 80px;"> Next  </button>
             </div>
 
-            <div class="card-header">
+            <!-- <div class="card-header">
               <button type="button" id="btnTest" value="testing" name="btnTest"> Next >> </button>
-            </div>
+            </div> -->
           </form>
           
           <!-- <form method="POST" action="sampleone">
@@ -373,7 +374,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         success: function (data) {
           if (data.is_taken) {
             $("#lblSymp").html(data.nextSymptom)
-            alert(data.nextSymptom);
+            //alert(data.nextSymptom);
             $("input[name='wt']:radio:checked").prop('checked',false);
             $("#lblFirst").hide();
           }
