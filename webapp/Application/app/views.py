@@ -57,7 +57,7 @@ from .symptomEnum import symptomEnum
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/mainlayout.html')
+    return render(request,'app/home.html')
 
 def userHome(request):
     if request.method == 'GET':
