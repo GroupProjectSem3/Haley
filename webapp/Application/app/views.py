@@ -241,6 +241,30 @@ def symptom_autocomplete(request):
     return HttpResponse(data, mimetype)
 
 
+def getDetails(request):
+   symptomName = request.GET.get('symp', None)
+   #test = ['S9','S10']
+   nxtSymptom = [
+       {
+           "symptom":"Fever",
+           "desc" :" Some description that tells about the symptom"
+       },
+       {
+            "symptom":"Fever 1",
+            "desc" :" Some description that tells about the symptom"
+       },
+       {
+            "symptom":"Fever 2",
+            "desc" :" Some description that tells about the symptom"
+       }
+       ]
+
+   data = {
+        'is_taken': True, 
+        'entries_list': nxtSymptom,
+    }
+   return JsonResponse(data, safe=False)
+   #return render(request,'app/diagnosticTool.html',{'entries_list':nxtSymptom})   
 
 
 
