@@ -69,6 +69,12 @@
     width: 1px;
   }
 
+.relative {
+  position: relative;
+  left: 400px;
+
+}
+
   </style>
 
 </head>
@@ -334,15 +340,16 @@
                  <div class="col-sm-12">
              <div id="playlist">
                <br>
-              <h3 style="color: green;">Fever</h3>
+              <!-- <h3 style="color: green;">Fever</h3>
               <p>Some description that tells about the symptom</p> 
              </div>
              
              
               
+             <div class="relative">
             
-             <button style="padding-block-end: 5px;" type="submit" class="btn btn-outline-primary ">Select Symptom</button>
-            
+             <button  type="submit" class="btn btn-outline-primary ">Select Symptom</button>
+            </div> -->
             </div>
           </div>
           </div>
@@ -479,7 +486,7 @@
                    //list_html += "<li>" + data.entries_list[i].symptom + "</li>";
                    list_html += "<br><h3 style='color: green;'>" + data.entries_list[i].symptom +"</h3>";
                    list_html += "<p>" + data.entries_list[i].desc +"</p>";
-                   list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary'>"+ "Select Symptom" +"</button>";
+                   list_html += "  <div class='relative'><button type='submit' class='btn btn-rounded btn-outline-primary'>"+ "Select Symptom" +"</button></div>";
                    list_html += "<hr>";
                  }
                 //list_html += "</ol>"
