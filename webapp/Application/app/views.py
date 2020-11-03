@@ -58,7 +58,7 @@ from django.db.models import Q
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/login1.html')
+    return render(request,'app/diagnosticTool.html')
 
 def userHome(request):
     if request.method == 'GET':
