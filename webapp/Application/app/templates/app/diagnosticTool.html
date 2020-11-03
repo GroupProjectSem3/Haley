@@ -17,6 +17,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
 
+  <!-- <link rel="stylesheet" href="{% static 'dist/css/custom.css' %}"> -->
+  <style>
+    .ui-autocomplete {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      float: left;
+      min-width: 160px;
+      padding: 5px 0;
+      margin: 2px 0 0;
+      list-style: none;
+      font-size: 14px;
+      text-align: left;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      background-clip: padding-box;
+   }
+
+  .ui-autocomplete > li > div {
+      display: block;
+      padding: 3px 20px;
+      clear: both;
+      font-weight: normal;
+      line-height: 1.42857143;
+      color: #444ce3;
+      white-space: nowrap;
+      font-size: large;
+   }
+
+  .ui-state-hover,
+  .ui-state-active,
+  .ui-state-focus {
+    text-decoration: none;
+    color: #444ce3;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -243,12 +300,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div class="card card-primary card-outline">
               <div class="card-header">
 
-                <h5 class="m-0">Let's start with the symptoms troubling you the most ?</h5>
+                <h5 class="m-0">Let's start with the symptoms troubling you the most ? <i class="fas fa-info-circle"></i> </h5>
+                
+                
               </div>
               <div class="card-body">
 
-              <div class="input-group mb-3">
-                <input type="text" class="form-inline" id="txtSymptom" name="txtSymptom">
+              <div class="input-group">
+                <input type="text" class="form-control" id="txtSymptom" name="txtSymptom" style="width: 50px;">
                 <span class="input-group-append">
                   <!-- <button type="button" class="btn btn-info btn-flat">Add</button> -->
                   <button type="submit" class="btn btn-info btn-flat">Add</button>
@@ -259,6 +318,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <label id="lblMsg">{{ message }}</label>
               {% endfor %}
              </div>
+             <!-- <div>
+               <h3 style="color: green;">Fever</h3>
+               <p>Some description that tells about the symptom</p> 
+               <button type="button">Select Symptom</button>
+             </div> -->
+             <div id="playlist">
+            </div>
+             <!-- {% for entry in data.entries_list %}
+              <i><b>Name:</i></b> {{ entry.symptom }}<br>
+              <i><b>Ingredients:</i></b> {{ entry.symptom }}<br>
+              <p><i>{{ entry.description }}</i></p>
+              <i><b>Created by:</i></b> {{ entry.symptom }}<br><br>
+             {% endfor %} -->
+
             </div>
             
           <!-- </form> -->
@@ -354,8 +427,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- jQuery !-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
 <!-- jQuery UI !-->
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+<!-- <link rel="stylesheet" href="{% static 'dist/css/custom.css' %}"> -->
 
 {% block javascript %}
 <!-- <script> -->
@@ -363,14 +437,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(function() {
     $("#txtSymptom").autocomplete({
       source: "{% url 'symptom-autocomplete' %}",
-      minLength: 1,
+      // minLength: 1,
     });
   });
 
     $('#txtSymptom').on('autocompleteselect', function (e, ui) {
       $("#lblMsg").html("");
-    });
+      //alert(ui.item.label)
 
+      //
+      $.ajax({
+        url: '/ajax/getDetails/',
+        data: {
+          // 'symp' : $("#lblSymp").val(),
+          'symp' : ui.item.label,
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            //$("#lblSymp").html(data.nextSymptom)
+            //alert(data.nextSymptom);
+            //$("input[name='wt']:radio:checked").prop('checked',false);
+            //$("#lblFirst").hide();
+            alert('inside autocomplete click')
+            var list_html = "";
+                for( var i=0; i <data.entries_list.length; i++) {
+                   //list_html += "<li>" + data.entries_list[i].symptom + "</li>";
+                   list_html += "<h3 style='color: green;'>" + data.entries_list[i].symptom +"</h3>";
+                   list_html += "<p>" + data.entries_list[i].desc +"</p>";
+                   list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary'>"+ "Select Symptom" +"</button>";
+                   list_html += "<hr>";
+                 }
+                //list_html += "</ol>"
+                $("#playlist").html(list_html);
+          }
+        }
+      });
+      //
+    });
+    
+    
 </script>
 {% endblock %}
 
