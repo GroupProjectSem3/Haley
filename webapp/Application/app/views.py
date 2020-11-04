@@ -58,7 +58,7 @@ from django.db.models import Q
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/diagnosticTool.html')
+    return render(request,'app/login1.html')
 
 def userHome(request):
     if request.method == 'GET':
@@ -90,7 +90,7 @@ def login(request):
        if User_profile.objects.filter(email=email,password=pwd).exists():
            request.session['user_id'] = user.get().email
            print(request.session['user_id'])
-           return render(request,'app/userHome.html',{'fname':user.get().first_name,'lname':user.get().last_name}) #'email':user.get().email,'address':user.get().address,'dob':user.get().dob,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
+           return render(request,'app/home.html',{'fname':user.get().first_name,'lname':user.get().last_name}) #'email':user.get().email,'address':user.get().address,'dob':user.get().dob,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
        else:
             messages.info(request,'invalid credentials ')
             return render(request,'app/login1.html')
@@ -168,9 +168,9 @@ def register(request):
 def diagnosticTool(request):
     print ('Inside diagnostic tool first page')
     #return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
-    userid = request.session['user_id']
-    user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/diagnosticTool.html',{'fname':user.first_name,'lname':user.last_name})   
+    #userid = request.session['user_id']
+    #user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/diagnosticTool.html')#,##{'fname':user.first_name,'lname':user.last_name})   
 
 
 
@@ -256,17 +256,17 @@ def getDetails(request):
 #        nxtSymptom.append(sympDict)
 
    nxtSymptom = [
+    #    {
+    #        "symptom":"Fever",
+    #        "desc" :" Some description that tells about the symptom"
+    #    },
+    #    {
+    #         "symptom":"Fever 1",
+    #         "desc" :" Some description that tells about the symptom"
+    #    },
        {
-           "symptom":"Fever",
-           "desc" :" Some description that tells about the symptom"
-       },
-       {
-            "symptom":"Fever 1",
-            "desc" :" Some description that tells about the symptom"
-       },
-       {
-            "symptom":"Fever 2",
-            "desc" :" Some description that tells about the symptom"
+            "symptom":"Fever ",
+            "desc" :" A fever is a temporary increase in your body temperature, often due to an illness."
        }
        ]
 
@@ -390,3 +390,5 @@ def forgotPassword(request):
         
 #     }
 #    return JsonResponse(data)
+def predictions(request):
+    return render(request,'app/predictions.html') 
