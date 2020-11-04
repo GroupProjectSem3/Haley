@@ -34,8 +34,9 @@ urlpatterns = [
     url(r'^updatePassword', app.views.updatePassword, name='updatePassword'),
     url(r'^changePassword', app.views.changePassword, name='changePassword'),
     url(r'^forgotPassword', app.views.forgotPassword, name='forgotPassword'),
-    url(r'^ajax/validate_email/$', app.views.validate_email, name='validate_email'),
-
+    # url(r'^ajax/validate_email/$', app.views.validate_email, name='validate_email'),
+    url(r'^ajax/getDetails/$', app.views.getDetails, name='getDetails'),
+     url(r'^predictions', app.views.predictions, name='predictions'),
 
     # url(r'^contact$', app.views.contact, name='contact'),
     # url(r'^about', app.views.about, name='about'),

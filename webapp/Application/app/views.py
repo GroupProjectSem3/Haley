@@ -14,6 +14,7 @@ from django.http import JsonResponse
 from django.core.cache import cache
 import json
 from .symptomEnum import symptomEnum
+from django.db.models import Q
 
 
 
@@ -57,7 +58,7 @@ from .symptomEnum import symptomEnum
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/register.html')
+    return render(request,'app/login1.html')
 
 def userHome(request):
     if request.method == 'GET':
@@ -89,7 +90,7 @@ def login(request):
        if User_profile.objects.filter(email=email,password=pwd).exists():
            request.session['user_id'] = user.get().email
            print(request.session['user_id'])
-           return render(request,'app/userHome.html',{'fname':user.get().first_name,'lname':user.get().last_name}) #'email':user.get().email,'address':user.get().address,'dob':user.get().dob,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
+           return render(request,'app/home.html',{'fname':user.get().first_name,'lname':user.get().last_name}) #'email':user.get().email,'address':user.get().address,'dob':user.get().dob,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
        else:
             messages.info(request,'invalid credentials ')
             return render(request,'app/login1.html')
@@ -166,7 +167,11 @@ def register(request):
 
 def diagnosticTool(request):
     print ('Inside diagnostic tool first page')
-    return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+    #return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+    #userid = request.session['user_id']
+    #user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/diagnosticTool.html')#,##{'fname':user.first_name,'lname':user.last_name})   
+
 
 
 def addButton(request):
@@ -174,7 +179,11 @@ def addButton(request):
        symptomName = request.POST.get('txtSymptom', None)
        if symptom.objects.filter(symptom_name=symptomName).exists():
           Diagnosis.clearCacheAndSession(request)
-          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
+          #return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
+          userid = request.session['user_id']
+          user =User_profile.objects.filter(email = userid)[0]
+          sympDesc = 'It is a viral infection of your nose and throat (upper respiratory tract). It is usually harmless, although it might not feel that way.'
+          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName,'symptomDescription':sympDesc,'fname':user.first_name,'lname':user.last_name})
        else:
           messages.info(request,'Please Select from list')
           return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
@@ -224,7 +233,9 @@ def symptom_nextClick(request):
 def symptom_autocomplete(request):
     if request.is_ajax():
         query = request.GET.get("term", "")
-        symptoms = symptom.objects.filter(symptom_name__startswith=query)
+        #symptoms = symptom.objects.filter(symptom_name__startswith=query)
+        symptoms = symptom.objects.filter(symptom_name__istartswith=query)
+        #x = symptom.objects.filter(Q(symptom_name__icontains='fever') | Q(symptom_id__icontains='S3'))
         results = []
         for company in symptoms:
             place_json = company.symptom_name
@@ -234,18 +245,49 @@ def symptom_autocomplete(request):
     return HttpResponse(data, mimetype)
 
 
+def getDetails(request):
+   symptomName = request.GET.get('symp', None)
+#    nxtSymptom list()
+#    sympDict = dict()
+#    symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_id__icontains=symptomName))
+#    for symptom in symptoms:
+#        sympDict['symptom'] = symptom.symptom_id
+#        sympDict['desc'] = symptom.description
+#        nxtSymptom.append(sympDict)
+
+   nxtSymptom = [
+    #    {
+    #        "symptom":"Fever",
+    #        "desc" :" Some description that tells about the symptom"
+    #    },
+    #    {
+    #         "symptom":"Fever 1",
+    #         "desc" :" Some description that tells about the symptom"
+    #    },
+       {
+            "symptom":"Fever ",
+            "desc" :" A fever is a temporary increase in your body temperature, often due to an illness."
+       }
+       ]
+
+   data = {
+        'is_taken': True, 
+        'entries_list': nxtSymptom,
+    }
+   return JsonResponse(data, safe=False)
+   #return render(request,'app/diagnosticTool.html',{'entries_list':nxtSymptom})   
 
 
 
-def addButton(request):
-    if request.method == 'POST':
-       symptom = request.POST.get('txtSymptom', None)
-       print (symptom)
-       print ('add button')
-       return render(request,'app/diagnosticTool.html',{'question':'How do you rate the severity of this symptom - '+symptom})
-    else:
-       print ('Into else part')
-       return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
+# def addButton(request):
+#     if request.method == 'POST':
+#        symptom = request.POST.get('txtSymptom', None)
+#        print (symptom)
+#        print ('add button')
+#        return render(request,'app/diagnosticTool.html',{'question':'How do you rate the severity of this symptom - '+symptom})
+#     else:
+#        print ('Into else part')
+#        return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'}) 
 
 def userProfile(request):
     #   if  request.method == 'GET':
@@ -341,10 +383,12 @@ def changePassword(request):
 def forgotPassword(request):
     return render(request,'app/forgotPassword.html') 
 
-def validate_email(request):
-   email = request.GET.get('email', None)
-   data = {
-        'is_taken': User_profile.objects.filter(email__iexact=email).exists(), 
+# def validate_email(request):
+#    email = request.GET.get('email', None)
+#    data = {
+#         'is_taken': User_profile.objects.filter(email__iexact=email).exists(), 
         
-    }
-   return JsonResponse(data)
+#     }
+#    return JsonResponse(data)
+def predictions(request):
+    return render(request,'app/predictions.html') 
