@@ -15,6 +15,7 @@ from django.core.cache import cache
 import json
 from .symptomEnum import symptomEnum
 from django.db.models import Q
+from django.template.loader import render_to_string
 
 
 
@@ -177,12 +178,12 @@ def diagnosticTool(request):
 def addButton(request):
     if request.method == 'POST':
        symptomName = request.POST.get('txtSymptom', None)
+       symptomName = request.POST.get('btnSelect')
        if symptom.objects.filter(symptom_name=symptomName).exists():
           Diagnosis.clearCacheAndSession(request)
-          #return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
           userid = request.session['user_id']
           user =User_profile.objects.filter(email = userid)[0]
-          sympDesc = 'It is a viral infection of your nose and throat (upper respiratory tract). It is usually harmless, although it might not feel that way.'
+          sympDesc = symptom.objects.filter(symptom_name=symptomName)[0].symptom_description
           return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName,'symptomDescription':sympDesc,'fname':user.first_name,'lname':user.last_name})
        else:
           messages.info(request,'Please Select from list')
@@ -233,7 +234,7 @@ def symptom_nextClick(request):
 def symptom_autocomplete(request):
     if request.is_ajax():
         query = request.GET.get("term", "")
-        #symptoms = symptom.objects.filter(symptom_name__startswith=query)
+        #symptoms = symptom.objects.filter(symptom_name__startswidth=query)
         symptoms = symptom.objects.filter(symptom_name__istartswith=query)
         #x = symptom.objects.filter(Q(symptom_name__icontains='fever') | Q(symptom_id__icontains='S3'))
         results = []
@@ -247,28 +248,29 @@ def symptom_autocomplete(request):
 
 def getDetails(request):
    symptomName = request.GET.get('symp', None)
-#    nxtSymptom list()
-#    sympDict = dict()
-#    symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_id__icontains=symptomName))
-#    for symptom in symptoms:
-#        sympDict['symptom'] = symptom.symptom_id
-#        sympDict['desc'] = symptom.description
-#        nxtSymptom.append(sympDict)
+   nxtSymptom = list()   
+   symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_description__icontains=symptomName))
+   #symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName))
+   for symp in symptoms:
+       sympDict = dict()
+       sympDict['symptom'] = symp.symptom_name
+       sympDict['desc'] = symp.symptom_description
+       nxtSymptom.append(sympDict)
 
-   nxtSymptom = [
-       {
-           "symptom":"Fever",
-           "desc" :" Some description that tells about the symptom"
-       },
-       {
-            "symptom":"Fever 1",
-            "desc" :" Some description that tells about the symptom"
-       },
-       {
-            "symptom":"Fever 2",
-            "desc" :" Some description that tells about the symptom"
-       }
-       ]
+#    nxtSymptom = [
+#        {
+#            "symptom":"Fever",
+#            "desc" :" Some description that tells about the symptom"
+#        },
+#        {
+#             "symptom":"Fever 1",
+#             "desc" :" Some description that tells about the symptom"
+#        },
+#        {
+#             "symptom":"Fever 2",
+#             "desc" :" Some description that tells about the symptom"
+#        }
+#        ]
 
    data = {
         'is_taken': True, 

@@ -312,7 +312,7 @@
               <div class="card-body">
               <div class="col-lg-4">
               <div class="input-group">
-                <input type="text" class="form-control" id="txtSymptom" placeholder="Symptom" name="txtSymptom" ">
+                <input type="text" class="form-control" id="txtSymptom" placeholder="Symptom" name="txtSymptom">
                 <span class="input-group-append">
                   <!-- <button type="button" class="btn btn-info btn-flat">Add</button> -->
                  
@@ -334,14 +334,14 @@
                  <div class="col-sm-12">
              <div id="playlist">
                <br>
-              <h3 style="color: green;">Fever</h3>
-              <p>Some description that tells about the symptom</p> 
+              <!-- <h3 style="color: green;">Fever</h3>
+              <p>Some description that tells about the symptom</p>  -->
              </div>
              
              
               
             
-             <button style="padding-block-end: 5px;" type="submit" class="btn btn-outline-primary ">Select Symptom</button>
+             <!-- <button style="padding-block-end: 5px;" type="submit" class="btn btn-outline-primary ">Select Symptom</button> -->
             
             </div>
           </div>
@@ -473,13 +473,14 @@
             //alert(data.nextSymptom);
             //$("input[name='wt']:radio:checked").prop('checked',false);
             //$("#lblFirst").hide();
-            alert('inside autocomplete click')
+            //alert('inside autocomplete click')
             var list_html = "";
                 for( var i=0; i <data.entries_list.length; i++) {
                    //list_html += "<li>" + data.entries_list[i].symptom + "</li>";
                    list_html += "<br><h3 style='color: green;'>" + data.entries_list[i].symptom +"</h3>";
                    list_html += "<p>" + data.entries_list[i].desc +"</p>";
-                   list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary'>"+ "Select Symptom" +"</button>";
+                   //list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary'>"+ "Select Symptom" +"</button>";
+                   list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary' name='btnSelect' value ='"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button>";
                    list_html += "<hr>";
                  }
                 //list_html += "</ol>"
