@@ -223,10 +223,11 @@ def symptom_nextClick(request):
 #    resp['weight'] = weight
 #    resp_list.append(resp)
 #    request.session['response_list'] = resp_list
-
+   sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
    data = {
         'is_taken': True, 
         'nextSymptom': nxtSymptom,
+        'question':nxtSymptom,'symptomDescription':sympDesc,
     }
    return JsonResponse(data, safe=False)
 
@@ -249,8 +250,8 @@ def symptom_autocomplete(request):
 def getDetails(request):
    symptomName = request.GET.get('symp', None)
    nxtSymptom = list()   
-   symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_description__icontains=symptomName))
-   #symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName))
+   #symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_description__icontains=symptomName))
+   symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName))
    for symp in symptoms:
        sympDict = dict()
        sympDict['symptom'] = symp.symptom_name
