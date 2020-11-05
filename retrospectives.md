@@ -104,3 +104,34 @@
 
 * We took a break from work together and then focussed back on the problem (delay) at hand to provide a quality work.
 * Redistributed work both report and code among the team instead of one person handling one thing only (at the end we did everything together as one team).
+
+## Project Retrospective Board - Sprint 7
+
+## Liked / Glad ##
+
+* Made some UI changes to the main pages
+* Designed the new landing page, login and register pages
+* Structured product development.
+* Many story points covered.
+* Constructive feedback from the supervisors
+
+## Learned ##
+
+* Implemented the graphs concept with some javascript code in front end page to show results.
+* Saving and loading of neural network model for transferable learning
+* Use of proper architecture for implementation
+* Importance of user evaluation
+
+## Lacked / Mad ##
+
+* Prioritizing the front end related work items.
+* Integration of functionalities with the front end
+
+## Longed For/ Sad ##
+
+* Integrating the backend code with model to fetch the results is still in progress
+
+## Action Items ##
+
+* Started another approach to the model code for fetching the predictions.
+* Distributed the pages among the team to achieve the front end work done.
