@@ -30,7 +30,8 @@ class Disease(models.Model):
 class symptom(models.Model):
     symptom_id = models.AutoField(primary_key=True)
     symptom_name = models.CharField(max_length=100)
-
+    symptom_description = models.CharField(max_length=2000,default="")
+    
 
 class Symptom_detail(models.Model):
     symptom_id=models.CharField(max_length=10)
@@ -48,3 +49,11 @@ class Disease_symptom(models.Model):
         model_container = Symptom_detail,
     )
 
+
+class User_diagnosis(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.CharField(max_length=100)
+    userResponses = ArrayField(models.CharField(max_length=50,blank=True))
+    userResults = ArrayField(models.CharField(max_length=70,blank=True)) 
+    create_date = models.DateField()
+    modify_date = models.DateField()
