@@ -64,7 +64,7 @@ The Dataset we will use for this project is obtained by using the combine approa
 * [Kaggle Chronic Kidney diseases dataset](https://www.kaggle.com/mansoordaku/ckdisease)
 * [GitHub Medical dataset](https://github.com/adalca/medical-datasets)
 * NHS, WHO and HSE website
-* Qualified doctors (with more than 10 years of work experience) help  
+* Qualified doctors (with more than 10 years of work experience) help.
 
 
 ## Test Cases
