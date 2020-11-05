@@ -144,8 +144,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item ">
+            <a href="{% url 'diagnosticTool' %}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Diagnostic Tool
@@ -155,7 +155,7 @@
            
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="" class="nav-link ">
              <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 Assessment Details
@@ -172,8 +172,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
                Settings
@@ -249,18 +249,18 @@
             
             <div class="content px-2">
                 <blockquote class="quote-orange mt-0">
-          <h5>Reminder!</h5>
-          <p> Please Note that ths project is only for educational purposes.We highly recommend that refer to your General Physicians in case of emergency or any other serious problem.</p>
+          <h5>Note!</h5>
+          <p style="font-size: 20px">This project is only for educational purposes.We highly recommend that refer to your General Physicians in case of emergency or any other serious problem.</p>
         </blockquote>
         </div>
         <div class="content px-2">
             <blockquote class="quote-info mt-0">
      
-      <p style="font-size: 30px"> Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of General Physicians present near by you.
+      <p style="font-size: 25px"> Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of General Physicians present near by you.
              <br>You just need to click on start diagnosis.</p>
                    
                     <!-- <button  class="btn btn-dark" onclick="location.href='{% url 'diagnosticTool' %}'" >Start diagnosis  <i class="nav-icon fas fa-tachometer-alt"></i></button> -->
-                  <button type="button" class="btn btn-outline-info" href="{% url 'diagnosticTool' %}" >Start Diagnosis
+                  <button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'diagnosticTool' %}'" >Start Diagnosis
                       <i class="nav-icon fas fa-tachometer-alt"></i>
                     </button></blockquote> </div>
         

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Fixed Sidebar</title>
+  <title>Haley</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -69,6 +69,12 @@
     width: 1px;
   }
 
+.relative {
+  position: relative;
+  left: 400px;
+
+}
+
   </style>
 
 </head>
@@ -109,22 +115,22 @@
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge"></span>
         </a>
-        <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+         <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
-            <!-- Message Start 
-            <div class="media">
+            <!-- Message Start -->
+            <!-- <div class="media">
               <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
                   <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                 </h3>
-                <p class="text-sm">Call me whenever you can...</p>
+                <p class="text-sm">No Messages</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
            
-        </div> -->
+        </div>   -->
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -199,7 +205,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Diagnostic Tool
@@ -226,8 +232,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
                Settings
@@ -340,6 +346,7 @@
              
              
               
+             <div class="relative">
             
              <!-- <button style="padding-block-end: 5px;" type="submit" class="btn btn-outline-primary ">Select Symptom</button> -->
             
@@ -480,7 +487,8 @@
                    list_html += "<br><h3 style='color: green;'>" + data.entries_list[i].symptom +"</h3>";
                    list_html += "<p>" + data.entries_list[i].desc +"</p>";
                    //list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary'>"+ "Select Symptom" +"</button>";
-                   list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary' name='btnSelect' value ='"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button>";
+                   //list_html += "<button type='submit' class='btn btn-rounded btn-outline-primary' name='btnSelect' value ='"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button>";
+                   list_html += "  <div class='relative'><button type='submit' class='btn btn-rounded btn-outline-primary' name='btnSelect' value ='"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button>";
                    list_html += "<hr>";
                  }
                 //list_html += "</ol>"
