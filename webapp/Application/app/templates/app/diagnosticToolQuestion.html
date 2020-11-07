@@ -331,12 +331,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
             <div class="col-lg-4">
               <br>
-              <div class="card card-green" ">
+              <div class="card card-green" >
               
                 <div class="card-header " >
                    
-                  <h3 class="card-title" style="font-family: cursive;"><i class="fas fa-info-circle"></i> {{ question }}</h3>
-  
+                  <!-- <h3 class="card-title" style="font-family: cursive;"><i class="fas fa-info-circle"></i> {{ question }}</h3> -->
+                  <i class="fas fa-info-circle"></i> <label id="lblCardName" style="font-family: cursive;"> {{ question }} </label> &nbsp;
+                  <label id="lblNewCardName" style="font-family: cursive;"></label>  
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus" style="color:aliceblue;"></i>
                     </button>
@@ -347,7 +348,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.card-header -->
                 <div class="card-body" style="display: block;">
                   <!-- The body of the card The body of the card The body of the card The body of the card The body of the card -->
-                  {{ symptomDescription}}
+                  <label id="lblCardDesc" style="font-family: 'Font Awesome 5 Free';font-weight: 200;"> {{ symptomDescription}} </label>
+                  <label id="lblNewCardDesc" style="font-family: 'Font Awesome 5 Free';font-weight: 200;"></label>  
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -428,6 +430,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             //alert(data.nextSymptom);
             $("input[name='wt']:radio:checked").prop('checked',false);
             $("#lblFirst").hide();
+            $("#lblNewCardName").html(data.nextSymptom)
+            $("#lblCardName").hide();
+            $("#lblNewCardDesc").html(data.symptomDescription)
+            $("#lblCardDesc").hide();
           }
         }
       });
