@@ -53,7 +53,8 @@ class Disease_symptom(models.Model):
 class User_diagnosis(models.Model):
     id = models.AutoField(primary_key=True)
     user_id = models.CharField(max_length=100)
-    userResponses = ArrayField(models.CharField(max_length=50,blank=True))
-    userResults = ArrayField(models.CharField(max_length=70,blank=True)) 
+    userResponses = models.CharField(max_length=1000)
+    userResults = models.CharField(max_length=300)
     create_date = models.DateField()
     modify_date = models.DateField()
+
