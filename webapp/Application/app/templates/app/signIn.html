@@ -626,7 +626,9 @@
       }
       </style>
    </head>
+
    <body>
+    {% block content %}
      
         <!-- Sign in Start -->
         <section class="sign-in-page">
@@ -658,17 +660,20 @@
                         <div class="sign-in-from">
                             <h1 class="mb-0 float-right">Sign in</h1>
                             <br> <br>
-                            <form class="mt-4">
+                            <form action="login" class="mt-4" method="post">
+                              {% csrf_token %}
+                      
+                  
                                 <div class="form-group">
                             
                                     <label class="float-right" for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control mb-0 float-right" id="exampleInputEmail1" placeholder="Enter email">
+                                    <input type="email" class="form-control mb-0 float-right" name="email" id="exampleInputEmail1" placeholder="Enter email">
                                                     
                                   </div>
                                 <div class="form-group">
                                     <label class="mb-0 float-right" for="exampleInputPassword1">Password</label>
                                     <!-- <a href="#" class="float-right">Forgot password?</a> -->
-                                    <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
+                                    <input type="password" class="form-control mb-0"  name="password" id="exampleInputPassword1" placeholder="Password">
                                 </div>
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
@@ -679,7 +684,7 @@
                                 </div>
                                 <div class="sign-info">
                                   <span class="dark-color d-inline-block line-height-2"> <a href="#">? Forgot Password </a></span> <br>
-                                    <span class="dark-color d-inline-block line-height-2">Don't have an account? <a href="#">Sign up</a></span>
+                                    <span class="dark-color d-inline-block line-height-2">Don't have an account? <a href="{% url 'register' %}">Sign up</a></span>
                                     <!-- <ul class="iq-social-media">
                                         <li><a href="#"><i class="ri-facebook-box-line"></i></a></li>
                                         <li><a href="#"><i class="ri-twitter-line"></i></a></li>
@@ -687,11 +692,16 @@
                                     </ul> -->
                                 </div>
                             </form>
+                            {% for message in messages %} 
+                            <h6> {{message}}</h6>
+                             {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        {% endblock content %}
         <!-- Sign in END -->
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -716,5 +726,6 @@
       <script src="{% static 'dist/js/chart-custom.js' %}"></script>
       <!-- Custom JavaScript -->
       <script src="{% static 'dist/js/custom.js' %}"></script>
-   </body>
+  
+    </body>
 </html>

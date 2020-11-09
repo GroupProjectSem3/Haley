@@ -94,15 +94,15 @@ def login(request):
            return render(request,'app/home.html',{'fname':user.get().first_name,'lname':user.get().last_name}) #'email':user.get().email,'address':user.get().address,'dob':user.get().dob,'country':user.get().country,'city':user.get().city,'zipcode':user.get().zipcode,'gender':user.get().gender,'weight':user.get().weight,'height':user.get().height})
        else:
             messages.info(request,'invalid credentials ')
-            return render(request,'app/login1.html')
+            return render(request,'app/signIn.html')
     else:
-         return render(request,'app/login1.html')
+         return render(request,'app/signIn.html')
 
 def logout(request):
     if(request.session.has_key('user_id')):
         print(request.session['user_id'])
         del request.session['user_id']
-    return render(request,'app/login1.html')
+    return render(request,'app/signIn.html')
 
 
 def update_Profile(request):
@@ -155,7 +155,7 @@ def register(request):
                   user = User_profile.objects.create(first_name=fName,last_name=lName,email=emailId,password=pwd,confirm_password=confirmPassword)
                   user.save()
                   print ('user created')
-                  return render(request,'app/login1.html')
+                  return render(request,'app/signIn.html')
           else:
                 messages.info(request,'password not matching...' )
                 return redirect( 'register')
@@ -163,7 +163,7 @@ def register(request):
 
     else:
 
-         return render(request , 'app/register.html')
+         return render(request , 'app/signUp.html')
 
 
 def diagnosticTool(request):
