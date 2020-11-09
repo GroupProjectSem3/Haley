@@ -59,7 +59,7 @@ from django.template.loader import render_to_string
 
 def home(request):
     #return HttpResponse("Hello. This is the page in app")
-    return render(request,'app/login1.html')
+    return render(request,'app/signIn.html')
 
 def userHome(request):
     if request.method == 'GET':
