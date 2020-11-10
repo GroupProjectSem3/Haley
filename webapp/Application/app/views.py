@@ -8,7 +8,7 @@ from django.template import RequestContext
 from datetime import datetime
 from .models import User_profile
 from django.contrib import messages
-from .models import Disease, Disease_symptom, symptom,Symptom_detail
+from .models import Disease, Disease_symptom, symptom,Symptom_detail,User_diagnosis
 from .diagnosis import Diagnosis
 from django.http import JsonResponse
 from django.core.cache import cache
@@ -16,6 +16,7 @@ import json
 from .symptomEnum import symptomEnum
 from django.db.models import Q
 from django.template.loader import render_to_string
+from .diagnosisPrediction import DiagnosisPrediction
 
 
 
@@ -184,7 +185,7 @@ def addButton(request):
           userid = request.session['user_id']
           user =User_profile.objects.filter(email = userid)[0]
           sympDesc = symptom.objects.filter(symptom_name=symptomName)[0].symptom_description
-          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName,'symptomDescription':sympDesc,'fname':user.first_name,'lname':user.last_name})
+          return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName,'symptomDescription':sympDesc,'fname':user.first_name,'lname':user.last_name,'test':'SHOW'})
        else:
           messages.info(request,'Please Select from list')
           return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
@@ -208,27 +209,61 @@ def symptom_nextClick(request):
       disease_symptoms_list = cache.get('disease_symptom_list')
 
    x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
-   #test = ['S9','S10']
-   nxtSymptom = symptomEnum[x[0]].value
-   #nxtSymptom = symptom.objects.filter(symptom_id=id)[0].symptom_name
+   #nxtSymptom = symptomEnum[x].value
 
-   # For saving response data
-#    if(request.session.has_key('response_list')):
-#        resp_list = request.session['response_list'] 
-#    else:
-#        resp_list = list()
-#    resp = dict()
-#    resp['symptom_id'] = sympId
-#    resp['symptom_name'] = symptomName
-#    resp['weight'] = weight
-#    resp_list.append(resp)
-#    request.session['response_list'] = resp_list
-   sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
-   data = {
-        'is_taken': True, 
-        'nextSymptom': nxtSymptom,
-        'question':nxtSymptom,'symptomDescription':sympDesc,
-    }
+   #For saving response data
+   if(request.session.has_key('response_list')):
+       resp_list = request.session['response_list'] 
+   else:
+       resp_list = list()
+   resp = symptomName+'_'+str(weight)
+   resp_list.append(resp)
+   request.session['response_list'] = resp_list
+
+   if x != "SUBMITNOW":
+       nxtSymptom = symptomEnum[x].value
+       sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
+       data = {
+           'is_taken': True, 
+           'nextSymptom': nxtSymptom,
+           'question':nxtSymptom,'symptomDescription':sympDesc,
+        }
+   elif x == "SUBMITNOW":
+       userResp = request.session['response_list']
+       response_list = list()
+       for resp in userResp:
+           if resp.split('_')[1] !='0':
+               response_list.append(resp.split('_')[0])
+       # To get the predictions        
+       userResu = DiagnosisPrediction.predict(response_list)
+       #user_results = '|'.join(userResu)
+       user_results = userResu[0]
+       #user_results = 'DIABTIES'
+       user_responses = '|'.join(userResp)
+       userid=request.session['user_id']
+       user_diag = User_diagnosis.objects.create(user_id=userid,userResponses=user_responses,userResults=user_results,create_date=datetime.today(),modify_date=datetime.today()) 
+       user_diag.save()
+       # For Diseases with its details
+       disease_details = Disease.objects.filter(disease_name=user_results)[0]
+       forDiseases = user_results
+       forDesc = disease_details.disease_description
+       forCauses = disease_details.disease_causes
+       forLink = disease_details.link
+       # For symptoms with its details
+       forSympPresent = list()    
+       forSympAbsent = list()
+       for resp in userResp:
+           Sname = resp.split('_')[0]
+           if resp.split('_')[1] == '0':
+               forSympAbsent.append(Sname)
+           else:
+               forSympPresent.append(Sname)    
+       data = {
+           'is_taken': False,
+           'forDiseases': forDiseases, 'forDesc': forDesc, 'forCauses': forCauses,'forLink': forLink,
+           'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,
+       }
+
    return JsonResponse(data, safe=False)
 
 
