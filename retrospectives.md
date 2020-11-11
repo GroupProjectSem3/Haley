@@ -135,3 +135,36 @@
 
 * Started another approach to the model code for fetching the predictions.
 * Distributed the pages among the team to achieve the front end work done.
+
+## Project Retrospective Board - Sprint 8
+
+## Liked / Glad ##
+
+* Made some UI changes to the main pages.
+* Many story points covered.
+* Constructive feedback from the supervisors.
+* Made a proper PoC with a user persona.
+* Integrating the backend code with model to fetch the results has been achieved.
+
+## Learned ##
+
+* Implemented the graphs concept with some javascript code in front end page to show results.
+* Saving and loading of neural network model for transferable learning. 
+* Calling two APIs when one of them is in a steady stream and another in intermittent flow of data.
+* Learnt how to use and implement different maps api's provided by google with multiple parameters.
+
+## Lacked / Mad ##
+
+* Amount of rework in the project.
+* No issues closed on Friday.
+
+## Longed For/ Sad ##
+
+* Worked on few controls whixh took more time to bind it with backend code.
+
+## Action Items ##
+
+* Unit test cases.
+* More interactive UI.
+* Tried with alternative controls in the pages to achieve the same results.
+* Hyperparameter tuning of the nn model.
