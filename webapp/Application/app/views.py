@@ -77,7 +77,7 @@ def userHome(request):
         print(user.dob)
         print(user)
         print('inside if') 
-        return render(request,'app/userHome.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
+        return render(request,'app/home.html',{'fname':user.first_name,'lname':user.last_name})#'email':user.email,'address':user.address,'dob':user.dob,'country':user.country,'city':user.city,'zipcode':user.zipcode,'gender':user.gender,'weight':user.weight,'height':user.height})
     else:
            return render(request,'app/userProfile.html')
 
@@ -170,9 +170,9 @@ def register(request):
 def diagnosticTool(request):
     print ('Inside diagnostic tool first page')
     #return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
-    #userid = request.session['user_id']
-    #user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/diagnosticTool.html')#,##{'fname':user.first_name,'lname':user.last_name})   
+    userid = request.session['user_id']
+    user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/diagnosticTool.html',{'fname':user.first_name,'lname':user.last_name})#,##{'fname':user.first_name,'lname':user.last_name})   
 
 
 
