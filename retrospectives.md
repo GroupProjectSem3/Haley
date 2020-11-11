@@ -160,7 +160,7 @@
 
 ## Longed For/ Sad ##
 
-* Worked on few controls whixh took more time to bind it with backend code.
+* Worked on few controls which took more time to bind it with backend code.
 
 ## Action Items ##
 
