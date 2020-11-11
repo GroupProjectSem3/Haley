@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="" class="nav-link"><i class="fas fa-home"></i> Home</a>
+        <a href="{% url 'userHome' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
       </li>
       
     </ul>
@@ -244,19 +244,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div><!-- /.container-fluid
     </div> -->
     <!-- /.content-header -->
-    <div class="content-header">
+    <!-- <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-lg-6">
-              
-
             <h1 >Diagnostic Tool</h1>
-
-          </div><!-- /.col -->
-          <!-- /.col -->
+          </div>
          </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Main content -->
     <div class="content" id="divQuestions">
@@ -304,13 +300,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
             
                 <div class="card-body" style="font-family: system-ui;color: royalblue;">
-                  <input type="radio" value="0" name="wt" id="wtt"> 0<br>
-                  <input type="radio" value="1" name="wt" id="wtt"> 1<br>
-                  <input type="radio" value="2" name="wt" id="wtt"> 2<br>
-                  <input type="radio" value="3" name="wt" id="wtt"> 3<br>
-                  <input type="radio" value="4" name="wt" id="wtt"> 4<br>
-                  <input type="radio" value="5" name="wt" id="wtt"> 5<br>
+                  <input type="radio" value="0" name="wt" id="wtt"> 0 - None<br>
+                  <input type="radio" value="1" name="wt" id="wtt"> 1 - Very Low<br>
+                  <input type="radio" value="2" name="wt" id="wtt"> 2 - Low<br>
+                  <input type="radio" value="3" name="wt" id="wtt"> 3 - Medium<br>
+                  <input type="radio" value="4" name="wt" id="wtt"> 4 - High<br>
+                  <input type="radio" value="5" name="wt" id="wtt"> 5 - Severe<br>
                 </div>
+                
                 <div class="row">
                 <div class="col-lg-10"></div>
                 <button type="button" id="btnTest" value="testing" name="btnTest" class="btn btn-rounded btn-outline-primary btn-sm" style="padding-right: 2.3rem;text-align: center;padding-left: 1.8rem;"> Next  </button>
@@ -398,10 +395,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <label id="lblDiseaseName" style="color: limegreen;font-family:cursive;"></label>
                       <!-- <h4 id="disease1">Disease Name: </h4> -->
                         <div class="post">
-                          <div class="user-block">
-                            <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
+                          <!-- <div class="user-block">
                               <h5>What does it mean ?</h5>
-                          </div>
+                          </div> -->
                           <!-- /.user-block -->
                           <p id="pDesc"></p>
                           <p>
@@ -461,19 +457,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                          <!-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
                         </ol>
                         <div class="carousel-inner">
                           <div class="carousel-item active">
-                              <img class="d-block w-100" src="https://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
+                              <img class="d-block w-100" src="https://www.internationalglobalhealth.com/upload/Dengue-Fever-banner.jpg" alt="First slide">
                           </div>
-                          <div class="carousel-item">
+                          <!-- <div class="carousel-item">
                             <img class="d-block w-100" src="https://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
                           </div>
                           <div class="carousel-item">
                             <img class="d-block w-100" src="https://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
-                          </div>
+                          </div> -->
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -534,6 +530,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {% block javascript %}
 <script>
   $("#btnTest").click(function () {
+    if ($('input[name="wt"]:checked').length == 0) {
+         alert('please select one severity..');
+         return false; } 
     var symptom = '';
     if($("#lblFirst").is(":visible"))
     {
