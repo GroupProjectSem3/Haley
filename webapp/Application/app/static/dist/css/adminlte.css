@@ -11716,12 +11716,12 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 }
 
 [class*='sidebar-dark'] .brand-link {
-  border-bottom: 1px solid #4b545c;
+  border-bottom: 1px solid #fdfbfb;
   color: rgba(255, 255, 255, 0.8);
 }
 
 [class*='sidebar-light'] .brand-link {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #fdfbfb;
   color: rgba(0, 0, 0, 0.8);
 }
 
