@@ -260,9 +260,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
 
             <div class="col-lg-1"></div>
-
-
-           
          <div class="col-lg-6">
 
             <br>
@@ -299,15 +296,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <label id="lblSymp"></label>
               </div>
             
-                <div class="card-body" style="font-family: system-ui;color: royalblue;">
+                <!-- <div class="card-body" style="font-family: system-ui;color: royalblue;">
                   <input type="radio" value="0" name="wt" id="wtt"> 0 - None<br>
                   <input type="radio" value="1" name="wt" id="wtt"> 1 - Very Low<br>
                   <input type="radio" value="2" name="wt" id="wtt"> 2 - Low<br>
                   <input type="radio" value="3" name="wt" id="wtt"> 3 - Medium<br>
                   <input type="radio" value="4" name="wt" id="wtt"> 4 - High<br>
                   <input type="radio" value="5" name="wt" id="wtt"> 5 - Severe<br>
+                </div> -->
+                <p style="text-align: right;padding-right: 10px;color:darkorange;font-family: 'Font Awesome 5 Free';">(* Select on one of the Smiley Icon)</p>
+                <br>
+                 <div class="row">
+                  <div class="col-lg-2"> 
+                    <button type="button" name="btnwt" id="btnwt" value="0" style="font-size:50px;border:none;background-color:white;padding-left: 10px;" >&#128578;</button>
+                    <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">0</label>
+                    <br> <label class="text-center" style="padding-left: 18px;padding-right: 18px;font-family: sans-serif;">No Hurt</label>
+                  </div>
+                  <div class="col-lg-2"> 
+                    <button type="button" name="btnwt" id="btnwt"  value="1" style="font-size:50px;border:none;background-color:white;">&#128530;</button>
+                    <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">1</label>
+                    <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Little Bit</label>
+                  </div>
+                  <div class="col-lg-2"> 
+                    <button type="button" name="btnwt" id="btnwt"  value="2" style="font-size:50px;border:none;background-color:white;" >&#128533;</button>
+                    <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">2</label>
+                    <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Little More</label>
+                  </div>
+                  <div class="col-lg-2"> 
+                    <button type="button" name="btnwt" id="btnwt"  value="3" style="font-size:50px;border:none;background-color:white;" >&#128543;</button>
+                    <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">3</label>
+                    <br> <label class="text-center" style="padding-left: 7px;padding-right: 7px;">Hurts Even More</label>
+                  </div>
+                  <div class="col-lg-2"> 
+                    <button type="button" name="btnwt" id="btnwt"  value="4" style="font-size:50px;border:none;background-color:white;" >&#128534;</button>
+                    <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">4</label>
+                    <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Whole Lot</label>
+                  </div>
+                  <div class="col-lg-2"> 
+                    <button type="button" name="btnwt" id="btnwt"  value="5" style="font-size:50px;border:none;background-color:white;" >&#128557;</button>
+                    <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">5</label>
+                    <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Worst</label>
+                  </div>
                 </div>
-                
+                <label id="lblBtnValue" style="visibility: hidden; height: 20px;"></label>
+
+                <!-- <br>   -->
                 <div class="row">
                 <div class="col-lg-10"></div>
                 <button type="button" id="btnTest" value="testing" name="btnTest" class="btn btn-rounded btn-outline-primary btn-sm" style="padding-right: 2.3rem;text-align: center;padding-left: 1.8rem;"> Next  </button>
@@ -392,7 +425,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="row">
                     <div class="col-12">
                       <p> <i class="fas fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</p>
-                      <label id="lblDiseaseName" style="color: limegreen;font-family:cursive;"></label>
+                      <label id="lblDiseaseName" style="color: limegreen;font-family:cursive;font-size:x-large"></label>
                       <!-- <h4 id="disease1">Disease Name: </h4> -->
                         <div class="post">
                           <!-- <div class="user-block">
@@ -406,23 +439,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
     
                         <div class="post clearfix">
-                          <div class="user-block">
+                          <div class="expandableCollapsibleDiv">
+                          <!-- <div class="user-block"> -->
                             <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image"> -->
+                              <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
                               <h5>Possible Causes</h5>
-                          </div>
+                          <!-- </div> -->
                           <!-- /.user-block -->
                           <p id="pCauses"></p>
+                        </div>
                           <!-- <p>
                             <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 2</a>
                           </p> -->
                         </div>
     
                         <div class="post">
+                          <div class="expandableCollapsibleDiv2">
                             <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
-                              <h5>Symptoms</h5>
+                            <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
+                            <h5>Symptoms</h5>
                           <!-- /.user-block -->
                           <div class="user-block">
-                              <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image"> -->
                               <!-- <span class="username"> -->
                               <ul id="ulSymptoms"> 
                                   <!-- <li>Present
@@ -440,6 +477,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                </ul>
                               <!-- </span> -->
                             </div>
+                          </div>
                         </div>
                     </div>
                   </div>
@@ -462,7 +500,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </ol>
                         <div class="carousel-inner">
                           <div class="carousel-item active">
-                              <img class="d-block w-100" src="https://www.internationalglobalhealth.com/upload/Dengue-Fever-banner.jpg" alt="First slide">
+                              <!-- <img class="d-block w-100" src="https://www.internationalglobalhealth.com/upload/Dengue-Fever-banner.jpg" alt="First slide"> -->
+                              <img id="diseaseImage" class="d-block w-100" src="" alt="First slide">
                           </div>
                           <!-- <div class="carousel-item">
                             <img class="d-block w-100" src="https://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
@@ -529,35 +568,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 {% block javascript %}
 <script>
+  $(document).ready(function () {
+
+    var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
+    defaultElementDescription.hide("fast", "swing");
+    var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
+    defaultElementDescription2.hide("fast", "swing");
+
+    $(".expandableCollapsibleDiv > img").click(function (e) {
+      var showElementDescription = 
+        $(this).parents(".expandableCollapsibleDiv").find("p");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
+    $(".expandableCollapsibleDiv2 > img").click(function (e) {
+      var showElementDescription = 
+        $(this).parents(".expandableCollapsibleDiv2").find("div");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
+  });
+
+
+  $(jQuery).on('click', "#btnwt", function() {
+    $("#lblBtnValue").html($(this).val());
+});
+
   $("#btnTest").click(function () {
-    if ($('input[name="wt"]:checked').length == 0) {
+    // if ($('input[name="wt"]:checked').length == 0) {
+    //      alert('please select one severity..');
+    //      return false; } 
+    if($("#lblBtnValue").html() == ""){
          alert('please select one severity..');
          return false; } 
     var symptom = '';
     if($("#lblFirst").is(":visible"))
     {
       symptom = $("#lblFirst").html();
-      //alert($("#lblFirst").html());
     }
     else
     {
       symptom = $("#lblSymp").html();
-      //alert($("#lblSymp").html());
     }
-
       $.ajax({
         url: '/ajax/symptom_nextClick/',
         data: {
-          'wt': $("input[name='wt']:radio:checked").val(),
+          //'wt': $("input[name='wt']:radio:checked").val(),
+          'wt': $("#lblBtnValue").html(),
           // 'symp' : $("#lblSymp").val(),
           'symp' : symptom,
         },
         dataType: 'json',
         success: function (data) {
+          $("#lblBtnValue").html("")
           if (data.is_taken) {
             $("#lblSymp").html(data.nextSymptom)
-            //alert(data.nextSymptom);
-            $("input[name='wt']:radio:checked").prop('checked',false);
+            //$("input[name='wt']:radio:checked").prop('checked',false);
             $("#lblFirst").hide();
             $("#lblNewCardName").html(data.nextSymptom)
             $("#lblCardName").hide();
@@ -572,6 +650,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $("#pDesc").html(data.forDesc);
             $("#pCauses").html(data.forCauses);
             $("a[href='http://www.default.com/']").attr('href', data.forLink);
+            $("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
 
             var list_html1 = "";
             //var list_html2 = "";
