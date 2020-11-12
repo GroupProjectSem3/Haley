@@ -280,7 +280,7 @@
 
      
 
-        <div class="row">
+        <!--div class="row">
         <div class="col-lg-12 ">
                 <div class="content-header">
                     <h1 class="m-0" style="text-align: center;">Welcome to Haley "<strong>User Name</strong> "</h1>
@@ -298,7 +298,7 @@
             <p style="font-size: 30px"> Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of General Physicians present near by you.
              You just need to click on start diagnosis to proceed for your diagnosis.</p>
                    
-                    <!-- <button  class="btn btn-dark" onclick="location.href='{% url 'diagnosticTool' %}'" >Start diagnosis  <i class="nav-icon fas fa-tachometer-alt"></i></button> -->
+                    <<button  class="btn btn-dark" onclick="location.href='{% url 'diagnosticTool' %}'" >Start diagnosis  <i class="nav-icon fas fa-tachometer-alt"></i></button> >
                  
                     
                     <div class="text-center ">
@@ -309,9 +309,75 @@
                 
                   </blockquote> </div>
                    
-         </div>
+         </div-->
              
-       
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="iq-card">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title">
+                    <h4 class="card-title">Find GPs</h4>
+                  </div>
+                </div>
+                <div class="iq-card-body">
+                  <!--iframe class="w-100" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CD92kWSTZZAAWdsLDFbOqD3hdftjTag&callback=initMap"  type="text/javascript" height="400"  allowfullscreen=""></iframe-->
+                  <div style="width: 100%" id="map-canvas">
+                    <iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                      src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Hilton%20Dublin+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                    <!--iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=53%20a%20brookfield%20road%20kilmainham+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe-->
+                    <!--a href="https://www.maps.ie/route-planner.htm">Road Trip Planner</a-->
+                    <!--iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe-->
+                    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places">
+                      var map;
+                      var infowindow;
+
+                      function initialize() {
+                        var pyrmont = new google.maps.LatLng(53.3498, 6.2603); // sample location to start with: Dublin, Ireland
+
+                        map = new google.maps.Map(document.getElementById('map-canvas'), {
+                          center: pyrmont,
+                          zoom: 15
+                        });
+
+                        var request = {
+                          location: pyrmont,
+                          radius: 200,
+                          types: ['doctor', 'hospital', 'health', 'dentist', 'veterinary_care', 'pharmacy', 'physiotherapist'] // this is where you set the map to get the hospitals and health related places
+                        };
+                        infowindow = new google.maps.InfoWindow();
+                        var service = new google.maps.places.PlacesService(map);
+                        service.nearbySearch(request, callback);
+                      }
+
+                      function callback(results, status) {
+                        if (status == google.maps.places.PlacesServiceStatus.OK) {
+                          for (var i = 0; i < results.length; i++) {
+                            createMarker(results[i]);
+                          }
+                        }
+                      }
+
+                      function createMarker(place) {
+                        var placeLoc = place.geometry.location;
+                        var marker = new google.maps.Marker({
+                          map: map,
+                          position: place.geometry.location
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                          infowindow.setContent(place.name);
+                          infowindow.open(map, this);
+                        });
+                      }
+
+                      google.maps.event.addDomListener(window, 'load', initialize);
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
        
 
        
