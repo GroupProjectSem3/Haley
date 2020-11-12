@@ -430,3 +430,7 @@ def forgotPassword(request):
 #    return JsonResponse(data)
 def predictions(request):
     return render(request,'app/predictions.html') 
+
+
+def GPList(request):
+    return render(request,'app/GPList.html')     

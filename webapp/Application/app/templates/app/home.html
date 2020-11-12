@@ -183,7 +183,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="" class="nav-link" style="color:#fdfbfb;font-size: 20px;">
+            <a href="{% url 'GPList' %}" class="nav-link" style="color:#fdfbfb;font-size: 20px;">
              <i class="nav-icon fas fa-user-md"></i>
               <p>
                 GP's Nearby
@@ -311,21 +311,11 @@
                    
          </div>
              
-       
-       
-
-       
-       
-       
-      
-     
-      
-
                   <div class="col-lg-2 col-6"></div>
           
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <button type="button" class="btn btn-primary " onclick="location.href='{% url 'diagnosticTool' %}'" >Find GP's Nearby
+            <button type="button" class="btn btn-primary " onclick="location.href='{% url 'GPList' %}'" >Find GP's Nearby
               &nbsp; <i class="nav-icon fas fa-user-md"></i>
             </button>
           </div>
