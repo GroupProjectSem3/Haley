@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^ajax/getDetails/$', app.views.getDetails, name='getDetails'),
     url(r'^predictions', app.views.predictions, name='predictions'),
     url(r'^GPList', app.views.GPList, name='GPList'),
+    url(r'^feedback', app.views.feedback, name='feedback'),
 
     # url(r'^contact$', app.views.contact, name='contact'),
     # url(r'^about', app.views.about, name='about'),

@@ -440,4 +440,14 @@ def predictions(request):
 def GPList(request):
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/GPList.html',{'fname':user.first_name,'lname':user.last_name})     
+    return render(request,'app/GPList.html',{'fname':user.first_name,'lname':user.last_name}) 
+       
+
+
+def feedback(request):
+    print ('Inside diagnostic tool first page')
+    #return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})   
+    userid = request.session['user_id']
+    user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/feedback.html',{'fname':user.first_name,'lname':user.last_name})#,##{'fname':user.first_name,'lname':user.last_name})   
+       
