@@ -441,3 +441,13 @@ def GPList(request):
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
     return render(request,'app/GPList.html',{'fname':user.first_name,'lname':user.last_name})     
+
+# Commented for feedback
+# def saveFeedback(request):
+#     unq_id = 2
+#     userid = request.session['user_id']
+#     user =User_profile.objects.filter(email = userid)[0]
+#     #User_diagnosis.objects.filter(user_id=userid,id=unq_id)
+#     User_diagnosis.objects.filter(user_id=userid,id=43).update(feedbackRating=5,feedbackText='')
+
+    

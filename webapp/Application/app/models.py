@@ -60,4 +60,5 @@ class User_diagnosis(models.Model):
     userResults = models.CharField(max_length=300)
     create_date = models.DateField()
     modify_date = models.DateField()
-
+    # feedbackRating = models.IntegerField()
+    # feedbackText = models.CharField(max_length=5000)
