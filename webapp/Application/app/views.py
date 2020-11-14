@@ -201,7 +201,12 @@ def symptom_nextClick(request):
    symptomName = request.GET.get('symp', None)
    #sympId = 'S7'
    sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
-  
+   
+   #
+#    tempList = Disease_symptom.objects.all()
+#    cache.set('disease_symptom_list',tempList)
+
+
    equipment_list = cache.get('disease_symptom_list')
    if not equipment_list:
       disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
@@ -433,7 +438,10 @@ def predictions(request):
 
 
 def GPList(request):
-    return render(request,'app/GPList.html')     
+    userid = request.session['user_id']
+    user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/GPList.html',{'fname':user.first_name,'lname':user.last_name}) 
+       
 
 
 def feedback(request):
@@ -442,3 +450,4 @@ def feedback(request):
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
     return render(request,'app/feedback.html',{'fname':user.first_name,'lname':user.last_name})#,##{'fname':user.first_name,'lname':user.last_name})   
+       
