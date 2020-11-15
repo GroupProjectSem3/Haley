@@ -39,7 +39,8 @@ urlpatterns = [
     url(r'^predictions', app.views.predictions, name='predictions'),
     url(r'^GPList', app.views.GPList, name='GPList'),
     url(r'^feedback', app.views.feedback, name='feedback'),
-
+    url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
+    
     # url(r'^contact$', app.views.contact, name='contact'),
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',

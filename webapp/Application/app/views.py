@@ -457,3 +457,9 @@ def feedback(request):
 #     user =User_profile.objects.filter(email = userid)[0]
 #     #User_diagnosis.objects.filter(user_id=userid,id=unq_id)
 #     User_diagnosis.objects.filter(user_id=userid,id=43).update(feedbackRating=5,feedbackText='')
+
+def assessmentDetails(request):
+    print ('Inside diagnostic tool first page')
+    userid = request.session['user_id']
+    user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/assessments.html',{'fname':user.first_name,'lname':user.last_name})      
