@@ -1,0 +1,168 @@
+{% extends "app/mainlayout.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+
+.imgDetails {
+  width: 100px;
+  float: left;
+  margin-top: 30px
+}
+
+
+
+</style>
+<div class="content">
+
+  <div class="container-fluid">
+   
+      
+      
+
+      <h1>Feedback</h1>
+     
+   
+
+          
+<div class="row">  
+  <div class="col-lg-1">
+  </div>
+          <div class="col-lg-8">
+ 
+        
+         
+ 
+           <form method="POST">
+             {% csrf_token %}	
+             
+               <div class="card card-info" > 
+               <div class="card-header">
+                 <!-- <h5 class="m-0">How severe suffering with the symptom - ?</h5> -->
+                 <label>Hi {{fname}} {{lname}},we appreciate your efforts to give valueable feeedback about Haley's predictions about your diagnosis.</label>
+                 
+               </div>
+               <div class="row">     <div class="col-lg-1"></div>
+                 <div class="col-lg-6">
+               <div class="form-group" data-select2-id="">
+              <br>
+                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" aria-placeholder="Select diagnosis">
+                  <!-- <option selected="selected" data-select2-id="3">Alabama</option> -->
+                  <option data-select2-id="1">Diagnosis 1</option>
+                  <option data-select2-id="2">Diagnosis 2</option>
+               
+                </select>
+              </div>
+              </div>
+              </div>
+              <div class="row">     <div class="col-lg-1"></div>
+               <div> <label>How satisfied are you with Haley's prediction of your diagnosis ?</label></div>
+
+               </div>
+                 <!-- <p style="text-align: right;padding-right: 10px;color:darkorange;font-family: 'Font Awesome 5 Free';">(* Select on one of the Smiley Icon)</p> -->
+               <br>
+                  <div class="row">
+                    <div class="col-lg-1"> </div>
+                   <!-- <div class="col-lg-2"> 
+                     <button type="button" name="btn" id="#"  value="1" style="font-size:50px;border:none;background-color:white;padding-left: 8px;"><img src="{% static 'dist/img/f1.png' %}"alt=""></button>
+                    
+                     <br> <label >Very Unsatisfied</label>
+                   </div> -->
+                   <!-- <div class="col-lg-2"> 
+                    <button class="img-overlay1">
+                      <img src="{% static 'dist/img/f1.png' %}" alt="">
+                      <div class="overlay1"></div>
+                    </button>
+                    <br> <label >Very Unsatisfied</label>
+                  </div>   -->
+
+                  <div class="col-lg-2"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img class="high" src="/static/dist/img/f1.png" alt="">
+                      <br>  <label style="padding-top: 13px;">Very Unsatisfied</label>
+                 </div>
+                  
+                  <div class="col-lg-2"> &nbsp;&nbsp;
+                    <img class="high" src="{% static 'dist/img/f2.png' %}" alt="">
+                    <br> <label  style="padding-top: 13px;padding-right: 6px;">Unsatisfied</label>
+                  </div>
+                      
+
+                    <!-- <button type="button" name="btn" id="#"  value="2" style="font-size:50px;border:none;background-color:white;" >&#128543;</button> -->
+
+                   <!-- <div class="col-lg-2"> 
+                     <button type="button" name="btn" id="#"  value="2" style="font-size:50px;border:none;background-color:white;" ><img src="{% static 'dist/img/f2.png' %}" alt=""></button>
+                 
+                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Unsatisfied</label>
+                   </div> -->
+                   <div class="col-lg-2"> 
+                    <img class="high" src="{% static 'dist/img/f3.png' %}" alt="">
+                   
+                     <br> <label  style="padding-left: 5px;padding-top: 11px;">Neutral</label>
+                   </div>
+                   <div class="col-lg-2"> 
+                    <img class="high" src="{% static 'dist/img/f4.png' %}" alt="">
+                     
+                     <br> <label  style="padding-left: 5px;padding-top: 11px;">Satisfied</label>
+                   </div>
+                   <div class="col-lg-2"> &nbsp;&nbsp;
+                    <img class="high" src="{% static 'dist/img/f5.png' %}" alt="">
+                    
+                     <br> <label style="padding-top: 11px;" >Very Satisfied</label>
+                     <br>
+                   </div>
+                 </div>
+                
+ 
+                 <br>  
+                
+                 <div class="row">     <div class="col-lg-1"></div>
+                 <div> <label>Would you please tell us about accuracy of our prediction .</label></div>
+                 </div>
+
+                 <div class="row">     <div class="col-lg-1"></div>
+                 <div class="col-lg-10">
+                 <div class="form-group">
+                
+                    <textarea class="form-control" rows="4" placeholder="Enter ..."></textarea>
+                  </div></div>
+                  <br>
+                </div>
+                  <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-2">
+                    <button type="button" id="" value="" name="" class="btn  btn-primary " > Submit  </button> <br>
+                  </div></div>
+           </form>
+          
+        </div>
+      </div> 
+      
+    </div>
+  </div>
+{% endblock %}
+{% block javascript %}
+<script>
+var images = document.getElementsByClassName('high');
+var imagesLen = images.length;
+
+// loop through each image and and addEventListener for each one
+for ( var i = 0 ; i < imagesLen; i++) {
+  images[i].addEventListener('click', function () {
+    resetBorder();
+		addBorderTo(this);
+  });
+}
+
+// make a new loop for each click and reset images by it
+function resetBorder() {
+  for (var v = 0; v < imagesLen; v++) {
+    images[v].style.border = '';
+  }
+}
+
+function addBorderTo(thisImage) {
+  thisImage.style.border = '2px solid darkcyan';
+}
+
+</script>
+{% endblock %}
