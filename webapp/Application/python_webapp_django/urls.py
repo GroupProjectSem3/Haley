@@ -2,7 +2,7 @@
 """
 Definition of urls for python_webapp_django.
 """
-
+from django.contrib.auth import views as auth_views
 from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
@@ -39,6 +39,9 @@ urlpatterns = [
     url(r'^predictions', app.views.predictions, name='predictions'),
     url(r'^GPList', app.views.GPList, name='GPList'),
     url(r'^feedback', app.views.feedback, name='feedback'),
+    #url('accounts/login/', app.views.home, name ='home'),
+    #path('accounts/login/', auth_views.LoginView.as_view()),
+    url(r'^assessment', app.views.assessmentDetails, name='assessmentDetails'),
 
     # url(r'^contact$', app.views.contact, name='contact'),
     # url(r'^about', app.views.about, name='about'),
