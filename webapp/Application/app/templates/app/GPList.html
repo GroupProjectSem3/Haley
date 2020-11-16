@@ -17,60 +17,162 @@
                 </div>
                 <div class="iq-card-body">
                   <!--iframe class="w-100" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CD92kWSTZZAAWdsLDFbOqD3hdftjTag&callback=initMap"  type="text/javascript" height="400"  allowfullscreen=""></iframe-->
-                  <div style="width: 100%" id="map-canvas">
-                    <!--iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                      src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Hilton%20Dublin+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe-->
-                    <iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=53%20a%20brookfield%20road%20kilmainham+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                    <!--a href="https://www.maps.ie/route-planner.htm">Road Trip Planner</a-->
+                  <div style="width: 100%" id="map">
+                    <iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(current%20location)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                    <!--iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Hilton%20Dublin+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe-->
+                    <!--iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=53%20a%20brookfield%20road%20kilmainham+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe--><!--a href="https://www.maps.ie/route-planner.htm">Road Trip Planner</a-->
                     <!--iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe-->
-                    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places">
-                      var map;
-                      var infowindow;
+                   <!--script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"-->
+                   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CD92kWSTZZAAWdsLDFbOqD3hdftjTag&libraries=places&callback=initMap" async defer>
+                    var map;
+// var infowindow;
 
-                      function initialize() {
-                        var pyrmont = new google.maps.LatLng(53.3498, 6.2603); // sample location to start with: Dublin, Ireland
+// function initialize() {
+//   var pyrmont = new google.maps.LatLng(53.3498, 6.2603); // sample location to start with: Dublin, Ireland
 
-                        map = new google.maps.Map(document.getElementById('map-canvas'), {
-                          center: pyrmont,
-                          zoom: 20
-                        });
+//   map = new google.maps.Map(document.getElementById('map-canvas'), {
+//     center: pyrmont,
+//     zoom: 15
+//   });
 
-                        var request = {
-                          location: pyrmont,
-                          radius: 2000,
-                          types: ['doctor', 'hospital', 'health', 'dentist', 'veterinary_care', 'pharmacy', 'physiotherapist'] // this is where you set the map to get the hospitals and health related places
-                          //types: ['doctor'] // this is where you set the map to get the hospitals and health related places
-                        };
-                        infowindow = new google.maps.InfoWindow();
-                        var service = new google.maps.places.PlacesService(map);
-                        service.nearbySearch(request, callback);
-                      }
+//   var request = {
+//     location: pyrmont,
+//     radius: 200,
+//     types: ['doctor', 'hospital', 'health', 'dentist', 'veterinary_care', 'pharmacy', 'physiotherapist'] // this is where you set the map to get the hospitals and health related places
+//   };
+//   infowindow = new google.maps.InfoWindow();
+//   var service = new google.maps.places.PlacesService(map);
+//   service.nearbySearch(request, callback);
+// }
 
-                      function callback(results, status) {
-                        if (status == google.maps.places.PlacesServiceStatus.OK) {
-                          for (var i = 0; i < results.length; i++) {
-                            createMarker(results[i]);
-                          }
-                        }
-                      }
+// function callback(results, status) {
+//   if (status == google.maps.places.PlacesServiceStatus.OK) {
+//     for (var i = 0; i < results.length; i++) {
+//       createMarker(results[i]);
+//     }
+//   }
+// }
 
-                      function createMarker(place) {
-                        var placeLoc = place.geometry.location;
-                        var marker = new google.maps.Marker({
-                          map: map,
-                          position: place.geometry.location
-                        });
+// function createMarker(place) {
+//   var placeLoc = place.geometry.location;
+//   var marker = new google.maps.Marker({
+//     map: map,
+//     position: place.geometry.location
+//   });
 
-                        google.maps.event.addListener(marker, 'click', function () {
-                          infowindow.setContent(place.name);
-                          infowindow.open(map, this);
-                        });
-                        
-                      }
+//   google.maps.event.addListener(marker, 'click', function() {
+//     infowindow.setContent(place.name);
+//     infowindow.open(map, this);
+//   });
+// }
 
-                      google.maps.event.addDomListener(window, 'load', initialize);
+// google.maps.event.addDomListener(window, 'load', initialize);
+
+
+var map;
+var service;
+var infowindow;
+var pos;
+var request;
+var place;
+
+function initMap() {
+map = new google.maps.Map(document.getElementById('map'), {
+center: {
+lat: -34.397,
+lng: 150.644
+},
+zoom: 6
+});
+infoWindow = new google.maps.InfoWindow;
+
+getLocation();
+// getNearByPlaces();
+// callback();
+}
+
+function getLocation() {
+// Try HTML5 geolocation.
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(function(position) {
+pos = {
+lat: position.coords.latitude,
+lng: position.coords.longitude
+};
+console.log("getLocation:" + pos.lat + "," + pos.lng);
+var marker = new google.maps.Marker({
+position: pos,
+map: map,
+icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"
+})
+infoWindow.setPosition(pos);
+infoWindow.setContent('Location found.');
+infoWindow.open(map);
+map.setCenter(pos);
+getNearByPlaces(pos);
+}, function() {
+console.log("calling handleLocationError(true)");
+handleLocationError(true, infoWindow, map.getCenter());
+});
+} else {
+// Browser doesn't support Geolocation
+console.log("calling handleLocationError(false)")
+handleLocationError(false, infoWindow, map.getCenter());
+}
+
+infowindow = new google.maps.InfoWindow();
+}
+
+function getNearByPlaces(pos) {
+console.log("getNearByPlaces:" + pos.lat + "," + pos.lng);
+request = {
+location: pos,
+radius: '500',
+query: 'doctor'
+};
+
+service = new google.maps.places.PlacesService(map);
+service.textSearch(request, callback);
+}
+
+function callback(results, status) {
+if (status == google.maps.places.PlacesServiceStatus.OK) {
+console.log("callback received " + results.length + " results");
+var bounds = new google.maps.LatLngBounds();
+for (var i = 0; i < results.length; i++) {
+console.log(JSON.stringify(results[i]));
+place = results[i];
+var mark = createMarker(results[i]);
+bounds.extend(mark.getPosition());
+}
+map.fitBounds(bounds);
+} else console.log("callback.status=" + status);
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+infoWindow.setPosition(pos);
+infoWindow.setContent(browserHasGeolocation ?
+'Error: The Geolocation service failed.' :
+'Error: Your browser doesn\'t support geolocation.');
+infoWindow.open(map);
+}
+
+function createMarker(place) {
+var marker = new google.maps.Marker({
+map: map,
+position: place.geometry.location,
+icon: "http://maps.google.com/mapfiles/ms/micons/red.png"
+});
+
+google.maps.event.addListener(marker, 'click', function() {
+infowindow.setContent(place.name);
+infowindow.open(map, this);
+});
+return marker;
+}
                     </script>
-                  </div>
+                 </div>
+          
                 </div>
               </div>
             </div>
