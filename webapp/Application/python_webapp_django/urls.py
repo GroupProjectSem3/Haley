@@ -1,4 +1,3 @@
-
 """
 Definition of urls for python_webapp_django.
 """
@@ -27,8 +26,12 @@ urlpatterns = [
     url(r'^addButton', app.views.addButton, name='addButton'),
     # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     # url(r'^newDiagnosticPageClick/(?:(?P<question>.+)/)?$', app.views.newDiagnosticPageClick, name='newDiagnosticPageClick'),
-    url(r'^ajax/symptom_nextClick/$', app.views.symptom_nextClick, name='symptom_nextClick'),
-    url(r'^api/symptom-autocomplete/', app.views.symptom_autocomplete, name='symptom-autocomplete'),
+    url(r'^ajax/symptom_nextClick/$',
+        app.views.symptom_nextClick,
+        name='symptom_nextClick'),
+    url(r'^api/symptom-autocomplete/',
+        app.views.symptom_autocomplete,
+        name='symptom-autocomplete'),
     url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     url(r'^userProfile', app.views.userProfile, name='userProfile'),
     url(r'^updatePassword', app.views.updatePassword, name='updatePassword'),
@@ -38,10 +41,14 @@ urlpatterns = [
     url(r'^ajax/getDetails/$', app.views.getDetails, name='getDetails'),
     url(r'^predictions', app.views.predictions, name='predictions'),
     url(r'^GPList', app.views.GPList, name='GPList'),
+<<<<<<< Updated upstream
     url(r'^feedback', app.views.feedback, name='feedback'),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
     
     # url(r'^contact$', app.views.contact, name='contact'),
+=======
+    url(r'^index$', app.views.contact, name='index'),
+>>>>>>> Stashed changes
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
     #     django.contrib.auth.views.login,
