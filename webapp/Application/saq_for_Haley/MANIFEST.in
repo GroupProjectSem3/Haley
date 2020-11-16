@@ -1,3 +1,0 @@
-recursive-include cms_saq/templates *
-recursive-include cms_saq/static *
-recursive-include cms_saq/fixtures *
