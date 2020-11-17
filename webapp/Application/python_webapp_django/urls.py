@@ -1,4 +1,3 @@
-
 """
 Definition of urls for python_webapp_django.
 """
@@ -27,8 +26,12 @@ urlpatterns = [
     url(r'^addButton', app.views.addButton, name='addButton'),
     # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     # url(r'^newDiagnosticPageClick/(?:(?P<question>.+)/)?$', app.views.newDiagnosticPageClick, name='newDiagnosticPageClick'),
-    url(r'^ajax/symptom_nextClick/$', app.views.symptom_nextClick, name='symptom_nextClick'),
-    url(r'^api/symptom-autocomplete/', app.views.symptom_autocomplete, name='symptom-autocomplete'),
+    url(r'^ajax/symptom_nextClick/$',
+        app.views.symptom_nextClick,
+        name='symptom_nextClick'),
+    url(r'^api/symptom-autocomplete/',
+        app.views.symptom_autocomplete,
+        name='symptom-autocomplete'),
     url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     url(r'^userProfile', app.views.userProfile, name='userProfile'),
     url(r'^updatePassword', app.views.updatePassword, name='updatePassword'),
@@ -41,9 +44,9 @@ urlpatterns = [
     url(r'^feedback', app.views.feedback, name='feedback'),
     #url('accounts/login/', app.views.home, name ='home'),
     #path('accounts/login/', auth_views.LoginView.as_view()),
-    url(r'^assessment', app.views.assessmentDetails, name='assessmentDetails'),
-
-    # url(r'^contact$', app.views.contact, name='contact'),
+    url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
+    
+    url(r'^index$', app.views.contact, name='index'),
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
     #     django.contrib.auth.views.login,
