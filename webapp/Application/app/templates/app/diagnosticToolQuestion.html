@@ -1,10 +1,10 @@
 {% extends "app/mainlayout.html" %}
 
-{% load static %}
-
 {% block content %}
 
-    <!-- child content -->
+{% load static %}
+
+<!-- child content -->
     <div class="content" id="divQuestions">
       <div class="container-fluid">
         <div class="row">
@@ -198,7 +198,7 @@
   
                   <!-- <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>  -->
                   <div style="text-align: center;">
-                   <button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'GPList' %}'" >Find GP's nearby
+                   <button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'GPList' %}'"> Find GP's nearby
                     <i class="nav-icon fas fa-user-md"></i>
                     </button>
                   </div>  
