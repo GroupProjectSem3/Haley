@@ -53,7 +53,7 @@ class symptomEnum(Enum):
     S50 = "Itchy Eyes"
     S51 = "Itchy nose"
     S52 = "Itchy mouth"
-    S53 = "Itchy throat"
+    S53 = "itchy throat"
     S54 = "Running nose"
     S55 = "Unresponsiveness"
     S56 = "Unfocused"

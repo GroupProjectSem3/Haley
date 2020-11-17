@@ -17,6 +17,7 @@ from .symptomEnum import symptomEnum
 from django.db.models import Q
 from django.template.loader import render_to_string
 from .diagnosisPrediction import DiagnosisPrediction
+from django.contrib.auth.decorators import login_required
 
 # def home(request):
 #     """Renders the home page."""
@@ -62,6 +63,7 @@ def home(request):
     return render(request, 'app/signIn.html')
 
 
+# @login_required(login_url='/login')
 def userHome(request):
     if request.method == 'GET':
         print('inside changePassword method')
@@ -170,7 +172,6 @@ def update_Profile(request):
     else:
         return render(request, 'app/userProfile.html')
 
-
 def register(request):
     if request.method == 'POST':
         fName = request.POST['first_name']
@@ -202,7 +203,7 @@ def register(request):
 
         return render(request, 'app/signUp.html')
 
-
+# @login_required
 def diagnosticTool(request):
     print('Inside diagnostic tool first page')
     #return render(request,'app/diagnosticTool.html',{'testing':'tesing textttt'})
@@ -245,96 +246,50 @@ def addButton(request):
 
 
 def symptom_nextClick(request):
-<<<<<<< Updated upstream
-   weight = int(request.GET.get('wt', None))
-   symptomName = request.GET.get('symp', None)
-   #sympId = 'S7'
-   sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
-   
-   #
-#    tempList = Disease_symptom.objects.all()
-#    cache.set('disease_symptom_list',tempList)
-
-
-   equipment_list = cache.get('disease_symptom_list')
-   if not equipment_list:
-      disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
-   else:
-      disease_symptoms_list = cache.get('disease_symptom_list')
-
-   x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
-   #nxtSymptom = symptomEnum[x].value
-
-   #For saving response data
-   if(request.session.has_key('response_list')):
-       resp_list = request.session['response_list'] 
-   else:
-       resp_list = list()
-   resp = symptomName+'_'+str(weight)
-   resp_list.append(resp)
-   request.session['response_list'] = resp_list
-
-   if x != "SUBMITNOW":
-       nxtSymptom = symptomEnum[x].value
-       sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
-       data = {
-           'is_taken': True, 
-           'nextSymptom': nxtSymptom,
-           'question':nxtSymptom,'symptomDescription':sympDesc,
-=======
     weight = int(request.GET.get('wt', None))
     symptomName = request.GET.get('symp', None)
-    #sympId = 'S7'
     sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
 
     equipment_list = cache.get('disease_symptom_list')
     if not equipment_list:
-        disease_symptoms_list = Disease_symptom.objects.filter(
-            symptom_details={'symptom_id': sympId})
+       disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
     else:
-        disease_symptoms_list = cache.get('disease_symptom_list')
+       disease_symptoms_list = cache.get('disease_symptom_list')
 
-    x = Diagnosis.getNextSymptom(request, disease_symptoms_list, sympId,
-                                 weight)
+    x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
     #nxtSymptom = symptomEnum[x].value
 
     #For saving response data
-    if (request.session.has_key('response_list')):
-        resp_list = request.session['response_list']
+    if(request.session.has_key('response_list')):
+        resp_list = request.session['response_list'] 
     else:
         resp_list = list()
-    resp = symptomName + '_' + str(weight)
+    resp = symptomName+'_'+str(weight)
     resp_list.append(resp)
     request.session['response_list'] = resp_list
 
     if x != "SUBMITNOW":
         nxtSymptom = symptomEnum[x].value
-        sympDesc = symptom.objects.filter(
-            symptom_name=nxtSymptom)[0].symptom_description
+        sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
         data = {
-            'is_taken': True,
+            'is_taken': True, 
             'nextSymptom': nxtSymptom,
-            'question': nxtSymptom,
-            'symptomDescription': sympDesc,
-        }
+            'question':nxtSymptom,'symptomDescription':sympDesc,
+         }
     elif x == "SUBMITNOW":
         userResp = request.session['response_list']
         response_list = list()
         for resp in userResp:
-            if resp.split('_')[1] != '0':
+            if resp.split('_')[1] !='0':
                 response_list.append(resp.split('_')[0])
-        # To get the predictions
+        # To get the predictions        
         userResu = DiagnosisPrediction.predict(response_list)
         #user_results = '|'.join(userResu)
         user_results = userResu[0]
         #user_results = 'DIABTIES'
         user_responses = '|'.join(userResp)
-        userid = request.session['user_id']
-        user_diag = User_diagnosis.objects.create(user_id=userid,
-                                                  userResponses=user_responses,
-                                                  userResults=user_results,
-                                                  create_date=datetime.today(),
-                                                  modify_date=datetime.today())
+        userid=request.session['user_id']
+        user_diag = User_diagnosis.objects.create(user_id=userid,userResponses=user_responses,userResults=user_results,create_date=datetime.today(),modify_date=datetime.today(),isFeedbackGiven=0) 
         user_diag.save()
         # For Diseases with its details
         disease_details = Disease.objects.filter(disease_name=user_results)[0]
@@ -343,23 +298,18 @@ def symptom_nextClick(request):
         forCauses = disease_details.disease_causes
         forLink = disease_details.link
         # For symptoms with its details
-        forSympPresent = list()
+        forSympPresent = list()    
         forSympAbsent = list()
         for resp in userResp:
             Sname = resp.split('_')[0]
             if resp.split('_')[1] == '0':
                 forSympAbsent.append(Sname)
             else:
-                forSympPresent.append(Sname)
+                forSympPresent.append(Sname)    
         data = {
             'is_taken': False,
-            'forDiseases': forDiseases,
-            'forDesc': forDesc,
-            'forCauses': forCauses,
-            'forLink': forLink,
-            'forSympPresent': forSympPresent,
-            'forSympAbsent': forSympAbsent,
->>>>>>> Stashed changes
+            'forDiseases': forDiseases, 'forDesc': forDesc, 'forCauses': forCauses,'forLink': forLink,
+            'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,
         }
 
     return JsonResponse(data, safe=False)
@@ -552,7 +502,6 @@ def forgotPassword(request):
 #     }
 #    return JsonResponse(data)
 def predictions(request):
-<<<<<<< Updated upstream
     return render(request,'app/predictions.html') 
 
 
@@ -563,33 +512,77 @@ def GPList(request):
 
      
 def feedback(request):
-    print ('Inside diagnostic tool first page')
     userid = request.session['user_id']
-    user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/feedback.html',{'fname':user.first_name,'lname':user.last_name})
+    user = User_profile.objects.filter(email = userid)[0]
+    if request.is_ajax():
+        actionType = request.GET.get('type', None)
+        if actionType == 'LOAD':
+            user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
+            #user_diag = User_diagnosis.objects.filter(user_id=userid)
+            if user_diag.__len__() > 0:
+                diag = user_diag.values('id','userResults')
+                data = {
+                    'is_taken': True,'diag':list(diag),
+                    }
+            else:
+                data = {'is_taken': True,'diag':[],}
+            return JsonResponse(data, safe=False)
+        elif actionType == 'SUBMIT':
+            unq_id = request.GET.get('unique_id', None)
+            rating = request.GET.get('rating', None)
+            ratingText = request.GET.get('ratingText', None)
+            #User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=5,feedbackText='')
+            User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=rating,feedbackText=ratingText)
+            user_diag = User_diagnosis.objects.filter(user_id=userid)
+            if user_diag.__len__() > 0:
+                diag = user_diag.values('id','userResults')
+                data = {
+                    'is_taken': True,'diag':list(diag),
+                    }
+            else:   
+                data = {'is_taken': True,'diag':[],}
+            return JsonResponse(data, safe=False)
+    elif request.method == 'GET' :
+        return render(request,'app/feedback.html',{'fname':user.first_name,'lname':user.last_name})
        
 
-# Commented for feedback
-# def saveFeedback(request):
-#     unq_id = 2
+# def assessmentDetails(request):
 #     userid = request.session['user_id']
-#     user =User_profile.objects.filter(email = userid)[0]
-#     #User_diagnosis.objects.filter(user_id=userid,id=unq_id)
-#     User_diagnosis.objects.filter(user_id=userid,id=43).update(feedbackRating=5,feedbackText='')
+#     assessData = User_diagnosis.objects.filter(user_id=userid)
+#     if(assessData.__len__() > 0):
+#         assessList = list()
+#         for assess in assessData:
+#             assessDic = dict()
+#             assessDic['date'] = assess.create_date
+#             assessDic['time'] = assess.create_date
+#             assessDic['userResult'] = assess.userResults
+#             #assessDic['feedbackText'] = assess.feedbackText
+#             #assessDic['feedbackRating'] = assess.feedbackRating
+
+#             forSympPresent = list()    
+#             forSympAbsent = list()
+#             userResponses = assess.userResponses.split('|')
+#             for resp in userResponses:
+#                 Sname = resp.split('_')[0]
+#                 if resp.split('_')[1] == '0':
+#                     forSympAbsent.append(Sname)
+#                 else:
+#                     forSympPresent.append(Sname) 
+#             assessDic['symPresent'] = forSympPresent
+#             assessDic['symAbsent'] = forSympAbsent
+
+#             assessList.append(assessDic)
+
+#     return render(request,'app/userProfile.html')
+
 
 def assessmentDetails(request):
     print ('Inside diagnostic tool first page')
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
     return render(request,'app/assessments.html',{'fname':user.first_name,'lname':user.last_name})      
-=======
-    return render(request, 'app/predictions.html')
-
-
-def GPList(request):
-    return render(request, 'app/GPList.html')
 
 
 def index(request):
     return render(request, 'app/index.html')
->>>>>>> Stashed changes
+

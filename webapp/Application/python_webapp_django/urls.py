@@ -1,7 +1,7 @@
 """
 Definition of urls for python_webapp_django.
 """
-
+from django.contrib.auth import views as auth_views
 from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
@@ -41,14 +41,12 @@ urlpatterns = [
     url(r'^ajax/getDetails/$', app.views.getDetails, name='getDetails'),
     url(r'^predictions', app.views.predictions, name='predictions'),
     url(r'^GPList', app.views.GPList, name='GPList'),
-<<<<<<< Updated upstream
     url(r'^feedback', app.views.feedback, name='feedback'),
+    #url('accounts/login/', app.views.home, name ='home'),
+    #path('accounts/login/', auth_views.LoginView.as_view()),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
     
-    # url(r'^contact$', app.views.contact, name='contact'),
-=======
-    url(r'^index$', app.views.contact, name='index'),
->>>>>>> Stashed changes
+    url(r'^index$', app.views.index, name='index'),
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
     #     django.contrib.auth.views.login,

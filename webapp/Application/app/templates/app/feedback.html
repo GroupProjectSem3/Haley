@@ -42,14 +42,20 @@
                  <label>Hi {{fname}} {{lname}},we appreciate your efforts to give valueable feeedback about Haley's predictions about your diagnosis.</label>
                  
                </div>
+               <!-- For showing message if no records exists -->
+               <div id="noDataMsg" class="row">     <div class="col-lg-3"></div>
+               <div> <label style="color: red;">There are no Diagnosis history to provide the feedback..</label></div>
+               </div>
+
                <div class="row">     <div class="col-lg-1"></div>
                  <div class="col-lg-6">
                <div class="form-group" data-select2-id="">
               <br>
-                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" aria-placeholder="Select diagnosis">
+              <select id="ddlSelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" aria-placeholder="Select diagnosis">
+                <!-- <select id="ddlSelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" aria-placeholder="Select diagnosis"> -->
                   <!-- <option selected="selected" data-select2-id="3">Alabama</option> -->
-                  <option data-select2-id="1">Diagnosis 1</option>
-                  <option data-select2-id="2">Diagnosis 2</option>
+                  <!-- <option data-select2-id="1">Diagnosis 1</option>
+                  <option data-select2-id="2">Diagnosis 2</option> -->
                
                 </select>
               </div>
@@ -77,12 +83,12 @@
                   </div>   -->
 
                   <div class="col-lg-2"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img class="high" src="/static/dist/img/f1.png" alt="">
+                    <img id="imgRating" class="high" src="/static/dist/img/f1.png" alt="1">
                       <br>  <label style="padding-top: 13px;">Very Unsatisfied</label>
                  </div>
                   
                   <div class="col-lg-2"> &nbsp;&nbsp;
-                    <img class="high" src="{% static 'dist/img/f2.png' %}" alt="">
+                    <img id="imgRating" class="high" src="{% static 'dist/img/f2.png' %}" alt="2">
                     <br> <label  style="padding-top: 13px;padding-right: 6px;">Unsatisfied</label>
                   </div>
                       
@@ -95,19 +101,19 @@
                      <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Unsatisfied</label>
                    </div> -->
                    <div class="col-lg-2"> 
-                    <img class="high" src="{% static 'dist/img/f3.png' %}" alt="">
+                    <img id="imgRating" class="high" src="{% static 'dist/img/f3.png' %}" alt="3">
                    
                      <br> <label  style="padding-left: 5px;padding-top: 11px;">Neutral</label>
                    </div>
                    <div class="col-lg-2"> 
-                    <img class="high" src="{% static 'dist/img/f4.png' %}" alt="">
+                    <img id="imgRating" class="high" src="{% static 'dist/img/f4.png' %}" alt="4">
                      
-                     <br> <label  style="padding-left: 5px;padding-top: 11px;">Satisfied</label>
+                     <br> <label  style="padding-top: 11px;">Satisfied</label>
                    </div>
-                   <div class="col-lg-2"> &nbsp;&nbsp;
-                    <img class="high" src="{% static 'dist/img/f5.png' %}" alt="">
+                   <div class="col-lg-2" id="divId"> &nbsp;&nbsp;
+                    <img id="imgRating" class="high" src="{% static 'dist/img/f5.png' %}" alt="5">
                     
-                     <br> <label style="padding-top: 11px;" >Very Satisfied</label>
+                     <br> <label style="padding-top: 11px;padding-right: 3px;" >Very Satisfied</label>
                      <br>
                    </div>
                  </div>
@@ -123,14 +129,17 @@
                  <div class="col-lg-10">
                  <div class="form-group">
                 
-                    <textarea class="form-control" rows="4" placeholder="Enter ..."></textarea>
+                    <textarea id="txtRating" name="txtRating" class="form-control" rows="4" placeholder="Enter ..."></textarea>
                   </div></div>
                   <br>
+                  
                 </div>
                   <div class="row">
-                    <div class="col-lg-10"></div>
+                    <div class="col-lg-10">
+                        <label id="lblImgValue" style="visibility: hidden; height: 20px;"></label>
+                    </div>
                     <div class="col-lg-2">
-                    <button type="button" id="" value="" name="" class="btn  btn-primary " > Submit  </button> <br>
+                    <button type="button" id="btnFeedbackSubmit" name="btnFeedbackSubmit" class="btn  btn-primary "> Submit  </button> <br>
                   </div></div>
            </form>
           
@@ -162,7 +171,89 @@ function resetBorder() {
 
 function addBorderTo(thisImage) {
   thisImage.style.border = '2px solid darkcyan';
+  $("#lblImgValue").html($(thisImage).attr('alt'));
 }
+
+$(document).ready(function () {
+
+  $.ajax({
+        url: '/feedback/',
+        data: {
+          'type' : 'LOAD',
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            var list_html = "<option value='-1'>--- Select the Diagnosis ---</option>";
+            if(data.diag.length > 0)
+            {
+              for( var i=0; i <data.diag.length; i++) {
+                  list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+"</option>";
+                 }
+              $("#ddlSelect").prop("disabled", false);
+              $("#noDataMsg").hide();
+            }
+            else{
+              $("#noDataMsg").show();
+              $("#ddlSelect").prop("disabled", true);
+            }
+            $("#ddlSelect").html(list_html);
+          }
+        }
+      });
+});
+
+// Submit button click
+$("#btnFeedbackSubmit").click(function () {
+    if($("#ddlSelect option:selected").val() == -1){
+      alert('please select the Diagnosis to provide feedback..');
+      $("#ddlSelect").focus();
+         return false;
+    }
+
+    if($("#lblImgValue").html() == ""){
+         alert('please select one Smiley for rating..');
+         return false; } 
+    var symptom = '';
+    // if($("#lblFirst").is(":visible"))
+    // {
+    //   symptom = $("#lblFirst").html();
+    // }
+    // else
+    // {
+    //   symptom = $("#lblSymp").html();
+    // }
+      $.ajax({
+        url: '/feedback/',
+        data: {
+          'unique_id': $("#ddlSelect option:selected" ).val(),
+          'rating': $("#lblImgValue").html(),
+          'ratingText': $("#txtRating").val(),
+          'type' : 'SUBMIT',
+        },
+        dataType: 'json',
+        success: function (data) {
+          $("#lblImgValue").html("")
+          if (data.is_taken) {
+            var list_html = "<option value='-1'>--- Select the Diagnosis ---</option>";
+                for( var i=0; i <data.diag.length; i++) {
+                  list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+"</option>";
+                 }
+                $("#ddlSelect").html(list_html);
+          }
+          else{
+            // $("#divResults").show();
+            // $("#divQuestions").hide();
+            // $("#lblDiseaseName").html(data.forDiseases);
+            // $("#pDesc").html(data.forDesc);
+            // $("#pCauses").html(data.forCauses);
+            // $("a[href='http://www.default.com/']").attr('href', data.forLink);
+            // $("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
+
+          }
+        }
+      });
+    });
 
 </script>
 {% endblock %}
