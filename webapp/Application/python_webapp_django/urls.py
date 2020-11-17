@@ -46,7 +46,7 @@ urlpatterns = [
     #path('accounts/login/', auth_views.LoginView.as_view()),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
     
-    url(r'^index$', app.views.contact, name='index'),
+    url(r'^index$', app.views.index, name='index'),
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
     #     django.contrib.auth.views.login,
