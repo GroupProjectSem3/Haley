@@ -168,3 +168,33 @@
 * More interactive UI.
 * Tried with alternative controls in the pages to achieve the same results.
 * Hyperparameter tuning of the nn model.
+
+* Hyperparameter tuning of the nn model.
+
+## Project Retrospective Board - Sprint 9
+
+## Liked / Glad ##
+
+* Made some UI changes to the pages.
+* Many story points covered.
+* Constructive feedback from the supervisors.
+* Research on user evaluation teachniques.
+
+## Learned ##
+
+* How to deploy application on AppEngine
+* How to work with docker and deploy app through Docker. 
+* How NoSQL database works in the background.
+## Lacked / Mad ##
+
+* Amount of rework in the project.
+* Frustrating amount of errors.
+
+## Longed For/ Sad ##
+
+* More POC for the tools
+
+## Action Items ##
+
+* More reasearch on any area before starting actual work.
+* Tried with alternative controls in the pages to achieve the same results.
