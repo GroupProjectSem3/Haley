@@ -169,7 +169,7 @@
 * Tried with alternative controls in the pages to achieve the same results.
 * Hyperparameter tuning of the nn model.
 
-## Project Retrospective Board - Sprint 8
+## Project Retrospective Board - Sprint 9
 
 ## Liked / Glad ##
 
