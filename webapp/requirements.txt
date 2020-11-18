@@ -1,0 +1,7 @@
+django<=3.0.5,>=2.1
+djongo 
+psycopg2-binary>=2.8
+sklearn
+numpy==1.19.3
+pandas
+dnspython
