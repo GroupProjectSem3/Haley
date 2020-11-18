@@ -9,3 +9,5 @@ To Run the application through docker on local and further deploy it to Kubernet
 7- Run the command - docker-compose run web django-admin startproject app .
 8- RUN the command - docker-compose up
 9- open browser nad navigate to http://localhost:8000/
+
+For refrence read- https://docs.docker.com/compose/django/
