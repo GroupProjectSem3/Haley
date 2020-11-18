@@ -70,10 +70,10 @@
                 <label id="lblBtnValue" style="visibility: hidden; height: 20px;"></label>
 
                 <!-- <br>   -->
-                <div class="row">
+                <!-- <div class="row">
                 <div class="col-lg-10"></div>
                 <button type="button" id="btnTest" value="testing" name="btnTest" class="btn btn-rounded btn-outline-primary btn-sm" style="padding-right: 2.3rem;text-align: center;padding-left: 1.8rem;"> Next  </button>
-              </div>
+              </div> -->
             </div>
 
             <!-- <div class="card-header">
@@ -294,9 +294,7 @@
 
   $(jQuery).on('click', "#btnwt", function() {
     $("#lblBtnValue").html($(this).val());
-});
-
-  $("#btnTest").click(function () {
+    
     // if ($('input[name="wt"]:checked').length == 0) {
     //      alert('please select one severity..');
     //      return false; } 
@@ -312,6 +310,7 @@
     {
       symptom = $("#lblSymp").html();
     }
+    $(this).blur();
       $.ajax({
         url: '/ajax/symptom_nextClick/',
         data: {
@@ -369,6 +368,82 @@
           }
         }
       });
+
+});
+
+  $("#btnTest").click(function () {
+    // // if ($('input[name="wt"]:checked').length == 0) {
+    // //      alert('please select one severity..');
+    // //      return false; } 
+    // if($("#lblBtnValue").html() == ""){
+    //      alert('please select one severity..');
+    //      return false; } 
+    // var symptom = '';
+    // if($("#lblFirst").is(":visible"))
+    // {
+    //   symptom = $("#lblFirst").html();
+    // }
+    // else
+    // {
+    //   symptom = $("#lblSymp").html();
+    // }
+    //   $.ajax({
+    //     url: '/ajax/symptom_nextClick/',
+    //     data: {
+    //       //'wt': $("input[name='wt']:radio:checked").val(),
+    //       'wt': $("#lblBtnValue").html(),
+    //       // 'symp' : $("#lblSymp").val(),
+    //       'symp' : symptom,
+    //     },
+    //     dataType: 'json',
+    //     success: function (data) {
+    //       $("#lblBtnValue").html("")
+    //       if (data.is_taken) {
+    //         $("#lblSymp").html(data.nextSymptom)
+    //         //$("input[name='wt']:radio:checked").prop('checked',false);
+    //         $("#lblFirst").hide();
+    //         $("#lblNewCardName").html(data.nextSymptom)
+    //         $("#lblCardName").hide();
+    //         $("#lblNewCardDesc").html(data.symptomDescription)
+    //         $("#lblCardDesc").hide();
+    //         $("#divResults").hide();
+    //       }
+    //       else{
+    //         $("#divResults").show();
+    //         $("#divQuestions").hide();
+    //         $("#lblDiseaseName").html(data.forDiseases);
+    //         $("#pDesc").html(data.forDesc);
+    //         $("#pCauses").html(data.forCauses);
+    //         $("a[href='http://www.default.com/']").attr('href', data.forLink);
+    //         $("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
+
+    //         var list_html1 = "";
+    //         //var list_html2 = "";
+    //             if(data.forSympPresent.length>0)
+    //             {
+    //               list_html1 += "<li>Present <ul>";
+    //               for(var i=0;i<data.forSympPresent.length;i++)
+    //               {
+    //                   list_html1 +="<li>" + data.forSympPresent[i] +"</li>";
+    //               }  
+    //               list_html1 += "</ul> </li>";
+    //             }
+    //             //$("#liPresent").html(list_html1);
+    //             if(data.forSympAbsent.length>0)
+    //             {
+    //               list_html1 += "<li>Present <ul>";
+    //               for(var i=0;i<data.forSympAbsent.length;i++)
+    //               {
+    //                   list_html1 +="<li>" + data.forSympAbsent[i] +"</li>";
+    //               }
+    //               list_html1 += "</ul> </li>";
+    //             }
+    //             //$("#liAbsent").html(list_html2);
+    //             $("#ulSymptoms").html(list_html1);
+
+    //       }
+    //     }
+    //   });
 
     });
 
