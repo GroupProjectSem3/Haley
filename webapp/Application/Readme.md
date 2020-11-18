@@ -1,11 +1,19 @@
 | Language | Framework | Platform | Author |
 | -------- | -------- |--------|--------|
-| Python | Django | Azure Web App, Virtual Machine| |
+| Python | Django | TBD | |
 
 
 # Python Django web application
 
 Sample Python Django web application built using Visual Studio 2017.
+
+## How to run
+* Create virtual environment: virtualenv venv -p python
+* Activate the environment: .\venv\Scripts\activate
+* Install all requirements: pip install -r requirements.txt
+* Migrate all changes to Database: python manage.py migrate
+* Run the server: python manage.py runserver (Server runs at http://127.0.0.1:8000/)
+
 
 ## License:
 

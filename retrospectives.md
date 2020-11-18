@@ -169,6 +169,8 @@
 * Tried with alternative controls in the pages to achieve the same results.
 * Hyperparameter tuning of the nn model.
 
+* Hyperparameter tuning of the nn model.
+
 ## Project Retrospective Board - Sprint 9
 
 ## Liked / Glad ##
@@ -196,4 +198,3 @@
 
 * More reasearch on any area before starting actual work.
 * Tried with alternative controls in the pages to achieve the same results.
-* Hyperparameter tuning of the nn model.
