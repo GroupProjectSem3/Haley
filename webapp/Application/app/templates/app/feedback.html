@@ -13,25 +13,24 @@
 
 
 </style>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-lg-6">
+        <h1>Feedback</h1>
+
+      </div><!-- /.col -->
+      <!-- /.col -->
+     </div>
+  </div>
+</div>
 <div class="content">
 
   <div class="container-fluid">
-   
-      
-      
-
-      <h1>Feedback</h1>
-     
-   
-
-          
 <div class="row">  
   <div class="col-lg-1">
   </div>
           <div class="col-lg-8">
- 
-        
-         
  
            <form method="POST">
              {% csrf_token %}	
@@ -39,7 +38,7 @@
                <div class="card card-info" > 
                <div class="card-header">
                  <!-- <h5 class="m-0">How severe suffering with the symptom - ?</h5> -->
-                 <label>Hi {{fname}} {{lname}},we appreciate your efforts to give valueable feeedback about Haley's predictions about your diagnosis.</label>
+                 <label>Hi {{fname}} {{lname}}, we appreciate your efforts to give valueable feeedback about Haley's predictions about your diagnosis.</label>
                  
                </div>
                <!-- For showing message if no records exists -->
@@ -64,6 +63,7 @@
               </div>
               </div>
               </div>
+              <hr>
               <div class="row">     <div class="col-lg-1"></div>
                <div> <label>How satisfied are you with Haley's prediction of your diagnosis ?</label></div>
 
@@ -122,8 +122,8 @@
                  </div>
                 
  
-                 <br>  
-                
+                 <!-- <br>   -->
+                <hr>
                  <div class="row">     <div class="col-lg-1"></div>
                  <div> <label>Did Haley predict the disease accurately? If not, what do you suffer from ?</label></div>
                  </div>
