@@ -4,6 +4,16 @@
 
 {% load static %}
 
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-lg-6">
+        <h1 >Diagnostic Tool</h1>
+      </div><!-- /.col -->
+      <!-- /.col -->
+     </div>
+  </div>
+</div>
 <!-- child content -->
     <div class="content" id="divQuestions">
       <div class="container-fluid">
@@ -17,12 +27,12 @@
           <form method="POST">
             {% csrf_token %}	
             
-              <div class="card card-primary" > 
+              <div class="card card-primary card-outline" > 
               <div class="card-header">
                 <!-- <h5 class="m-0">How severe suffering with the symptom - ?</h5> -->
-                <label>How do you rate the severity of this symptom - </label>
-                <label id="lblFirst" style="font-family: cursive;">{{ question }}</label>
-                <label id="lblSymp"></label>
+                <label style="font-family: inherit; font-weight: 500; font-size: 1.25rem;">How do you rate the severity of this symptom - </label>
+                <label id="lblFirst" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;">{{ question }}</label>
+                <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
               </div>
             
                 <!-- <div class="card-body" style="font-family: system-ui;color: royalblue;">
@@ -33,7 +43,7 @@
                   <input type="radio" value="4" name="wt" id="wtt"> 4 - High<br>
                   <input type="radio" value="5" name="wt" id="wtt"> 5 - Severe<br>
                 </div> -->
-                <p style="text-align: right;padding-right: 10px;color:darkorange;font-family: 'Font Awesome 5 Free';">(* Select on one of the Smiley Icon)</p>
+                <p style="text-align: left;padding-right: 10px;color:darkorange;font-family: 'Font Awesome 5 Free';">(* Select on one of the Smiley Icon)</p>
                 <br>
                  <div class="row">
                   <div class="col-lg-2"> 
@@ -85,13 +95,13 @@
         
             <div class="col-lg-4">
               <br>
-              <div class="card card-green" >
+              <div class="card card-cyan card-outline" >
               
                 <div class="card-header " >
                    
                   <!-- <h3 class="card-title" style="font-family: cursive;"><i class="fas fa-info-circle"></i> {{ question }}</h3> -->
-                  <i class="fas fa-info-circle"></i> <label id="lblCardName" style="font-family: cursive;"> {{ question }} </label> &nbsp;
-                  <label id="lblNewCardName" style="font-family: cursive;"></label>  
+                  <i class="fas fa-info-circle"></i> <label id="lblCardName" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"> {{ question }} </label> &nbsp;
+                  <label id="lblNewCardName" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>  
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus" style="color:aliceblue;"></i>
                     </button>
@@ -102,8 +112,8 @@
                 <!-- /.card-header -->
                 <div class="card-body" style="display: block;">
                   <!-- The body of the card The body of the card The body of the card The body of the card The body of the card -->
-                  <label id="lblCardDesc" style="font-family: 'Font Awesome 5 Free';font-weight: 200;"> {{ symptomDescription}} </label>
-                  <label id="lblNewCardDesc" style="font-family: 'Font Awesome 5 Free';font-weight: 200;"></label>  
+                  <label id="lblCardDesc" style="font-family: inherit; font-weight: 500;"> {{ symptomDescription}} </label>
+                  <label id="lblNewCardDesc" style="font-family: inherit; font-weight: 500;"></label>  
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -121,10 +131,13 @@
     <div class="content" id="divResults" style="display: none;">
         <section class="content">
           <!-- Default box -->
-          <br>
-          <div class="card">
+          <!-- <br> -->
+          <div class="container-fluid">
+            <div class="row ">
+              <div class="col-lg-12">
+          <div class="card card-outline card-primary">
             <div class="card-header">
-              <h3 class="card-title">Diagnosis Details</h3>
+              <h3 class="card-title" style="font-family: inherit;font-weight: bold;">Predictions</h3>
     
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -136,19 +149,19 @@
                 <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                   <div class="row">
                     <div class="col-12">
-                      <p> <i class="fas fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</p>
-                      <label id="lblDiseaseName" style="color: limegreen;font-family:cursive;font-size:x-large"></label>
+                      <h5> <i class="fas fa-info-circle"></i> Hi {{fname}}, based on the responses you provided here is Haley's prediction.</h5>
+                      <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large"></label>
                       <!-- <h4 id="disease1">Disease Name: </h4> -->
                         <div class="post">
-                          <!-- <div class="user-block">
-                              <h5>What does it mean ?</h5>
-                          </div> -->
-                          <!-- /.user-block -->
-                          <p id="pDesc"></p>
-                          <p>
-                            <a href="http://www.default.com/" target="_blank" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Tell me more</a>
+                          <div class="expandableCollapsibleDiv3">
+                            <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                              <h5>Description</h5>
+                          <p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px;"></p>
+                          <p style="text-align: center;">
+                            <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fas fa-link mr-1"></i> Tell me more</a>
                           </p>
                         </div>
+                      </div>
     
                         <div class="post clearfix">
                           <div class="expandableCollapsibleDiv">
@@ -158,7 +171,7 @@
                               <h5>Possible Causes</h5>
                           <!-- </div> -->
                           <!-- /.user-block -->
-                          <p id="pCauses"></p>
+                          <p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px;"></p>
                         </div>
                           <!-- <p>
                             <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 2</a>
@@ -171,7 +184,7 @@
                             <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
                             <h5>Symptoms</h5>
                           <!-- /.user-block -->
-                          <div class="user-block">
+                          <div class="user-block" style="font-family: inherit; font-weight: 500;">
                               <!-- <span class="username"> -->
                               <ul id="ulSymptoms"> 
                                   <!-- <li>Present
@@ -198,7 +211,7 @@
   
                   <!-- <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>  -->
                   <div style="text-align: center;">
-                   <button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'GPList' %}'"> Find GP's nearby
+                   <button type="button" class="btn btn-info btn-lg" onclick="location.href='{% url 'GPList' %}'"> Find GP's nearby
                     <i class="nav-icon fas fa-user-md"></i>
                     </button>
                   </div>  
@@ -243,8 +256,10 @@
             </div>
             <!-- /.card-body -->
           </div>
+        </div>
           <!-- /.card -->
-    
+    </div>
+          </div>
         </section>
       <!-- /.content -->
     
@@ -264,6 +279,8 @@
     defaultElementDescription.hide("fast", "swing");
     var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
     defaultElementDescription2.hide("fast", "swing");
+    var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("p");
+    defaultElementDescription3.hide("fast", "swing");
 
     $(".expandableCollapsibleDiv > img").click(function (e) {
       var showElementDescription = 
@@ -280,6 +297,18 @@
     $(".expandableCollapsibleDiv2 > img").click(function (e) {
       var showElementDescription = 
         $(this).parents(".expandableCollapsibleDiv2").find("div");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
+    $(".expandableCollapsibleDiv3 > img").click(function (e) {
+      var showElementDescription = 
+        $(this).parents(".expandableCollapsibleDiv3").find("p");
   
       if ($(showElementDescription).is(":visible")) {
         showElementDescription.hide("fast", "swing");
