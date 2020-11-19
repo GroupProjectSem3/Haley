@@ -93,6 +93,119 @@ class ViewTest(TestCase):
 
 
 
+#Authenticating user while login
+    def test_login(self, request):
+        emailid ='katie.patel@gmail.com'
+        pwd='katie123'
+
+        if User_profile.objects.filter(email=emailid, password=pwd).exists():
+            #request.session['user_id'] = emailid
+            response = self.client.get('/login')
+            self.assertEqual(response.status_code, 200)
+        
+        else:
+             response = self.client.get('/')
+             self.assertEqual(response.status_code, 200)
+
+ #registering the new user through register
+    def test_register(self):
+         fname='Katie'
+         lname='Patel'
+         emailid ='katie.patel@gmail.com'
+         pwd='katie123'
+         cpwd='katie123'
+
+
+         if pwd == cpwd:
+            if User_profile.objects.filter(email=emailid).exists():
+                print('Email Taken')
+                response = self.client.get('/register')
+                self.assertEqual(response.status_code, 200)
+
+
+            else:
+                user = User_profile.objects.create(
+                    first_name=fname,
+                    last_name=lname,
+                    email=emailId,
+                    password=pwd,
+                    confirm_password=cpwd)
+                user.save()
+                response = self.client.get('/login')
+                self.assertEqual(response.status_code, 200)
+         else:
+            print('Passwords not matched...')
+            response = self.client.get('/register')
+            self.assertEqual(response.status_code, 200)
+
+ #updating the existing users profile
+   def test_update_Profile(self):
+        address = 'Lucan'
+        country = 'Ireland'
+        city = 'Dublin'
+        zipcode = '1234'
+        dob = '01/02/2000'
+        gender = 'female'
+        weight = '70.00'
+        height = '125.00'
+
+        userid='Katie.patel@gmail.com'
+
+        if User_profile.objects.filter(email=userid).exists():
+                User_profile.objects.filter(email=userid).update(
+                    address=address,
+                    city=city,
+                    country=country,
+                    zipcode=zipcode,
+                    dob=dob,
+                    gender=gender,
+                    weight=weight,
+                    height=height)
+
+                response = self.client.get('/update_Profile')
+                self.assertEqual(response.status_code, 200)
+
+    
+        
+ #user logout from system
+   def test_logout(self):
+        response = self.client.get('/logout')
+        self.assertEqual(response.status_code, 200)
+    
+#redirecting to user profile 
+   def test_load_userProfile(self,request):
+        response = self.client.get('/userProfile')
+        self.assertEqual(response.status_code, 200)
+
+#user changing the password
+   def test_updatePassword(self):
+        npass = 'katie111'
+        cpass = 'katie111'
+
+        userid='Katie.patel@gmail.com'
+
+         if (npass == cpass):
+                
+                User_profile.objects.filter(email=userid).update(password=cpass, confirm_password=cpass)
+                response = self.client.get('/updatePassword')
+                self.assertEqual(response.status_code, 200)
+
+         else:
+                response = self.client.get('/updatePassword')
+                self.assertEqual(response.status_code, 200)
+
+   #redirecting to update password page
+   def test_changePassword(self):
+        response = self.client.get('/changePassword')
+        self.assertEqual(response.status_code, 200)
+
+ #redirecting to Find Nearby GP's page
+   def test_GPList(self):
+        response = self.client.get('/GPList')
+        self.assertEqual(response.status_code, 200)
+
+
+
 
 
 
