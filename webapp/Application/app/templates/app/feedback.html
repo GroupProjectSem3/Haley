@@ -191,7 +191,9 @@ $(document).ready(function () {
             if(data.diag.length > 0)
             {
               for( var i=0; i <data.diag.length; i++) {
-                  list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+"</option>";
+                  //list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+"</option>";
+                  dt = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(on " + data.diag[i]['create_date'] +")";
+                  list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+ dt +"</option>";
                  }
               $("#ddlSelect").prop("disabled", false);
               $("#noDataMsg").hide();
@@ -228,6 +230,7 @@ $("#btnFeedbackSubmit").click(function () {
     // }
     //$("#imgRating").style.border='';
     $("#imgRating").blur();
+    
     $("#txtRating").html("");  
       $.ajax({
         url: '/feedback/',
@@ -243,12 +246,15 @@ $("#btnFeedbackSubmit").click(function () {
           if (data.is_taken) {
             var list_html = "<option value='-1'>--- Select the Diagnosis ---</option>";
                 for( var i=0; i <data.diag.length; i++) {
-                  list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+"</option>";
+                  //list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+"</option>";
+                  dt = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(on " + data.diag[i]['create_date'] +")";
+                  list_html += "<option value='"+data.diag[i]['id']+"'>"+data.diag[i]['userResults']+ dt +"</option>";
                  }
                 $("#ddlSelect").html(list_html);
                 alert('Feedback saved successfully');
           //$("#imgRating").style.border='';
-          $("#txtRating").val("");      
+          $("#txtRating").val(""); 
+          resetBorder();     
           }
           else{
             // $("#divResults").show();
