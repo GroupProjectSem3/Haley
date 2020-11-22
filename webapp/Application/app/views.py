@@ -520,9 +520,12 @@ def feedback(request):
             user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
             #user_diag = User_diagnosis.objects.filter(user_id=userid)
             if user_diag.__len__() > 0:
-                diag = user_diag.values('id','userResults')
+                diag = user_diag.values('id','userResults','create_date')
+                lstDiag = list(diag)
+                for d in lstDiag:
+                    d['create_date'] = d['create_date'].strftime("%d %h, %Y %I:%M %p")
                 data = {
-                    'is_taken': True,'diag':list(diag),
+                    'is_taken': True,'diag':list(lstDiag),
                     }
             else:
                 data = {'is_taken': True,'diag':[],}
@@ -531,13 +534,15 @@ def feedback(request):
             unq_id = request.GET.get('unique_id', None)
             rating = request.GET.get('rating', None)
             ratingText = request.GET.get('ratingText', None)
-            #User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=5,feedbackText='')
             User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=rating,feedbackText=ratingText)
-            user_diag = User_diagnosis.objects.filter(user_id=userid)
+            user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
             if user_diag.__len__() > 0:
-                diag = user_diag.values('id','userResults')
+                diag = user_diag.values('id','userResults','create_date')
+                lstDiag = list(diag)
+                for d in lstDiag:
+                    d['create_date'] = d['create_date'].strftime("%d %h, %Y %I:%M %p")
                 data = {
-                    'is_taken': True,'diag':list(diag),
+                    'is_taken': True,'diag':list(lstDiag),
                     }
             else:   
                 data = {'is_taken': True,'diag':[],}
