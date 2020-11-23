@@ -11,6 +11,8 @@
       <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
       <!-- <link rel="shortcut icon" href="{% static 'dist/img/favicon.ico' %}" /> -->
       <!-- Bootstrap CSS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      
       <link rel="stylesheet" href="{% static 'dist/css/bootstrap.min.css' %}">
       <!-- Typography CSS -->
       <link rel="stylesheet" href="{% static 'dist/css/typography.css' %}">
@@ -656,33 +658,35 @@
                     </div>
                     <div class="col-md-6 position-relative ">
                         <div class="sign-in-from">
-                            <h1 class="mb-0 float-right">Sign Up</h1>
-                            <form action="register" class="mt-4" method="POST">
+                            <h1 class="mb-0 float-right">Sign Up</h1>    <h3 dir="ltr" id="result"></h3>
+                            <form action="register"  class="mt-4" method="POST">
                                 {% csrf_token %}
                                 {{form}}
-                                <div class="form-group">
+                                <div class="form-group" id="validate_f">
                                     <!-- <label for="exampleInputEmail1">Your Full Name</label> -->
                                     <br><br>
-                                    <input  dir="ltr" type="text" class="form-control mb-0" id="exampleInputEmail1" name="first_name" placeholder="Your First Name">
+                                    <input  dir="ltr" type="text" class="form-control mb-0" id="fname" name="first_name" placeholder="Your First Name" required >
 
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="validate_l">
                                     <!-- <label for="exampleInputEmail1">Your Last Name</label> -->
-                                    <input dir="ltr" type="text" class="form-control mb-0 " id="exampleInputEmail1" name="last_name" placeholder="Your Last Name">
+                                    <input dir="ltr" type="text" class="form-control mb-0 " id="lname" name="last_name" placeholder="Your Last Name" required>
 
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="validate">
                                     <!-- <label for="exampleInputEmail2">Email address</label> -->
-                                    <input dir="ltr" type="email" class="form-control mb-0" id="email" name="email" placeholder="Enter email">
+                                 
+                                    <input dir="ltr" type="email" class="form-control mb-0" id="email" name="email" placeholder="Enter email" required>
+                               
                                 </div>
                                
-                                <div class="form-group">
+                                <div class="form-group" id="validate_p">
                                     <!-- <label for="exampleInputPassword1">Password</label> -->
-                                    <input dir="ltr" type="password" class="form-control mb-0" id="exampleInputPassword1" name="password" placeholder="Password">
+                                    <input dir="ltr" type="password" class="form-control mb-0" id="password" name="password" placeholder="Password" required>
                                 </div>
                                 <div class="form-group">
                                     <!-- <label for="exampleInputPassword1">Confirm Password</label> -->
-                                    <input dir="ltr" type="password" class="form-control mb-0" id="exampleInputPassword1" name="confirmPassword" placeholder="Confirm Password">
+                                    <input dir="ltr" type="password" class="form-control mb-0" id="cpassword" name="confirmPassword" placeholder="Confirm Password" required>
                                 </div>
                              
                                 <div class="d-inline-block w-100">
@@ -690,7 +694,7 @@
                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                         <label class="custom-control-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
                                     </div> -->
-                                    <button type="submit" class="btn btn-primary float-right">Sign Up</button>
+                                    <button type="submit"  class="btn btn-primary float-right">Sign Up</button>
                                 </div>
                               <div class="sign-info">
                                     <span class="dark-color d-inline-block line-height-2">Already Have Account ? <a href="{% url 'login' %}">Log In</a></span>
@@ -701,6 +705,7 @@
                                     </ul>
                                 </div> 
                             </form>
+                          
                             {% for message in messages %} 
                             <h6> {{message}}</h6>
                              {% endfor %}
@@ -712,6 +717,7 @@
         {% endblock content %}
         <!-- Sign in END -->
       <!-- Optional JavaScript -->
+     
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
      <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
      <script src="{% static 'plugins/jquery/popper.min.js' %}"></script>
@@ -734,5 +740,108 @@
       <script src="{% static 'dist/js/chart-custom.js' %}"></script>
       <!-- Custom JavaScript -->
       <script src="{% static 'dist/js/custom.js' %}"></script>
+      <script src="{% static 'plugins/jquery-validation/jquery.validate.min.js' %}"></script>
+      <script src="{% static 'plugins/jquery-validation/additional-methods.min.js' %}"></script>
+
+      <script>
+        function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+// function validatePassword(password) {
+// const reg= /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+// return reg.test(password);
+// }
+
+function validate() {
+ 
+  const email = $("#email").val();
+  
+
+  if (!validateEmail(email)) {
+  
+  
+    alert(email + " is not valid :(");
+  }
+
+  return false;
+}
+
+// function validateP() {
+ 
+//  const password = $("#password").val();
+
+//   if (!validatePassword.isLength(password, { min: 6, max:10 })) {
+//     alert(" Password must be at least 6 characters");
+//  }
+// // else (!validatePassword(password)){
+// //   alert( "Password must contain atleast one lowercase,one uppercase,one numeric,one special and eight characters or longer ")
+// // }
+
+//  return false;
+// }
+
+
+
+$("#validate").on("change", validate);
+//$("#validate1").on("change", validateP);
+
+
+function validate_fname() {
+  const fname = $("#fname").val();
+  var n = fname.length;
+    if (!/^[a-zA-Z]*$/g.test(fname)) {
+        alert("Please enter Valid Characters only");
+     
+       
+    }
+    else if ( n <= 2) {
+        alert("name should be minimum of 3 characters");
+     
+       
+    }
+    
+    return false;
+}
+function validate_lname() {
+  
+  const lname = $("#lname").val();
+  var n = lname.length;
+    if (!/^[a-zA-Z]*$/g.test(lname)) {
+        alert("Please enter Valid Characters only");
+     
+       
+    }
+   else if ( n <= 2) {
+        alert("name should be minimum of 3 characters");
+     
+       
+    }
+    return false;
+}
+$("#validate_f").on("change", validate_fname);
+$("#validate_l").on("change", validate_lname);
+</script>
+
+
+<script>
+function validate_pass() {
+var pass = $("#password").val();
+var n = pass.length;
+if ( n <= 5) {
+        alert("Password should be 6 characters long");
+     
+       
+    }
+    
+    return false;
+
+return false;
+}
+$("#validate_p").on("change", validate_pass);
+</script>
+
+
+
    </body>
 </html>
