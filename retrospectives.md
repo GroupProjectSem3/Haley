@@ -104,3 +104,97 @@
 
 * We took a break from work together and then focussed back on the problem (delay) at hand to provide a quality work.
 * Redistributed work both report and code among the team instead of one person handling one thing only (at the end we did everything together as one team).
+
+## Project Retrospective Board - Sprint 7
+
+## Liked / Glad ##
+
+* Made some UI changes to the main pages
+* Designed the new landing page, login and register pages
+* Structured product development.
+* Many story points covered.
+* Constructive feedback from the supervisors
+
+## Learned ##
+
+* Implemented the graphs concept with some javascript code in front end page to show results.
+* Saving and loading of neural network model for transferable learning
+* Use of proper architecture for implementation
+* Importance of user evaluation
+
+## Lacked / Mad ##
+
+* Prioritizing the front end related work items.
+* Integration of functionalities with the front end
+
+## Longed For/ Sad ##
+
+* Integrating the backend code with model to fetch the results is still in progress
+
+## Action Items ##
+
+* Started another approach to the model code for fetching the predictions.
+* Distributed the pages among the team to achieve the front end work done.
+
+## Project Retrospective Board - Sprint 8
+
+## Liked / Glad ##
+
+* Made some UI changes to the main pages.
+* Many story points covered.
+* Constructive feedback from the supervisors.
+* Made a proper PoC with a user persona.
+* Integrating the backend code with model to fetch the results has been achieved.
+
+## Learned ##
+
+* Implemented the graphs concept with some javascript code in front end page to show results.
+* Saving and loading of neural network model for transferable learning. 
+* Calling two APIs when one of them is in a steady stream and another in intermittent flow of data.
+* Learnt how to use and implement different maps api's provided by google with multiple parameters.
+
+## Lacked / Mad ##
+
+* Amount of rework in the project.
+* No issues closed on Friday.
+
+## Longed For/ Sad ##
+
+* Worked on few controls which took more time to bind it with backend code.
+
+## Action Items ##
+
+* Unit test cases.
+* More interactive UI.
+* Tried with alternative controls in the pages to achieve the same results.
+* Hyperparameter tuning of the nn model.
+
+* Hyperparameter tuning of the nn model.
+
+## Project Retrospective Board - Sprint 9
+
+## Liked / Glad ##
+
+* Made some UI changes to the pages.
+* Many story points covered.
+* Constructive feedback from the supervisors.
+* Research on user evaluation teachniques.
+
+## Learned ##
+
+* How to deploy application on AppEngine
+* How to work with docker and deploy app through Docker. 
+* How NoSQL database works in the background.
+## Lacked / Mad ##
+
+* Amount of rework in the project.
+* Frustrating amount of errors.
+
+## Longed For/ Sad ##
+
+* More POC for the tools
+
+## Action Items ##
+
+* More reasearch on any area before starting actual work.
+* Tried with alternative controls in the pages to achieve the same results.

@@ -658,7 +658,14 @@
                     </div>
                     <div class="col-md-6 ">
                         <div class="sign-in-from">
-                            <h1 class="mb-0 float-right">Sign in</h1>
+                            <h1 class="mb-0 float-right">Sign in</h1>                       
+                               {% if messages %}
+                            <ul dir="ltr"  class="messages">
+                                {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                             <br> <br>
                             <form action="login" class="mt-4" method="post">
                               {% csrf_token %}
@@ -667,7 +674,7 @@
                                 <div class="form-group">
                             
                                     <label class="float-right" for="exampleInputEmail1">Email address</label>  
-                                    <input dir="ltr" type="email" class="form-control mb-0 float-right" name="email" id="exampleInputEmail1" placeholder="Enter email">
+                                    <input dir="ltr" type="email" class="form-control mb-0 float-right" name="email" id="exampleInputEmail1" placeholder="Enter email" required>
                                              
                                   </div>
                                   
@@ -675,7 +682,7 @@
                                   
                                     <label class="mb-0 float-right" for="exampleInputPassword1">Password</label> 
                                     
-                                    <input dir="ltr" type="password" class="form-control mb-0"  name="password" id="exampleInputPassword1" placeholder="Password">
+                                    <input dir="ltr" type="password" class="form-control mb-0"  name="password" id="exampleInputPassword1" placeholder="Password" required>
                                 </div>
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
@@ -694,9 +701,9 @@
                                     </ul> -->
                                 </div>
                             </form>
-                            {% for message in messages %} 
+                            <!-- {% for message in messages %} 
                             <h6> {{message}}</h6>
-                             {% endfor %}
+                             {% endfor %} -->
                         </div>
                     </div>
                 </div>

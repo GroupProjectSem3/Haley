@@ -11,11 +11,8 @@ class DiagnosisPrediction:
 
     #data = pd.read_csv("/content/drive/My Drive/Group_Project/Training.csv")
     def predict(symptom):
-        #path = os.path.join("templates", "Training.csv")
-        path = os.path.join(settings.STATIC_URL, "Training.csv")
-        print(path)
         #data = pd.read_csv(os.path.join(settings.STATIC_URL, "Training.csv"))
-        data = pd.read_csv("G:\Group project\Testing\Sample\mysite\static\Training.csv")
+        data = pd.read_csv(settings.STATIC_ROOT+"/Training.csv")
         df = pd.DataFrame(data)
         cols = df.columns
         cols = cols[:-1]
