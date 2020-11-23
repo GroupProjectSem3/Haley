@@ -10,6 +10,7 @@
   }
 
   .loading {
+    margin-top: 7px;
     border: 4px solid #f3f3f3;
   border-radius: 50%;
   border-top: 4px solid #3498db;
@@ -48,7 +49,7 @@
         <div class="row">
 
             <div class="col-lg-1"></div>
-         <div class="col-lg-6">
+         <div class="col-lg-7">
 
             <br>
 
@@ -58,10 +59,17 @@
               <div class="card card-primary card-outline" > 
               <div class="card-header">
                 <!-- <h5 class="m-0">How severe suffering with the symptom - ?</h5> -->
-                <label style="font-family: inherit; font-weight: 500; font-size: 1.25rem;">How do you rate the severity of this symptom - </label>
-                <label id="spinner" class="loading" > </label>
+                <div class="row">
+                  <div class="col-lg-7" style="font-family: inherit; font-weight: 500; font-size: 1.25rem;">
+                How do you rate the severity of this symptom -
+              </div>
+              <div class="col-lg-4">
                 <label id="lblFirst" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;">{{ question }}</label>
+                
                 <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
+               </label></div>
+              <div class="col-lg-1"><label id="spinner" class="loading" ></label></div>
+              </div>
               </div>
             
                 <!-- <div class="card-body" style="font-family: system-ui;color: royalblue;">
@@ -76,32 +84,32 @@
                 <br>
                  <div class="row">
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt" value="0" onclick="spinner()" style="font-size:50px;border:none;background-color:white;padding-left: 10px;" >&#128578;</button>
+                    <button type="button" name="btnwt" id="btnwt" value="0"  style="font-size:50px;border:none;background-color:white;padding-left: 10px;" >&#128578;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">0</label>
                     <br> <label class="text-center" style="padding-left: 18px;padding-right: 18px;font-family: sans-serif;">No Hurt</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="1" onclick="spinner()" style="font-size:50px;border:none;background-color:white;">&#128530;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="1"  style="font-size:50px;border:none;background-color:white;">&#128530;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">1</label>
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Little Bit</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="2" onclick="spinner()" style="font-size:50px;border:none;background-color:white;" >&#128533;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="2" style="font-size:50px;border:none;background-color:white;" >&#128533;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">2</label>
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Little More</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="3" onclick="spinner()" style="font-size:50px;border:none;background-color:white;" >&#128543;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="3"  style="font-size:50px;border:none;background-color:white;" >&#128543;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">3</label>
                     <br> <label class="text-center" style="padding-left: 7px;padding-right: 7px;">Hurts Even More</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="4" onclick="spinner()" style="font-size:50px;border:none;background-color:white;" >&#128534;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="4"  style="font-size:50px;border:none;background-color:white;" >&#128534;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">4</label>
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Whole Lot</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="5" onclick="spinner()" style="font-size:50px;border:none;background-color:white;" >&#128557;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="5" style="font-size:50px;border:none;background-color:white;" >&#128557;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">5</label>
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Worst</label>
                   </div>
@@ -384,6 +392,10 @@
       symptom = $("#lblSymp").html();
     }
     $(this).blur();
+    //
+    var myDiv = document.getElementById("spinner")
+    myDiv.style.display = "block";
+    //
       $.ajax({
         url: '/ajax/symptom_nextClick/',
         data: {
@@ -428,7 +440,7 @@
                 //$("#liPresent").html(list_html1);
                 if(data.forSympAbsent.length>0)
                 {
-                  list_html1 += "<li>Present <ul>";
+                  list_html1 += "<li>Absent<ul>";
                   for(var i=0;i<data.forSympAbsent.length;i++)
                   {
                       list_html1 +="<li>" + data.forSympAbsent[i] +"</li>";
@@ -439,6 +451,7 @@
                 $("#ulSymptoms").html(list_html1);
 
           }
+          myDiv.style.display = "none";
         }
       });
 
@@ -561,15 +574,15 @@ $(function () {
   })
 
   function spinner() {
-    var myDiv = document.getElementById("spinner")
-    show = function  spinner(){
-        myDiv.style.display = "block";
-        setTimeout(hide, 500); // 0.5 seconds
-      },
-      hide = function  spinner(){
-      myDiv.style.display = "none";
-       };
-       show();
+    // var myDiv = document.getElementById("spinner")
+    // show = function  spinner(){
+    //     myDiv.style.display = "block";
+    //     setTimeout(hide, 1000); // 0.5 seconds
+    //   },
+    //   hide = function  spinner(){
+    //   myDiv.style.display = "none";
+    //    };
+    //    show();
       };
     
 

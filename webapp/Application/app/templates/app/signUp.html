@@ -658,7 +658,13 @@
                     </div>
                     <div class="col-md-6 position-relative ">
                         <div class="sign-in-from">
-                            <h1 class="mb-0 float-right">Sign Up</h1>    <h3 dir="ltr" id="result"></h3>
+                          <div id="msg"></div>
+                            <h1 class="mb-0 float-right">Sign Up</h1>    
+                            {% for message in messages %} 
+                            <h6> {{message}}</h6>
+                             {% endfor %}
+                            
+                            <!-- <h3 dir="ltr" id="result"></h3> -->
                             <form action="register"  class="mt-4" method="POST">
                                 {% csrf_token %}
                                 {{form}}
@@ -684,7 +690,7 @@
                                     <!-- <label for="exampleInputPassword1">Password</label> -->
                                     <input dir="ltr" type="password" class="form-control mb-0" id="password" name="password" placeholder="Password" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="validate_cp">
                                     <!-- <label for="exampleInputPassword1">Confirm Password</label> -->
                                     <input dir="ltr" type="password" class="form-control mb-0" id="cpassword" name="confirmPassword" placeholder="Confirm Password" required>
                                 </div>
@@ -694,7 +700,7 @@
                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                         <label class="custom-control-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
                                     </div> -->
-                                    <button type="submit"  class="btn btn-primary float-right">Sign Up</button>
+                                    <button type="submit" id="signup"  class="btn btn-primary float-right">Sign Up</button>
                                 </div>
                               <div class="sign-info">
                                     <span class="dark-color d-inline-block line-height-2">Already Have Account ? <a href="{% url 'login' %}">Log In</a></span>
@@ -706,9 +712,7 @@
                                 </div> 
                             </form>
                           
-                            {% for message in messages %} 
-                            <h6> {{message}}</h6>
-                             {% endfor %}
+                           
                         </div>
                     </div>
                 </div>
@@ -756,15 +760,11 @@
 function validate() {
  
   const email = $("#email").val();
-  
-
   if (!validateEmail(email)) {
-  
-  
     alert(email + " is not valid :(");
+    $("#email").focus();
+    return false;
   }
-
-  return false;
 }
 
 // function validateP() {
@@ -792,16 +792,14 @@ function validate_fname() {
   var n = fname.length;
     if (!/^[a-zA-Z]*$/g.test(fname)) {
         alert("Please enter Valid Characters only");
-     
-       
+        $("#fname").focus();
+        return false;
     }
     else if ( n <= 2) {
         alert("name should be minimum of 3 characters");
-     
-       
+        $("#fname").focus();
+        return false;
     }
-    
-    return false;
 }
 function validate_lname() {
   
@@ -809,15 +807,14 @@ function validate_lname() {
   var n = lname.length;
     if (!/^[a-zA-Z]*$/g.test(lname)) {
         alert("Please enter Valid Characters only");
-     
-       
+        $("#lname").focus();
+        return false;
     }
    else if ( n <= 2) {
         alert("name should be minimum of 3 characters");
-     
-       
+        $("#lname").focus();
+        return false;
     }
-    return false;
 }
 $("#validate_f").on("change", validate_fname);
 $("#validate_l").on("change", validate_lname);
@@ -830,15 +827,83 @@ var pass = $("#password").val();
 var n = pass.length;
 if ( n <= 5) {
         alert("Password should be 6 characters long");
-     
-       
+        $("#password").focus();
+        return false;
     }
-    
-    return false;
-
-return false;
+return true;
 }
 $("#validate_p").on("change", validate_pass);
+
+function validate_cpass() {
+var pass = $("#cpassword").val();
+var n = pass.length;
+if ( n <= 5) {
+        alert("Confirm Password should be 6 characters long");
+        $("#cpassword").focus();
+        return false;
+    }
+return true;
+}
+$("#validate_cp").on("change", validate_cpass);
+
+function validate_bothpass() {
+  var pass = $("#password").val();
+var cpass = $("#cpassword").val();
+if ( pass != cpass) {
+        alert("Password and Confirm Password should be same");
+        $("#cpassword").focus();
+        return false;
+    }
+//return true;
+}
+
+function signUp() {
+  //validate_fname();
+  //validate_lname();
+  // validate();
+  // validate_pass();
+  // validate_cpass();
+  if(validate_bothpass())
+    return false;
+  else
+    return true;
+}
+$("#signup").on("click", signUp);
+
+//success msgs 
+
+// function success() {
+
+//         if(true){
+//         $('#msg').html(data).fadeIn('slow');
+//          $('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
+                             
+//     }
+//     return false;
+// }
+// $("#success").on("click", success);
+    
+// function succ_msg(sender,x) {       
+//        if (x=true) {
+//            $.ajax({
+//                url: '/ajax/succ_msg/',
+//                //data: ,
+//                dataType: 'json,
+//                type: 'POST',
+//                contentType: "application/json;charset=utf-8",
+//                 success: function() { 
+//                 // $('#msg').html(data).fadeIn('slow');
+//                    $('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
+//                        $('#msg').delay(5000).fadeOut('slow');
+//  }
+//            });
+//        }
+//    }
+   
+
+
+
+              
 </script>
 
 

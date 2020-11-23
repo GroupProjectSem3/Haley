@@ -146,6 +146,8 @@ def update_Profile(request):
                     gender=gender,
                     weight=weight,
                     height=height)
+
+                messages.success(request, '*Profile details updated.*')
                 print('user details')
                 # user.save()
                 user = User_profile.objects.filter(email=userid)[0]
@@ -179,11 +181,23 @@ def register(request):
         emailId = request.POST['email']
         pwd = request.POST['password']
         confirmPassword = request.POST['confirmPassword']
-
+       
         if pwd == confirmPassword:
             if User_profile.objects.filter(email=emailId).exists():
                 messages.info(request, 'Email Taken')
                 return redirect('register')
+            elif len(fName) <= 2 :
+                 messages.info(request, 'Name must be at least three characters')
+                 return redirect('register')
+
+            elif len(lName) <= 2 :
+                 messages.info(request, 'Name must be at least three characters')
+                 return redirect('register')  
+
+            elif len(pwd) <=5 :
+                 messages.info(request, 'Password must be at least six characters')
+                 return redirect('register') 
+            
             else:
                 user = User_profile.objects.create(
                     first_name=fName,
@@ -192,7 +206,10 @@ def register(request):
                     password=pwd,
                     confirm_password=confirmPassword)
                 user.save()
+                
+                messages.success(request, '*Your sign Up is successful*')
                 print('user created')
+                
                 return render(request, 'app/signIn.html')
         else:
             messages.info(request, 'password not matching...')
