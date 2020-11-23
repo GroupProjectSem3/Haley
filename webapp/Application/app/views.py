@@ -18,6 +18,7 @@ from django.db.models import Q
 from django.template.loader import render_to_string
 from .diagnosisPrediction import DiagnosisPrediction
 from django.contrib.auth.decorators import login_required
+from .common import common
 
 # def home(request):
 #     """Renders the home page."""
@@ -534,7 +535,7 @@ def feedback(request):
             unq_id = request.GET.get('unique_id', None)
             rating = request.GET.get('rating', None)
             ratingText = request.GET.get('ratingText', None)
-            User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=rating,feedbackText=ratingText)
+            User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=rating,feedbackText=ratingText,modify_date=datetime.today())
             user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
             if user_diag.__len__() > 0:
                 diag = user_diag.values('id','userResults','create_date')
@@ -551,41 +552,45 @@ def feedback(request):
         return render(request,'app/feedback.html',{'fname':user.first_name,'lname':user.last_name})
        
 
-# def assessmentDetails(request):
-#     userid = request.session['user_id']
-#     assessData = User_diagnosis.objects.filter(user_id=userid)
-#     if(assessData.__len__() > 0):
-#         assessList = list()
-#         for assess in assessData:
-#             assessDic = dict()
-#             assessDic['date'] = assess.create_date
-#             assessDic['time'] = assess.create_date
-#             assessDic['userResult'] = assess.userResults
-#             #assessDic['feedbackText'] = assess.feedbackText
-#             #assessDic['feedbackRating'] = assess.feedbackRating
-
-#             forSympPresent = list()    
-#             forSympAbsent = list()
-#             userResponses = assess.userResponses.split('|')
-#             for resp in userResponses:
-#                 Sname = resp.split('_')[0]
-#                 if resp.split('_')[1] == '0':
-#                     forSympAbsent.append(Sname)
-#                 else:
-#                     forSympPresent.append(Sname) 
-#             assessDic['symPresent'] = forSympPresent
-#             assessDic['symAbsent'] = forSympAbsent
-
-#             assessList.append(assessDic)
-
-#     return render(request,'app/userProfile.html')
-
-
 def assessmentDetails(request):
-    print ('Inside diagnostic tool first page')
     userid = request.session['user_id']
-    user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/assessments.html',{'fname':user.first_name,'lname':user.last_name})      
+    assessData = User_diagnosis.objects.filter(user_id=userid)
+    #assessData = User_diagnosis.objects.filter(user_id=userid, id =18)
+    if(assessData.__len__() > 0):
+        assessList = list()
+        for assess in assessData:
+            assessDic = dict()
+            assessDic['id'] = assess.id
+            assessDic['dDate'] = assess.create_date.strftime("%d %h, %Y")
+            assessDic['dTime'] = assess.create_date.strftime(" %I:%M %p")
+            assessDic['diseaseName'] = assess.userResults
+            assessDic['isFeedbackGiven'] = assess.isFeedbackGiven
+            if assess.isFeedbackGiven == 1:
+                assessDic['feedbackText'] = assess.feedbackText
+                assessDic['feedbackRating'] = assess.feedbackRating
+                assessDic['fDate'] = assess.modify_date.strftime("%d %h, %Y")
+                assessDic['feedbackRatingDesc'] = common.ratingDesc[assess.feedbackRating]
+                assessDic['feedbackRatingImage'] = common.ratingImage[assess.feedbackRating]
+                if assess.create_date.strftime("%d %h, %Y") == assess.modify_date.strftime("%d %h, %Y"):
+                    assessDic['fTime'] = assess.modify_date.strftime(" %I:%M %p")
+                else:
+                    assessDic['fTime'] = assess.modify_date.strftime(" %d %h, %Y %I:%M %p")
+
+            forSympPresent = list()    
+            forSympAbsent = list()
+            userResponses = assess.userResponses.split('|')
+            for resp in userResponses:
+                Sname = resp.split('_')[0]
+                if resp.split('_')[1] == '0':
+                    forSympAbsent.append(Sname)
+                else:
+                    forSympPresent.append(Sname) 
+            assessDic['symPresent'] = forSympPresent
+            assessDic['symAbsent'] = forSympAbsent
+
+            assessList.append(assessDic)
+
+        return render(request,'app/assessments.html',{'assessmentList':assessList})      
 
 
 def index(request):
