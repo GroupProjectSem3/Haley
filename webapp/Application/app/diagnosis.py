@@ -27,7 +27,7 @@ class Diagnosis:
 
         # Change the sId and sWeight to previous symptom (which has weight not 0)
         if(sWeight == 0):
-            strPrevious = Diagnosis.getPreviousSymptomData()
+            strPrevious = Diagnosis.getPreviousSymptomData(request)
             sId = symptomEnum(strPrevious.split('_')[0]).name
             sWeight = strPrevious.split('_')[1]
 
@@ -59,7 +59,7 @@ class Diagnosis:
 
     
     @staticmethod
-    def getPreviousSymptomData():
+    def getPreviousSymptomData(request):
         if(request.session.has_key('response_list')):
             resp_list = request.session['response_list'] 
             for resp in resp_list:
