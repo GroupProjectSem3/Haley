@@ -183,6 +183,7 @@
 * How to deploy application on AppEngine
 * How to work with docker and deploy app through Docker. 
 * How NoSQL database works in the background.
+
 ## Lacked / Mad ##
 
 * Amount of rework in the project.
