@@ -4,3 +4,4 @@ sklearn
 numpy==1.19.3
 pandas
 dnspython
+sqlparser==0.2.4
