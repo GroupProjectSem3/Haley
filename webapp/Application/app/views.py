@@ -940,24 +940,27 @@ def updatePassword(request):
         userid = request.session['user_id']
         user = User_profile.objects.filter(email=userid)[0]
         print(request.session['user_id'])
-        if (request.session.has_key('user_id')):
+        if (request.session.has_key('user_id') and (len(npass) >=5 ) ):
 
             if (npass == cpass):
                 print('password change')
                 User_profile.objects.filter(email=userid).update(
                     password=cpass, confirm_password=cpass)
+                messages.success(request, '*Your Password is updated successfully*')
 
                 print('pass updated')
-                return render(request, 'app/changePassword.html', {
+                return render(request, 'app/new_changePassword.html', {
                     'fname': user.first_name,
                     'lname': user.last_name
                 })
 
             else:
                 print('password not matches')
-                return render(request, 'app/changePassword.html')
+                messages.success(request, '*Your Password does not matched*')
+                return render(request, 'app/new_changePassword.html')
         else:
-            return render(request, 'app/changePassword.html', {
+            messages.success(request, '*Your Password should be minimun of six characters*')
+            return render(request, 'app/new_changePassword.html', {
                 'fname': user.first_name,
                 'lname': user.last_name
             })
@@ -972,7 +975,7 @@ def changePassword(request):
 
         user = User_profile.objects.filter(email=userid)[0]
         return render(
-            request, 'app/changePassword.html', {
+            request, 'app/new_changePassword.html', {
                 'fname': user.first_name,
                 'lname': user.last_name
             }
