@@ -55,12 +55,20 @@
                       <div class="timeline-body">
                           <table class="table table-bordered">
                               <tbody>
+                          
                                 <tr>
-                                  <td style="width: 70%;">
-                                      <label> The exact cause of attention deficit hyperactivity disorder (ADHD) is not fully understood. It is thought that ADHD is caused by a mix of genetic (inherited) and environmental factors like genetics, if a woman is exposed to harmful toxins during pregnancy the child may develop ADHD, brain development is the main area of focus when talking about ADHD. </label>
+                                
+                                  <td style="width: 60%;">
+                                      <p> The exact cause of attention deficit hyperactivity disorder (ADHD) is not fully understood. It is thought that ADHD is caused by a mix of genetic (inherited) and environmental factors like genetics, if a woman is exposed to harmful toxins during pregnancy the child may develop ADHD, brain development is the main area of focus when talking about ADHD. </p>
                                   </td>
-                                  <td style="width: 30%;">
+                          
+                              
+                                  <td style="width: 40%;">
                                          <h6>Symptoms</h6> 
+                                         <div class="container-fluid">
+                                           <div class="row">
+                                             <div class="col-md-6">
+                                         <li>Present</li>
                                          <ul>
                                           {% for symp in assess.symPresent%}
                                            <li>{{symp}}</li>
@@ -70,8 +78,24 @@
                                            <li>symptom 1  </li>
                                            <li>symptom 1  </li> -->
                                          </ul>
-       </td>
+                                        </div>
+                                        <div class="col-md-6">
+                                         <li>Absent</li>
+                                         <ul>
+                                          {% for symp in assess.symPresent%}
+                                           <li>{{symp}}</li>
+                                          {% endfor %}
+                                           <!-- <li>symptom 1  </li>
+                                           <li>symptom 1  </li>
+                                           <li>symptom 1  </li>
+                                           <li>symptom 1  </li> -->
+                                         </ul>
+                                         </div>
+                                        </div>
+                                      </div>
+                                </td>
                                 </tr>
+                        
                             </tbody>
                             </table>
                       </div>
