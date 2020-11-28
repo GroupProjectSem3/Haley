@@ -22,9 +22,7 @@ urlpatterns = [
     url(r'^login', app.views.login, name='login'),
     url(r'^logout', app.views.logout, name='logout'),
     url(r'^diagnosticTool', app.views.diagnosticTool, name='diagnosticTool'),
-    # url(r'^nextButtonclick', app.views.nextButtonclick, name='nextButtonclick'),
     url(r'^addButton', app.views.addButton, name='addButton'),
-    # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     # url(r'^newDiagnosticPageClick/(?:(?P<question>.+)/)?$', app.views.newDiagnosticPageClick, name='newDiagnosticPageClick'),
     url(r'^ajax/symptom_nextClick/$',
         app.views.symptom_nextClick,
@@ -46,7 +44,7 @@ urlpatterns = [
     #path('accounts/login/', auth_views.LoginView.as_view()),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
     
-    url(r'^index$', app.views.index, name='index'),
+    url(r'^index$', app.views.index, name='index'), 
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
     #     django.contrib.auth.views.login,

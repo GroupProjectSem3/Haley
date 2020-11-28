@@ -1,0 +1,186 @@
+{% extends "app/new_layout.html" %}
+
+{% load static %}
+
+{% block css %}
+<style>
+    .ui-autocomplete {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      float: left;
+      min-width: 160px;
+      padding: 5px 0;
+      margin: 3px 0 0;
+      list-style: none;
+      font-size: 17px;
+      text-align: left;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      background-clip: padding-box;
+      font-family: inherit;
+   }
+  
+  .ui-autocomplete > li > div {
+      display: block;
+      padding: 3px 20px;
+      clear: both;
+      font-weight: normal;
+      line-height: 1.42857143;
+      color: #444ce3;
+      white-space: nowrap;
+      font-size: large;
+   }
+  
+  .ui-state-hover,
+  .ui-state-active,
+  .ui-state-focus {
+    text-decoration: none;
+    color: white;
+    background-color:#007bff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .relative {
+  position: relative;
+  left: 400px;
+  
+  }
+  
+  </style>
+  
+  {% endblock %}
+  
+  {% block content %}
+
+  <div class="container-fluid">
+    <div class="row" style="padding: 30px;">
+            <div class="col-sm-6">
+                <span class="span">
+                    Diagnostic Tool
+                </span>
+            </div>
+            <!-- <div class="col-sm-6" id="welcome">
+                Welcome to Haley <b>Avi Peruboina</b>
+            </div> -->
+    </div>
+</div>
+    <div class="container-fluid">
+        <div class="row" style="padding:30px">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" id="haley">
+            <form action="addButton" method="POST">
+                {% csrf_token %}
+                    <div id="it">
+                        <br><h5>Let's start with the symptoms troubling you the most?</h5><hr>
+                        <input type="text" id="symptom" name="txtSymptom" placeholder="Type your symptom..">
+                    </div>
+                    {% for message in messages %} 
+                    <!-- <h6> {{message}}</h6> -->
+                    <label id="lblMsg">{{ message }}</label>
+                    {% endfor %}
+
+                    <div class="col-sm-12" id="symp">
+                        <!-- <p><b>
+                            Fatigue
+                            </b>
+                        </p>
+                        <p>Fatigue is a term used to describe an overall feeling of tiredness or lack of energy. It isn't the same as simply feeling drowsy or sleepy. When you're fatigues, you have no motivation and energy.</p> -->
+                        <div id="playlist">
+                            <br>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row" style="padding: 30px;">
+                        <div class="col-sm-10" >
+                            
+                        </div>
+                        <div class="col-sm-2" id="submit">
+                            <input type="submit" value="Select Symptom" name="sympton">
+                        </div> 
+                        </div><hr> -->
+            </form>        
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+  {% endblock %} 
+
+  {% block javascript %}
+  
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+
+  <!-- <script> -->
+  <script type="text/javascript">  
+    $(function() {
+      $("#symptom").autocomplete({
+        source: "{% url 'symptom-autocomplete' %}",
+        // minLength: 1,
+      });
+    });
+  
+      $('#symptom').on('autocompleteselect', function (e, ui) {
+        $("#lblMsg").html("");
+        //alert(ui.item.label)
+  
+        //
+        $.ajax({
+          url: '/ajax/getDetails/',
+          data: {
+            // 'symp' : $("#lblSymp").val(),
+            'symp' : ui.item.label,
+          },
+          dataType: 'json',
+          success: function (data) {
+            if (data.is_taken) {
+              //$("#lblSymp").html(data.nextSymptom)
+              //alert(data.nextSymptom);
+              //$("input[name='wt']:radio:checked").prop('checked',false);
+              //$("#lblFirst").hide();
+              //alert('inside autocomplete click')
+              var list_html = "";
+                  for( var i=0; i <data.entries_list.length; i++) {
+                     //list_html += "<li>" + data.entries_list[i].symptom + "</li>";
+                     list_html += "<br><h3 style='color: green;'>" + data.entries_list[i].symptom +"</h3>";
+                     list_html += "<p style='font-family: inherit;'>" + data.entries_list[i].desc +"</p>";
+                    //  list_html += "  <div class='relative'><button type='submit' class='btn btn-rounded btn-info' name='btnSelect' value ='"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button></div>";
+                    list_html += "<div class='row' style='padding: 30px;'><div class='col-sm-9'></div><div class='col-sm-3'>";
+                    list_html += "<button id='submit' type='submit' style='text-align:right;align-items:right;border: none;outline:none;' name='btnSelect' value = '"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button></div></div>";
+                     list_html += "<hr>";
+                   }
+                  //list_html += "</ol>"
+                  $("#playlist").html(list_html);
+            }
+          }
+        });
+        //
+      });
+      
+      
+  </script>
+  
+  {% endblock %}

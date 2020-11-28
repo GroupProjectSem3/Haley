@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'CLIENT': {
             'name' : 'Haley',
-           'host':'mongodb+srv://D19123919:D19123919@haley.tdyg9.mongodb.net/Haley?retryWrites=true&w=majority',
+           'host':'mongodb+srv://D19123919:D19123919@cluster0.nwm5p.mongodb.net/Haley?retryWrites=true&w=majority',
             'username': 'D19123919',
             'password': 'D19123919',
             'authMechanism': 'SCRAM-SHA-1',
