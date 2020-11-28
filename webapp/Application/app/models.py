@@ -47,6 +47,7 @@ class Symptom_detail(models.Model):
 class Disease_symptom(models.Model):
     disease_id = models.CharField(max_length=10)
     disease_name = models.CharField(max_length=100)
+    all_symptoms = models.CharField(max_length=1000,default="")
     #symptom_details = ListField(EmbeddedModelField('Symptom_detail'))
     symptom_details = models.ArrayField(
         model_container = Symptom_detail,

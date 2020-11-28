@@ -801,23 +801,24 @@ def addButton(request):
             messages.info(request, 'Please Select from list')
             return render(request, 'app/diagnosticTool.html',
                           {'testing': 'tesing textttt'})
-    #  symptom = request.POST.get('txtSymptom', None)
-    #  print (symptom)
-    #  print ('add button')
-    #  Diagnosis.clearCacheAndSession(request)
-    #  return render(request,'app/diagnosticToolQuestion.html',{'question':symptomName,'symptomId':symptomName})
 
 
+# NEW ONE 
 def symptom_nextClick(request):
     weight = int(request.GET.get('wt', None))
     symptomName = request.GET.get('symp', None)
     sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
+    symp_wt = sympId+'_'+ str(weight)
 
     equipment_list = cache.get('disease_symptom_list')
     if not equipment_list:
-       disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
+       #disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
+       disease_symptoms_list = Disease_symptom.objects.filter(Q(all_symptoms__icontains=symp_wt))
     else:
        disease_symptoms_list = cache.get('disease_symptom_list')
+       disease_symptoms_list = disease_symptoms_list.filter(Q(all_symptoms__icontains=symp_wt))
+
+    cache.set('disease_symptom_list',disease_symptoms_list)   
 
     x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
     #nxtSymptom = symptomEnum[x].value
