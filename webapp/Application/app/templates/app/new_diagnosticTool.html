@@ -91,7 +91,7 @@
                 {% csrf_token %}
                     <div id="it">
                         <br><h5>Let's start with the symptoms troubling you the most?</h5><hr>
-                        <input type="text" id="symptom" name="txtSymptom" placeholder="Type your symptom..">
+                        <input class="col-sm-6"  type="text" id="symptom" name="txtSymptom" placeholder="Type your symptom.." style="width: 100%;">
                     </div>
                     {% for message in messages %} 
                     <!-- <h6> {{message}}</h6> -->
