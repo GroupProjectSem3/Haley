@@ -47,6 +47,7 @@ class Symptom_detail(models.Model):
 class Disease_symptom(models.Model):
     disease_id = models.CharField(max_length=10)
     disease_name = models.CharField(max_length=100)
+    all_symptoms = models.CharField(max_length=1000,default="")
     #symptom_details = ListField(EmbeddedModelField('Symptom_detail'))
     symptom_details = models.ArrayField(
         model_container = Symptom_detail,
@@ -58,7 +59,8 @@ class User_diagnosis(models.Model):
     user_id = models.CharField(max_length=100)
     userResponses = models.CharField(max_length=1000)
     userResults = models.CharField(max_length=300)
-    create_date = models.DateField()
-    modify_date = models.DateField()
-    # feedbackRating = models.IntegerField()
-    # feedbackText = models.CharField(max_length=5000)
+    create_date = models.DateTimeField()
+    modify_date = models.DateTimeField()
+    isFeedbackGiven = models.IntegerField()
+    feedbackRating = models.IntegerField()
+    feedbackText = models.CharField(max_length=5000)

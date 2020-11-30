@@ -1,28 +1,75 @@
 {% extends "app/mainlayout.html" %}
 
-{% load static %}
-
 {% block content %}
 
-    <!-- child content -->
+{% load static %}
+<style type="text/css">
+
+  #spinner {
+      display: none;
+  }
+
+  .loading {
+    margin-top: 7px;
+    border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-lg-6">
+        <h1 >Diagnostic Tool</h1>
+      </div><!-- /.col -->
+      <!-- /.col -->
+     </div>
+  </div>
+</div>
+<!-- child content -->
     <div class="content" id="divQuestions">
       <div class="container-fluid">
         <div class="row">
 
             <div class="col-lg-1"></div>
-         <div class="col-lg-6">
+         <div class="col-lg-7">
 
             <br>
 
           <form method="POST">
             {% csrf_token %}	
             
-              <div class="card card-primary" > 
+              <div class="card card-primary card-outline" > 
               <div class="card-header">
                 <!-- <h5 class="m-0">How severe suffering with the symptom - ?</h5> -->
-                <label>How do you rate the severity of this symptom - </label>
-                <label id="lblFirst" style="font-family: cursive;">{{ question }}</label>
-                <label id="lblSymp"></label>
+                <div class="row">
+                  <div class="col-lg-7" style="font-family: inherit; font-weight: 500; font-size: 1.25rem;">
+                How do you rate the severity of this symptom -
+              </div>
+              <div class="col-lg-4">
+                <label id="lblFirst" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;">{{ question }}</label>
+                
+                <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
+               </label></div>
+              <div class="col-lg-1"><label id="spinner" class="loading" ></label></div>
+              </div>
               </div>
             
                 <!-- <div class="card-body" style="font-family: system-ui;color: royalblue;">
@@ -33,16 +80,16 @@
                   <input type="radio" value="4" name="wt" id="wtt"> 4 - High<br>
                   <input type="radio" value="5" name="wt" id="wtt"> 5 - Severe<br>
                 </div> -->
-                <p style="text-align: right;padding-right: 10px;color:darkorange;font-family: 'Font Awesome 5 Free';">(* Select on one of the Smiley Icon)</p>
+                <p style="text-align: left;padding-right: 10px;color:darkorange;font-family: 'Font Awesome 5 Free';">(* Select on one of the Smiley Icon)</p>
                 <br>
                  <div class="row">
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt" value="0" style="font-size:50px;border:none;background-color:white;padding-left: 10px;" >&#128578;</button>
+                    <button type="button" name="btnwt" id="btnwt" value="0"  style="font-size:50px;border:none;background-color:white;padding-left: 10px;" >&#128578;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">0</label>
                     <br> <label class="text-center" style="padding-left: 18px;padding-right: 18px;font-family: sans-serif;">No Hurt</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="1" style="font-size:50px;border:none;background-color:white;">&#128530;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="1"  style="font-size:50px;border:none;background-color:white;">&#128530;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">1</label>
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Little Bit</label>
                   </div>
@@ -52,12 +99,12 @@
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Little More</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="3" style="font-size:50px;border:none;background-color:white;" >&#128543;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="3"  style="font-size:50px;border:none;background-color:white;" >&#128543;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">3</label>
                     <br> <label class="text-center" style="padding-left: 7px;padding-right: 7px;">Hurts Even More</label>
                   </div>
                   <div class="col-lg-2"> 
-                    <button type="button" name="btnwt" id="btnwt"  value="4" style="font-size:50px;border:none;background-color:white;" >&#128534;</button>
+                    <button type="button" name="btnwt" id="btnwt"  value="4"  style="font-size:50px;border:none;background-color:white;" >&#128534;</button>
                     <br> <label style="padding-left: 35px;font-family: sans-serif;font-size: x-large;">4</label>
                     <br> <label class="text-center" style="padding-left: 6px;padding-right: 6px;">Hurts Whole Lot</label>
                   </div>
@@ -70,10 +117,10 @@
                 <label id="lblBtnValue" style="visibility: hidden; height: 20px;"></label>
 
                 <!-- <br>   -->
-                <div class="row">
+                <!-- <div class="row">
                 <div class="col-lg-10"></div>
                 <button type="button" id="btnTest" value="testing" name="btnTest" class="btn btn-rounded btn-outline-primary btn-sm" style="padding-right: 2.3rem;text-align: center;padding-left: 1.8rem;"> Next  </button>
-              </div>
+              </div> -->
             </div>
 
             <!-- <div class="card-header">
@@ -85,13 +132,13 @@
         
             <div class="col-lg-4">
               <br>
-              <div class="card card-green" >
+              <div class="card card-cyan card-outline" >
               
                 <div class="card-header " >
                    
                   <!-- <h3 class="card-title" style="font-family: cursive;"><i class="fas fa-info-circle"></i> {{ question }}</h3> -->
-                  <i class="fas fa-info-circle"></i> <label id="lblCardName" style="font-family: cursive;"> {{ question }} </label> &nbsp;
-                  <label id="lblNewCardName" style="font-family: cursive;"></label>  
+                  <i class="fas fa-info-circle"></i> <label id="lblCardName" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"> {{ question }} </label> &nbsp;
+                  <label id="lblNewCardName" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>  
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus" style="color:aliceblue;"></i>
                     </button>
@@ -102,8 +149,8 @@
                 <!-- /.card-header -->
                 <div class="card-body" style="display: block;">
                   <!-- The body of the card The body of the card The body of the card The body of the card The body of the card -->
-                  <label id="lblCardDesc" style="font-family: 'Font Awesome 5 Free';font-weight: 200;"> {{ symptomDescription}} </label>
-                  <label id="lblNewCardDesc" style="font-family: 'Font Awesome 5 Free';font-weight: 200;"></label>  
+                  <label id="lblCardDesc" style="font-family: inherit; font-weight: 500;"> {{ symptomDescription}} </label>
+                  <label id="lblNewCardDesc" style="font-family: inherit; font-weight: 500;"></label>  
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -121,10 +168,13 @@
     <div class="content" id="divResults" style="display: none;">
         <section class="content">
           <!-- Default box -->
-          <br>
-          <div class="card">
+          <!-- <br> -->
+          <div class="container-fluid">
+            <div class="row ">
+              <div class="col-lg-12">
+          <div class="card card-outline card-primary">
             <div class="card-header">
-              <h3 class="card-title">Diagnosis Details</h3>
+              <h3 class="card-title" style="font-family: inherit;font-weight: bold;">Predictions</h3>
     
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -136,19 +186,19 @@
                 <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                   <div class="row">
                     <div class="col-12">
-                      <p> <i class="fas fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</p>
-                      <label id="lblDiseaseName" style="color: limegreen;font-family:cursive;font-size:x-large"></label>
+                      <h5> <i class="fas fa-info-circle"></i> Hi {{fname}}, based on the responses you provided here is Haley's prediction.</h5>
+                      <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large"></label>
                       <!-- <h4 id="disease1">Disease Name: </h4> -->
                         <div class="post">
-                          <!-- <div class="user-block">
-                              <h5>What does it mean ?</h5>
-                          </div> -->
-                          <!-- /.user-block -->
-                          <p id="pDesc"></p>
-                          <p>
-                            <a href="http://www.default.com/" target="_blank" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Tell me more</a>
+                          <div class="expandableCollapsibleDiv3">
+                            <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                              <h5>Description</h5>
+                          <p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px;"></p>
+                          <p style="text-align: center;">
+                            <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fas fa-link mr-1"></i> Tell me more</a>
                           </p>
                         </div>
+                      </div>
     
                         <div class="post clearfix">
                           <div class="expandableCollapsibleDiv">
@@ -158,7 +208,7 @@
                               <h5>Possible Causes</h5>
                           <!-- </div> -->
                           <!-- /.user-block -->
-                          <p id="pCauses"></p>
+                          <p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px;"></p>
                         </div>
                           <!-- <p>
                             <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 2</a>
@@ -171,7 +221,7 @@
                             <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
                             <h5>Symptoms</h5>
                           <!-- /.user-block -->
-                          <div class="user-block">
+                          <div class="user-block" style="font-family: inherit; font-weight: 500;">
                               <!-- <span class="username"> -->
                               <ul id="ulSymptoms"> 
                                   <!-- <li>Present
@@ -198,7 +248,7 @@
   
                   <!-- <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>  -->
                   <div style="text-align: center;">
-                   <button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'GPList' %}'" >Find GP's nearby
+                   <button type="button" class="btn btn-info btn-lg" onclick="location.href='{% url 'GPList' %}'"> Find GP's nearby
                     <i class="nav-icon fas fa-user-md"></i>
                     </button>
                   </div>  
@@ -243,8 +293,10 @@
             </div>
             <!-- /.card-body -->
           </div>
+        </div>
           <!-- /.card -->
-    
+    </div>
+          </div>
         </section>
       <!-- /.content -->
     
@@ -258,12 +310,29 @@
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
+//   $(document).ready(function () {
+//  var executed = false;
+// var loaded = function spinner () {
+//     if (!executed) {
+//         $("#spinner").fadeOut("slow");
+//         setTimeout(function () {
+//             $('body').addClass('loaded');
+//         }, 10);
+//         executed = true;
+//     }
+// };
+// $(window).on('load', loaded);
+// setTimeout(loaded, 1000);
+// });
+
   $(document).ready(function () {
 
     var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
     defaultElementDescription.hide("fast", "swing");
     var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
     defaultElementDescription2.hide("fast", "swing");
+    var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("p");
+    defaultElementDescription3.hide("fast", "swing");
 
     $(".expandableCollapsibleDiv > img").click(function (e) {
       var showElementDescription = 
@@ -289,14 +358,24 @@
         $(this).attr("src", "../../static/dist/img/UpArrow.png");
       }
     });
+    $(".expandableCollapsibleDiv3 > img").click(function (e) {
+      var showElementDescription = 
+        $(this).parents(".expandableCollapsibleDiv3").find("p");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
   });
 
 
   $(jQuery).on('click', "#btnwt", function() {
     $("#lblBtnValue").html($(this).val());
-});
-
-  $("#btnTest").click(function () {
+    
     // if ($('input[name="wt"]:checked').length == 0) {
     //      alert('please select one severity..');
     //      return false; } 
@@ -312,6 +391,11 @@
     {
       symptom = $("#lblSymp").html();
     }
+    $(this).blur();
+    //
+    var myDiv = document.getElementById("spinner")
+    myDiv.style.display = "block";
+    //
       $.ajax({
         url: '/ajax/symptom_nextClick/',
         data: {
@@ -356,7 +440,7 @@
                 //$("#liPresent").html(list_html1);
                 if(data.forSympAbsent.length>0)
                 {
-                  list_html1 += "<li>Present <ul>";
+                  list_html1 += "<li>Absent<ul>";
                   for(var i=0;i<data.forSympAbsent.length;i++)
                   {
                       list_html1 +="<li>" + data.forSympAbsent[i] +"</li>";
@@ -367,8 +451,85 @@
                 $("#ulSymptoms").html(list_html1);
 
           }
+          myDiv.style.display = "none";
         }
       });
+
+});
+
+  $("#btnTest").click(function () {
+    // // if ($('input[name="wt"]:checked').length == 0) {
+    // //      alert('please select one severity..');
+    // //      return false; } 
+    // if($("#lblBtnValue").html() == ""){
+    //      alert('please select one severity..');
+    //      return false; } 
+    // var symptom = '';
+    // if($("#lblFirst").is(":visible"))
+    // {
+    //   symptom = $("#lblFirst").html();
+    // }
+    // else
+    // {
+    //   symptom = $("#lblSymp").html();
+    // }
+    //   $.ajax({
+    //     url: '/ajax/symptom_nextClick/',
+    //     data: {
+    //       //'wt': $("input[name='wt']:radio:checked").val(),
+    //       'wt': $("#lblBtnValue").html(),
+    //       // 'symp' : $("#lblSymp").val(),
+    //       'symp' : symptom,
+    //     },
+    //     dataType: 'json',
+    //     success: function (data) {
+    //       $("#lblBtnValue").html("")
+    //       if (data.is_taken) {
+    //         $("#lblSymp").html(data.nextSymptom)
+    //         //$("input[name='wt']:radio:checked").prop('checked',false);
+    //         $("#lblFirst").hide();
+    //         $("#lblNewCardName").html(data.nextSymptom)
+    //         $("#lblCardName").hide();
+    //         $("#lblNewCardDesc").html(data.symptomDescription)
+    //         $("#lblCardDesc").hide();
+    //         $("#divResults").hide();
+    //       }
+    //       else{
+    //         $("#divResults").show();
+    //         $("#divQuestions").hide();
+    //         $("#lblDiseaseName").html(data.forDiseases);
+    //         $("#pDesc").html(data.forDesc);
+    //         $("#pCauses").html(data.forCauses);
+    //         $("a[href='http://www.default.com/']").attr('href', data.forLink);
+    //         $("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
+
+    //         var list_html1 = "";
+    //         //var list_html2 = "";
+    //             if(data.forSympPresent.length>0)
+    //             {
+    //               list_html1 += "<li>Present <ul>";
+    //               for(var i=0;i<data.forSympPresent.length;i++)
+    //               {
+    //                   list_html1 +="<li>" + data.forSympPresent[i] +"</li>";
+    //               }  
+    //               list_html1 += "</ul> </li>";
+    //             }
+    //             //$("#liPresent").html(list_html1);
+    //             if(data.forSympAbsent.length>0)
+    //             {
+    //               list_html1 += "<li>Present <ul>";
+    //               for(var i=0;i<data.forSympAbsent.length;i++)
+    //               {
+    //                   list_html1 +="<li>" + data.forSympAbsent[i] +"</li>";
+    //               }
+    //               list_html1 += "</ul> </li>";
+    //             }
+    //             //$("#liAbsent").html(list_html2);
+    //             $("#ulSymptoms").html(list_html1);
+
+    //       }
+    //     }
+    //   });
 
     });
 
@@ -412,6 +573,34 @@ $(function () {
     // })
   })
 
+  function spinner() {
+    // var myDiv = document.getElementById("spinner")
+    // show = function  spinner(){
+    //     myDiv.style.display = "block";
+    //     setTimeout(hide, 1000); // 0.5 seconds
+    //   },
+    //   hide = function  spinner(){
+    //   myDiv.style.display = "none";
+    //    };
+    //    show();
+      };
+    
+
+  //   function spinner(){
+  //   var myDiv = document.getElementById("spinner"),
+
+  //     show = function  spinner(){
+  //       myDiv.style.display = "block";
+  //       setTimeout(hide, 1000); // 5 seconds
+  //     },
+
+  //     hide = function  spinner(){
+  //       myDiv.style.display = "none";
+  //     };
+
+  //   show();
+  // })();
+   
 </script>
 {% endblock %}
 

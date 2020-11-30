@@ -1,8 +1,7 @@
-
 """
 Definition of urls for python_webapp_django.
 """
-
+from django.contrib.auth import views as auth_views
 from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
@@ -23,12 +22,14 @@ urlpatterns = [
     url(r'^login', app.views.login, name='login'),
     url(r'^logout', app.views.logout, name='logout'),
     url(r'^diagnosticTool', app.views.diagnosticTool, name='diagnosticTool'),
-    # url(r'^nextButtonclick', app.views.nextButtonclick, name='nextButtonclick'),
     url(r'^addButton', app.views.addButton, name='addButton'),
-    # url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     # url(r'^newDiagnosticPageClick/(?:(?P<question>.+)/)?$', app.views.newDiagnosticPageClick, name='newDiagnosticPageClick'),
-    url(r'^ajax/symptom_nextClick/$', app.views.symptom_nextClick, name='symptom_nextClick'),
-    url(r'^api/symptom-autocomplete/', app.views.symptom_autocomplete, name='symptom-autocomplete'),
+    url(r'^ajax/symptom_nextClick/$',
+        app.views.symptom_nextClick,
+        name='symptom_nextClick'),
+    url(r'^api/symptom-autocomplete/',
+        app.views.symptom_autocomplete,
+        name='symptom-autocomplete'),
     url(r'^update_Profile', app.views.update_Profile, name='update_Profile'),
     url(r'^userProfile', app.views.userProfile, name='userProfile'),
     url(r'^updatePassword', app.views.updatePassword, name='updatePassword'),
@@ -39,9 +40,11 @@ urlpatterns = [
     url(r'^predictions', app.views.predictions, name='predictions'),
     url(r'^GPList', app.views.GPList, name='GPList'),
     url(r'^feedback', app.views.feedback, name='feedback'),
-    url(r'^assessment', app.views.assessmentDetails, name='assessmentDetails'),
-
-    # url(r'^contact$', app.views.contact, name='contact'),
+    #url('accounts/login/', app.views.home, name ='home'),
+    #path('accounts/login/', auth_views.LoginView.as_view()),
+    url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
+    
+    url(r'^index$', app.views.index, name='index'), 
     # url(r'^about', app.views.about, name='about'),
     # url(r'^login/$',
     #     django.contrib.auth.views.login,

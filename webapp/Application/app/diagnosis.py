@@ -15,6 +15,7 @@ class Diagnosis:
         return isExists 
 
 
+# new one based on concatenation
     @staticmethod
     def getNextSymptom(request,disease_symptoms_list,sId,sWeight):
         if(request.session.has_key('completedSymp')):
@@ -26,26 +27,20 @@ class Diagnosis:
         completedSymp.append(sId)
 
         # Change the sId and sWeight to previous symptom (which has weight not 0)
-        if(sWeight == 0):
-            strPrevious = Diagnosis.getPreviousSymptomData()
-            sId = symptomEnum(strPrevious.split('_')[0]).name
-            sWeight = strPrevious.split('_')[1]
-
         for dis_symp in disease_symptoms_list:
-            if(Diagnosis.symptomWithWeightExists(dis_symp.symptom_details,sId,sWeight)):
-                tempList.append(dis_symp)
-                for symp_det in dis_symp.symptom_details:
-                    if(symp_det['symptom_id'] !=sId and symp_det['symptom_id'] not in completedSymp):
-                        if(symp_det['symptom_id'] in finishedSymp):
-                            finishedSymp[symp_det['symptom_id']] += symp_det['weight']
-                        else:
-                            finishedSymp[symp_det['symptom_id']] = symp_det['weight']
+                #if(Diagnosis.symptomWithWeightExists(dis_symp.symptom_details,sId,sWeight)):
+                    #tempList.append(dis_symp)
+            for symp_det in dis_symp.symptom_details:
+                if(symp_det['symptom_id'] !=sId and symp_det['symptom_id'] not in completedSymp):
+                    if(symp_det['symptom_id'] in finishedSymp):
+                        finishedSymp[symp_det['symptom_id']] += symp_det['weight']
+                    else:
+                        finishedSymp[symp_det['symptom_id']] = symp_det['weight']
         
         request.session['completedSymp'] = completedSymp
-        #request.session['filteredList'] = dis_sym_list #
-        if(tempList.__len__()>0):
-            cache.set('disease_symptom_list',tempList)
-        #if(tempList.count() <=3):
+            #request.session['previous_symptom_list'] = finishedSymp
+            # if(tempList.__len__()>0):
+            #     cache.set('disease_symptom_list',tempList)
         if(completedSymp.__len__()==5):
             return "SUBMITNOW"
         elif(finishedSymp.__len__()>0):
@@ -55,16 +50,7 @@ class Diagnosis:
             max_keys = [k for k, v in finishedSymp.items() if v == max_value]
             return max_keys[0]
         else:
-            return "SUBMITNOW"     
-
-    
-    @staticmethod
-    def getPreviousSymptomData():
-        if(request.session.has_key('response_list')):
-            resp_list = request.session['response_list'] 
-            for resp in resp_list:
-                if int(resp.split('_')[1]) > 0:
-                    return resp
+            return "SUBMITNOW" 
 
 
     @staticmethod
@@ -81,20 +67,7 @@ class Diagnosis:
         if(request.session.has_key('completedSymp')):
             del request.session['completedSymp']
         if(request.session.has_key('response_list')):
-            del request.session['response_list']    
-
-
-    @staticmethod
-    def getPrediction():
-
-        #result = ['D1':70,'D2':20,'D3':10]
-        # result = result.items()
-        # strResult = '|'.join(result)
-        #strResult = 'D1_70|D2_20|D3_10'
-        result = ['D1_70','D2_20','D3_10']
-        return result
-
-
-
-
+            del request.session['response_list']  
+        # if(request.session.has_key('previous_symptom_list')):
+        #     del request.session['previous_symptom_list']        
 
