@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, auth
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext
-from datetime import datetime
+from datetime import datetime, timedelta
 from .models import User_profile
 from django.contrib import messages
 from .models import Disease, Disease_symptom, symptom, Symptom_detail, User_diagnosis
@@ -14,11 +14,12 @@ from django.http import JsonResponse
 from django.core.cache import cache
 import json
 from .symptomEnum import symptomEnum
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.template.loader import render_to_string
 from .diagnosisPrediction import DiagnosisPrediction
 from django.contrib.auth.decorators import login_required
 from .common import common
+from dateutil.relativedelta import relativedelta
 
 # def home(request):
 #     """Renders the home page."""
@@ -1082,6 +1083,56 @@ def assessmentDetails(request):
         return render(request,'app/new_assessments.html',{'assessmentList':list(),'isExists':False,'fname':user.first_name,'lname':user.last_name})   
 
 
+def getChartsDetails(request):
+    #symptomName = request.GET.get('symp', None)
+    #nxtSymptom = list()
+    pieChart = list()
+    diseases = User_diagnosis.objects.filter(create_date__lte=datetime.today(), create_date__gt=datetime.today()-timedelta(days=30)).values('userResults').annotate(disease_count=Count('userResults')).order_by('-disease_count')[:3]
+
+    for dis in diseases:
+        disDict = dict()
+        disDict['disease'] = dis['userResults']
+        disDict['percent'] = dis['disease_count']
+        pieChart.append(disDict)
+
+    # Bar chart
+    userid = request.session['user_id']
+    months_before = 6
+    now = datetime.utcnow()
+    from_datetime = now - relativedelta(months=months_before)
+    modified_from_datetime = from_datetime.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    all_records = User_diagnosis.objects.filter(user_id='katie.patel@gmail.com', create_date__gte=modified_from_datetime)
+    #all_records_dates = all_records.values_list('create_date')
+
+    monthDict = dict()
+    now = datetime.now()
+    result = []
+    for _ in range(0, 6):
+        now = now.replace(day=1) - timedelta(days=1)
+        monthName = now.strftime("%B")
+        monthDict[monthName] = 0
+
+    for rec in all_records:
+        if(rec.create_date.strftime("%B") in monthDict):
+            monthDict[rec.create_date.strftime("%B")] += 1
+        # else:
+        #     monthDict[symp_det['symptom_id']] = 1
+    
+    barChart = list()
+    for k,v in monthDict.items():
+        visitDict = dict()
+        visitDict['month'] = k
+        visitDict['count'] = v
+        barChart.append(visitDict)    
+
+
+    data = {
+        'is_taken': True,
+        'pieChart_list': pieChart, 'barChart_list': barChart
+    }
+    return JsonResponse(data, safe=False)
+
+    
 
 #### For NEW pages END ####
 

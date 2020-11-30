@@ -165,9 +165,34 @@
 
 
 {% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 
-// Load Charts and the corechart package.
+var pieArry = [];
+var barArry = [];
+
+$(document).ready(function () {
+  
+  $.ajax({
+        url: '/ajax/getChartsDetails/',
+        data: {
+          // 'symp' : $("#lblSymp").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            for( var i=0; i <data.pieChart_list.length; i++) {
+              x = 25;
+              pieArry.push([data.pieChart_list[i].disease, (data.pieChart_list[i].percent * x)]);
+            }
+            for( var i=0; i <data.barChart_list.length; i++) {
+              barArry.push([data.barChart_list[i].month, data.barChart_list[i].count]);
+            }
+          }
+        }
+      });
+      
+      // Load Charts and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
 // Draw the pie chart for Sarah's pizza when Charts is loaded.
@@ -176,33 +201,32 @@ google.charts.setOnLoadCallback(drawDiseaseChart);
 // Draw the pie chart for the Anthony's pizza when Charts is loaded.
 google.charts.setOnLoadCallback(drawVisitsChart);
 
-// Callback that draws the pie chart for Sarah's pizza.
-function drawDiseaseChart() {
-  // Create the data table for Disease.
+});
+
+function drawDiseaseChart(){
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Disease');
   data.addColumn('number', 'Number of Cases');
-  data.addRows([
-    ['Covid', 79],
-    ['Flue', 12],
-    ['Diabetis', 7],
-    ['Others', 2]
-  ]);
+  data.addRows(pieArry);
 
-  // Set options for Disease's pie chart.
-  var options = {title:'Top Diseases diagnosed last month', is3D: true, backgroundColor: 'none',
-                    titleTextStyle: {
-                    color: '#E375D1',    // any HTML string color ('red', '#cc00cc')
-                    fontName: 'Lato', // i.e. 'Times New Roman'
-                    fontSize: '34px', // 12, 18 whatever you want (don't specify px)
-                    }
-                
-                };
+          // Set options for Disease's pie chart.
+          var options = {title:'Top Diseases diagnosed last month', is3D: true, backgroundColor: 'none',
+                            titleTextStyle: {
+                            color: '#E375D1',    // any HTML string color ('red', '#cc00cc')
+                            fontName: 'Lato', // i.e. 'Times New Roman'
+                            fontSize: '34px', // 12, 18 whatever you want (don't specify px)
+                            }
+                        
+                        };
 
-  // Instantiate and draw the chart for Disease's .
-  var chart = new google.visualization.PieChart(document.getElementById('Disease_chart_div'));
-  chart.draw(data, options);
+          // Instantiate and draw the chart for Disease's .
+          var chart = new google.visualization.PieChart(document.getElementById('Disease_chart_div'));
+          chart.draw(data, options);
 }
+
+// Draw the pie chart for the Anthony's pizza when Charts is loaded.
+//google.charts.setOnLoadCallback(drawVisitsChart);
+
 
 // Callback that draws the pie chart for Visits's pizza.
 function drawVisitsChart() {
@@ -211,19 +235,7 @@ function drawVisitsChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Month');
   data.addColumn('number', 'No of Visits');
-  data.addRows([
-    ['Jan', 2],
-    ['Feb', 2],
-    ['Mar', 8],
-    ['Apr', 0],
-    ['May', 3]
-    // ['Jun', 2],
-    // ['Jul', 0],
-    // ['Aug', 2],
-    // ['Sep', 0],
-    // ['Oct', 2],
-    // ['Nov', 0],
-  ]);
+  data.addRows(barArry);
 
   // Set options for Visits's bar chart.
   var options = {title:'Your visits to Haley per month', is3D: true, backgroundColor: 'none',
