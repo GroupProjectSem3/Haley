@@ -12,7 +12,14 @@ class DiagnosisPrediction:
     #data = pd.read_csv("/content/drive/My Drive/Group_Project/Training.csv")
     def predict(symptom):
         #data = pd.read_csv(os.path.join(settings.STATIC_URL, "Training.csv"))
+<<<<<<< HEAD
         data = pd.read_csv(settings.STATIC_ROOT+"/Training.csv")
+=======
+        #For local deployment
+        #data = pd.read_csv(settings.STATIC_ROOT+"/Training.csv")
+        #For deployment only
+        data = pd.read_csv("https://deployment-haley.ew.r.appspot.com/static/styles/Training.csv")
+>>>>>>> origin/Deployment
         df = pd.DataFrame(data)
         cols = df.columns
         cols = cols[:-1]

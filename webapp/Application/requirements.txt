@@ -16,6 +16,7 @@ idna==2.8
 joblib==0.17.0
 menuinst==1.4.16
 numpy==1.19.3
+<<<<<<< HEAD
 pandas==1.1.4
 pycosat==0.6.3
 pycparser==2.19
@@ -41,3 +42,8 @@ wincertstore==0.2
 
 
 
+=======
+pandas
+dnspython
+sqlparse==0.2.4
+>>>>>>> origin/Deployment
