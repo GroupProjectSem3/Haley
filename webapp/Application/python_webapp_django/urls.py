@@ -43,6 +43,10 @@ urlpatterns = [
     #url('accounts/login/', app.views.home, name ='home'),
     #path('accounts/login/', auth_views.LoginView.as_view()),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
+<<<<<<< HEAD
+    url(r'^ajax/getChartsDetails/$', app.views.getChartsDetails, name='getChartsDetails'),
+=======
+>>>>>>> origin/Deployment
     
     url(r'^index$', app.views.index, name='index'), 
     # url(r'^about', app.views.about, name='about'),

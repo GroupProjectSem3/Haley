@@ -2,11 +2,15 @@
 
 {% block content %}
 {% load static %}
-
+<style>
+  .more {display: none;}
+</style>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}" >
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
@@ -22,20 +26,18 @@
                     Assessment Details
                 </span>
             </div>
-            <!-- <div class="col-sm-6" id="welcome">
-                Welcome to Haley <b>Avi Peruboina</b>
-            </div> -->
     </div>
 </div>
 
 {% if isExists %}
 
-<div id ="assess">
+
 <div class="container-fluid">
-      
+  <div id ="assess"> 
     <!-- Timelime example  -->
-    <div class="row" style="margin: 50px; padding-top: 50px;">
-      <div class="col-md-12">
+    <div class="row" style="padding-top: 50px;">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <!-- The time line -->
         <div class="timeline">
 
@@ -47,88 +49,75 @@
           <!-- /.timeline-label -->
                   <div>
                       <i class="nav-icon fas fa-tachometer-alt bg-blue"></i>
-                    <div class="timeline-item" >
+                    <div class="timeline-item" style="margin-right:0px;">
                       <span class="time"><i class="fas fa-clock"></i>{{assess.dTime}}</span>
                       <div class="timeline-tools"></div>
-                        <h3 class="timeline-header"> <b>{{assess.diseaseName}}</b></h3>
+                        <h3 class="timeline-header" style="font-size: large;"> <b>{{assess.diseaseName}}</b></h3>
                       
-                      <div class="timeline-body">
-                          <table class="table table-bordered">
-                              <tbody>
-                          
-                                <tr>
-                                
-                                  <td style="width: 60%;">
-                                      <p> The exact cause of attention deficit hyperactivity disorder (ADHD) is not fully understood. It is thought that ADHD is caused by a mix of genetic (inherited) and environmental factors like genetics, if a woman is exposed to harmful toxins during pregnancy the child may develop ADHD, brain development is the main area of focus when talking about ADHD. </p>
-                                  </td>
-                          
-                              
-                                  <td style="width: 40%;">
-                                         <h6>Symptoms</h6> 
-                                         <div class="container-fluid">
-                                           <div class="row">
-                                             <div class="col-md-6">
-                                         <li>Present</li>
-                                         <ul>
-                                          {% for symp in assess.symPresent%}
-                                           <li>{{symp}}</li>
-                                          {% endfor %}
-                                           <!-- <li>symptom 1  </li>
-                                           <li>symptom 1  </li>
-                                           <li>symptom 1  </li>
-                                           <li>symptom 1  </li> -->
-                                         </ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                         <li>Absent</li>
-                                         <ul>
-                                          {% for symp in assess.symPresent%}
-                                           <li>{{symp}}</li>
-                                          {% endfor %}
-                                           <!-- <li>symptom 1  </li>
-                                           <li>symptom 1  </li>
-                                           <li>symptom 1  </li>
-                                           <li>symptom 1  </li> -->
-                                         </ul>
-                                         </div>
-                                        </div>
-                                      </div>
-                                </td>
-                                </tr>
+                      <div class="timeline-body" >
+                        <div class="container-fluid">
+                          <div class="row">
+                          <div class="col-sm-6" style="border:1px solid rgba(0, 0, 0, 0.125);" >
+                            <p > {{assess.disDesc1}}<span id="dots{{assess.id}}">...</span><span class="more" id="more{{assess.id}}">{{assess.disDesc2}}</span></p>
+                              <button onclick="myFunction(this.value)" id="myBtn{{assess.id}}" value="{{assess.id}}" style="border: none;outline: none;">Read more</button>
+                          </div>
+                          <div class="col-sm-6" style="border: 1px solid rgba(0, 0, 0, 0.125);" >
+                           
+                            <h6 style="font-weight: bold;">Symptoms</h6> 
+                            <div class="container-fluid">
+                              <div class="row">
+                                <div class="col-sm-6">
+                            <b><li>Present</li></b>
+                            <ul>
+                             {% for symp in assess.symPresent%}
+                              <i><li>{{symp}}</li></i>
+                             {% endfor %}
                         
-                            </tbody>
-                            </table>
+                            </ul>
+                           </div>
+                           {% if assess.symAbsent %}
+                           <div class="col-sm-6">
+                            <b><li>Absent</li></b>
+                            <ul>
+                             {% for symp in assess.symAbsent%}
+                              <i><li>{{symp}}</li></i>
+                             {% endfor %}
+                            </ul>
+                            </div>
+                            {% endif %}
+                           </div>
+                         </div>
+                         </div>
+                      </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                  
                   <div>
                       <i class="nav-icon fas fa-comment-dots bg-yellow"></i>
-                    <div class="timeline-item">
+                    <div class="timeline-item" style="margin-right:0px;">
                       {% if assess.isFeedbackGiven == 1 %}
                       <span class="time"><i class="fas fa-clock"></i>{{assess.fTime}}</span>
                       {% endif %}
-                      <h3 class="timeline-header"><b>Feedback</b></h3>
+                      <h3 class="timeline-header" style="font-size: large;"><b>Feedback</b></h3>
                       <div class="timeline-body">
                           <table class="table table-bordered">
                               <tbody>
                                 {% if assess.isFeedbackGiven == 1 %}
                                 <tr>
                                   <td style="width: 30%;">
-                                     <!-- <h3 class="text-left"> Rating </h3> -->
-                                     <!-- <label class="text-left"> Rating </label> -->
-                                     <!-- <div class="text-center">    -->
-                                       <h6 class=""> Rating
+                                       <h6 class="" style="font-weight: bold;"> Rating
                                          <h5 style="text-align: center;">
                                        <img style="text-align: right;" src="{% static 'dist/img/'%}{{ assess.feedbackRatingImage }}" alt="">
                                        <br>
-                                       <label  style="text-align: center; ">{{assess.feedbackRatingDesc}}</label>
+                                       <label  style="text-align: center;font-weight: normal; ">{{assess.feedbackRatingDesc}}</label>
                                       </h5>
-                                      <!-- </div> -->
                                     </h6>
                                   </td>
                                   <td style="width: 70%;">
-                                         <h6>Comments</h6> 
-                                         <label>{{assess.feedbackText}}</label>
+                                         <h6 style="font-weight: bold;">Comments</h6> 
+                                         <label style="font-weight: normal;">{{assess.feedbackText}}</label>
                                   </td>
                                 </tr>
                                 {% else %}
@@ -152,7 +141,7 @@
           </div>
         </div>
       </div>
-      <!-- /.col -->
+      <div class="col-md-1"></div>
     </div>
   </div>
 </div>
@@ -160,12 +149,28 @@
 {% else %}
 
 <h3 id="noAssessMsg" style="color: red;text-align: center;font-size: 22px;"> There are no Assessemnt details till now. 
-    <a href="#"> Click here </a> to start your first diagnosis
+    <a href="{% url 'diagnosticTool' %}"> Click here </a> to start your first diagnosis
 </h3>
 
 {% endif %}
 
 {% endblock %}
 {% block javascript %}
-
+<script>
+  function myFunction(x) {
+    var dots = document.getElementById("dots"+x);
+    var moreText = document.getElementById("more"+x);
+    var btnText = document.getElementById("myBtn"+x);
+  
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Read more"; 
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Read less"; 
+      moreText.style.display = "inline";
+    }
+  }
+  </script>
 {% endblock %}

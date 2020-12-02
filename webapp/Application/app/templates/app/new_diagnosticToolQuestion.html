@@ -30,7 +30,36 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+#tooltip {
+    position: relative;
+    display: inline-block;
+   
+  }
+  
+  #tooltip .tooltiptext {
+    visibility: hidden;
+    width: 600px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 16px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  
+  }
+  
+  #tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
 </style>
+
 
 <div class="container-fluid">
     <div class="row" style="padding: 30px;">
@@ -54,14 +83,17 @@
                 {% csrf_token %}
                 <div class="row" id="it" style="padding:10px"> 
                 <!-- <div id="it"> -->
-                    <br><h5>How do you rate the severity of this symptom - </h5><hr>
+                    <br><h5>How do you rate the severity of this symptom - <a href="#"id="tooltip" > <i class="fa fa-info-circle " >  </i> <span class="tooltiptext" id="spnDesc">{{symptomDescription}}</span> </a> </h5><hr>
                 <!-- </div> -->
                     <label id="lblFirst" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;">{{ question }}</label>
-                    <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
+                     <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
                 &nbsp;&nbsp;&nbsp;&nbsp;    
                 <label id="spinner" class="loading" ></label>
                   
                 </div>	
+
+             
+
                 <hr style="margin-top: 0rem;">    
                 <div class="row" style="padding: 30px;">
                         <div class="col-sm-2">
@@ -126,10 +158,10 @@
                 <hr>
                 <div class="post clearfix">
                     <div class="expandableCollapsibleDiv">
-                        <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                     <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
                         <h5>Possible Causes</h5>
                         <div id="utext"><p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
-                    </div>
+                       </div>
                 </div>
                 <hr>
                 <div class="post">
@@ -237,6 +269,7 @@
             $("#lblSymp").html(data.nextSymptom)
             //$("input[name='wt']:radio:checked").prop('checked',false);
             $("#lblFirst").hide();
+            $("#spnDesc").html(data.symptomDescription);
             // $("#lblNewCardName").html(data.nextSymptom)
             // $("#lblCardName").hide();
             // $("#lblNewCardDesc").html(data.symptomDescription)
@@ -283,6 +316,6 @@
 
 });
 
-  
+
 </script>
 {% endblock %}

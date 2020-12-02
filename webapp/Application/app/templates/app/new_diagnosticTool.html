@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block css %}
+
 <style>
     .ui-autocomplete {
       position: absolute;
@@ -64,6 +65,75 @@
   left: 400px;
   
   }
+
+  .dropbtn {
+  /* background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none; */
+
+  position: relative;
+  width: 150px;
+  height: 150px;
+  
+  
+  vertical-align:middle;
+  justify-content:center;
+  align-items: center;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 10%;
+  
+  color: #EC7EDA;
+  
+  background: linear-gradient(134.17deg, #EEF0F5 4.98%, #E6E9EF 94.88%);
+  box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 20px rgba(166, 180, 200, 0.7);
+  border-radius: 10px;
+}
+
+.newdropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  /* background-color: #f1f1f1; */
+  min-width: 260px;
+  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+  z-index: 1;
+  bottom: 100%;
+  left: 10%;
+  margin-left: -60px;
+
+  font-size: 18px;
+  line-height: 15px;
+  font-family: Lato;
+  font-weight: 500;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 10px 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.newdropdown:hover .dropdown-content {display: block;}
+
+/* .newdropdown:hover .dropbtn {background-color: #3e8e41;} */
+
+.listpad {
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
   
   </style>
   
@@ -72,60 +142,132 @@
   {% block content %}
 
   <div class="container-fluid">
-    <div class="row" style="padding: 30px;">
+    <div class="row" style="padding: 20px;">
             <div class="col-sm-6">
                 <span class="span">
                     Diagnostic Tool
                 </span>
             </div>
-            <!-- <div class="col-sm-6" id="welcome">
-                Welcome to Haley <b>Avi Peruboina</b>
-            </div> -->
     </div>
 </div>
     <div class="container-fluid">
-        <div class="row" style="padding:30px">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8" id="haley">
+        <div class="row" style="padding:20px">
+            <div class="col-sm-12" id="haley">
             <form action="addButton" method="POST">
                 {% csrf_token %}
                     <div id="it">
-                        <br><h5>Let's start with the symptoms troubling you the most?</h5><hr>
+                        <br><h5 style="font-size: x-large;">Let's start with the symptoms troubling you the most?</h5>
+                        <h6 style="text-align: right;">(* You can select symptom either by typing in below search box (or) from images *)</h6>
+                        <hr>
                         <input class="col-sm-6"  type="text" id="symptom" name="txtSymptom" placeholder="Type your symptom.." style="width: 100%;">
                     </div>
                     {% for message in messages %} 
                     <!-- <h6> {{message}}</h6> -->
                     <label id="lblMsg">{{ message }}</label>
                     {% endfor %}
-
+                    
                     <div class="col-sm-12" id="symp">
-                        <!-- <p><b>
-                            Fatigue
-                            </b>
-                        </p>
-                        <p>Fatigue is a term used to describe an overall feeling of tiredness or lack of energy. It isn't the same as simply feeling drowsy or sleepy. When you're fatigues, you have no motivation and energy.</p> -->
-                        <div id="playlist">
-                            <br>
-                        </div>
-                    </div>
+                      <div id="playlist">
+                          <br>
+                      </div>
+                  </div>
 
-                    <!-- <div class="row" style="padding: 30px;">
-                        <div class="col-sm-10" >
-                            
-                        </div>
-                        <div class="col-sm-2" id="submit">
-                            <input type="submit" value="Select Symptom" name="sympton">
-                        </div> 
-                        </div><hr> -->
+                    <div class="col-sm-12">
+                    	<div class="row" style="padding: 30px;">
+                            <div class="col-sm-2 newdropdown">
+                              <p><a href="#" tabindex="0" class="dropbtn" style="background-image: url('static/dist/img/new/head.png')" type="button" data-placement="bottom" title="Head: Select Symptom"></a></p>
+                                <div class="dropdown-content">
+                                  <ul>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Headache"> Headache </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Eye pain"> Eye pain </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Stuffy Nose"> Stuffy Nose </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Sore Throat"> Sore Throat </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Vision problems"> Vision problems </a></li>
+                                  </ul>
+                                </div>
+                                <p class="span1">Head</p>
+                            </div>
+                            <div class="col-sm-2 newdropdown">
+                              <p><a href="#" tabindex="0" class="dropbtn" style="background-image: url('static/dist/img/new/chest.png')" type="button" data-placement="bottom" title="Chest: Select Symptom"></a></p>
+                                <div class="dropdown-content">
+                                  <ul>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Chest Pain"> Chest Pain </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Chest Discomfort"> Chest Discomfort </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Shortness of Breath"> Shortness of Breath </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="High blood pressure"> High blood pressure </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Low Blood pressure"> Low Blood pressure </a></li>
+                                  </ul>
+                                </div>
+                                <p class="span1">Chest</p>
+                            </div>
+                            <div class="col-sm-2 newdropdown">
+                              <p><a href="#" tabindex="0" class="dropbtn" style="background-image: url('static/dist/img/new/Abdomen2.png')" type="button" data-placement="bottom" title="Abdomen: Select Symptom"></a></p>
+                                <div class="dropdown-content">
+                                  <ul>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Abdominal pain"> Abdominal pain </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Indigestion"> Indigestion </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Constipation"> Constipation </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Diarrhea"> Diarrhea </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Vomiting"> Vomiting </a></li>
+                                  </ul>
+                                </div>
+                                <p class="span1">Abdomen</p>
+                            </div>
+                            <div class="col-sm-2 newdropdown">
+                              <p><a href="#" tabindex="0" class="dropbtn" style="background-image: url('static/dist/img/new/Lower-Abdomen2.png')" type="button" data-placement="bottom" title="Lower Abdomen: Select Symptom"></a></p>
+                                <div class="dropdown-content">
+                                  <ul>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Pain during urination"> Pain during urination </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Frequent Urination"> Frequent Urination </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Blood in urin"> Blood in urin </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Irregular Periods"> Irregular Periods </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Missed menstrual cycle"> Missed menstrual cycle </a></li>
+                                  </ul>
+                                </div>
+                                <p class="span1">Lower Abdomen</p>
+                            </div>
+                            <div class="col-sm-2 newdropdown">
+                              <p><a href="#" tabindex="0" class="dropbtn" style="background-image: url('static/dist/img/new/Muscle-pain.png')" type="button" data-placement="top" title="Muscle: Select Symptom"></a></p>
+                                <div class="dropdown-content">
+                                  <ul>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Muscle Pain"> Muscle Pain </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Muscle Cramps"> Muscle Cramps </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Stiffness"> Stiffness </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Body Pain"> Body Pain </a></li>
+                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Muscle Weakness"> Muscle Weakness </a></li>
+                                  </ul>
+                                </div>
+                                <p class="span1">Muscle</p>
+                            </div>
+                            <div class="col-sm-2 newdropdown">
+                                <p><a href="#" tabindex="0" class="dropbtn" style="background-image: url('static/dist/img/new/common2.png')" type="button" data-placement="bottom" title="Common Symptom: Select Symptom"></a></p>
+                            <!-- loaded popover content -->
+                            <div class="dropdown-content">
+                              <ul>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Sneezing"> Sneezing </a></li>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Dehydration"> Dehydration </a></li>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Fever"> Fever </a></li>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Nausea"> Nausea </a></li>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Low Body Temperature"> Low Body Temperature </a></li>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Cough"> Cough </a></li>
+                                <li class="list-group-item listpad"> <a name="lnkSymp" href="Swelling"> Swelling </a></li>
+                              </ul>
+                            </div>
+                                <p class="span1">Common Symptoms</p>
+                            </div>
+                   	    </div>
+                    </div>
+                    <hr>
             </form>        
             </div>
-            <div class="col-sm-2"></div>
+           
         </div>
     </div>
 
   {% endblock %} 
 
   {% block javascript %}
+  
   
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
@@ -136,6 +278,35 @@
 
   <!-- <script> -->
   <script type="text/javascript">  
+
+$(document).on("click","a[name='lnkSymp']", function (e) {
+    event.preventDefault();
+    var sympName = $(this).attr('href');
+
+    $.ajax({
+          url: '/ajax/getDetails/',
+          data: {
+            'symp' : sympName,
+          },
+          dataType: 'json',
+          success: function (data) {
+            if (data.is_taken) {
+              var list_html = "";
+                  for( var i=0; i <data.entries_list.length; i++) {
+                     list_html += "<br><h3 style='color: green;'>" + data.entries_list[i].symptom +"</h3>";
+                     list_html += "<p style='font-family: inherit;'>" + data.entries_list[i].desc +"</p>";
+                    list_html += "<div class='row' style='padding: 30px;'><div class='col-sm-9'></div><div class='col-sm-3'>";
+                    list_html += "<button id='submit' type='submit' style='text-align:right;align-items:right;border: none;outline:none;' name='btnSelect' value = '"+data.entries_list[i].symptom+"'>"+ "Select Symptom" +"</button></div></div>";
+                     list_html += "<hr>";
+                   }
+                  $("#playlist").html(list_html);
+                  $("#symptom").val("");
+                  //$(".newdropdown").css("display","none");
+            }
+          }
+        });
+});
+
     $(function() {
       $("#symptom").autocomplete({
         source: "{% url 'symptom-autocomplete' %}",

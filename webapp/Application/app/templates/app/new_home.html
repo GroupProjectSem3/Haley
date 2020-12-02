@@ -5,6 +5,8 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}" >
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
@@ -29,11 +31,11 @@
     </div>
     <div class="row" style="padding: 30px;">
         <div class="col-sm-12" id="utext">
-            <p>
+            
                 <span class="span">
-                    ABOUT:
+                    ABOUT!
                     </span>
-                Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of 
+                    <p>  Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of 
                 General Physicians, present near by you. You just need to click on start diagnosis to proceed for your diagnosis.
             </p>
         </div>
@@ -165,17 +167,81 @@
 
 
 {% block javascript %}
+<<<<<<< HEAD
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+
+var pieArry = [];
+var barArry = [];
+
+$(document).ready(function () {
+  
+  $.ajax({
+        url: '/ajax/getChartsDetails/',
+        data: {
+          // 'symp' : $("#lblSymp").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            for( var i=0; i <data.pieChart_list.length; i++) {
+              x = 25;
+              pieArry.push([data.pieChart_list[i].disease, (data.pieChart_list[i].percent * x)]);
+            }
+            for( var i=0; i <data.barChart_list.length; i++) {
+              barArry.push([data.barChart_list[i].month, data.barChart_list[i].count]);
+            }
+
+            drawDiseaseChart();
+            drawVisitsChart();
+
+          }
+        }
+      });
+      
+      // Load Charts and the corechart package.
+=======
 <script>
 
 // Load Charts and the corechart package.
+>>>>>>> origin/Deployment
 google.charts.load('current', {'packages':['corechart']});
 
 // Draw the pie chart for Sarah's pizza when Charts is loaded.
-google.charts.setOnLoadCallback(drawDiseaseChart);
+//google.charts.setOnLoadCallback(drawDiseaseChart);
 
 // Draw the pie chart for the Anthony's pizza when Charts is loaded.
-google.charts.setOnLoadCallback(drawVisitsChart);
+//google.charts.setOnLoadCallback(drawVisitsChart);
 
+<<<<<<< HEAD
+});
+
+function drawDiseaseChart(){
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Disease');
+  data.addColumn('number', 'Number of Cases');
+  data.addRows(pieArry);
+
+          // Set options for Disease's pie chart.
+          var options = {title:'Top Diseases diagnosed last month', is3D: true, backgroundColor: 'none',
+                            titleTextStyle: {
+                            color: '#E375D1',    // any HTML string color ('red', '#cc00cc')
+                            fontName: 'Lato', // i.e. 'Times New Roman'
+                            fontSize: '34px', // 12, 18 whatever you want (don't specify px)
+                            }
+                        
+                        };
+
+          // Instantiate and draw the chart for Disease's .
+          var chart = new google.visualization.PieChart(document.getElementById('Disease_chart_div'));
+          chart.draw(data, options);
+}
+
+// Draw the pie chart for the Anthony's pizza when Charts is loaded.
+//google.charts.setOnLoadCallback(drawVisitsChart);
+
+
+=======
 // Callback that draws the pie chart for Sarah's pizza.
 function drawDiseaseChart() {
   // Create the data table for Disease.
@@ -204,6 +270,7 @@ function drawDiseaseChart() {
   chart.draw(data, options);
 }
 
+>>>>>>> origin/Deployment
 // Callback that draws the pie chart for Visits's pizza.
 function drawVisitsChart() {
 
@@ -211,6 +278,9 @@ function drawVisitsChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Month');
   data.addColumn('number', 'No of Visits');
+<<<<<<< HEAD
+  data.addRows(barArry);
+=======
   data.addRows([
     ['Jan', 2],
     ['Feb', 2],
@@ -224,6 +294,7 @@ function drawVisitsChart() {
     // ['Oct', 2],
     // ['Nov', 0],
   ]);
+>>>>>>> origin/Deployment
 
   // Set options for Visits's bar chart.
   var options = {title:'Your visits to Haley per month', is3D: true, backgroundColor: 'none',

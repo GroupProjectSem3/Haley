@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, auth
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext
-from datetime import datetime
+from datetime import datetime, timedelta
 from .models import User_profile
 from django.contrib import messages
 from .models import Disease, Disease_symptom, symptom, Symptom_detail, User_diagnosis
@@ -14,11 +14,15 @@ from django.http import JsonResponse
 from django.core.cache import cache
 import json
 from .symptomEnum import symptomEnum
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.template.loader import render_to_string
 from .diagnosisPrediction import DiagnosisPrediction
 from django.contrib.auth.decorators import login_required
 from .common import common
+<<<<<<< HEAD
+from dateutil.relativedelta import relativedelta
+=======
+>>>>>>> origin/Deployment
 
 # def home(request):
 #     """Renders the home page."""
@@ -137,6 +141,7 @@ from .common import common
 #         print(request.session['user_id'])
 #         if (request.session.has_key('user_id')):
 #             userid = request.session['user_id']
+<<<<<<< HEAD
 
 #             if User_profile.objects.filter(email=userid).exists():
 #                 User_profile.objects.filter(email=userid).update(
@@ -176,6 +181,47 @@ from .common import common
 #     else:
 #         return render(request, 'app/userProfile.html')
 
+=======
+
+#             if User_profile.objects.filter(email=userid).exists():
+#                 User_profile.objects.filter(email=userid).update(
+#                     address=address,
+#                     city=city,
+#                     country=country,
+#                     zipcode=zipcode,
+#                     dob=dob,
+#                     gender=gender,
+#                     weight=weight,
+#                     height=height)
+
+#                 messages.success(request, '*Profile details updated.*')
+#                 print('user details')
+#                 # user.save()
+#                 user = User_profile.objects.filter(email=userid)[0]
+#                 print('user updated')
+#                 return render(
+#                     request, 'app/userProfile.html', {
+#                         'fname': user.first_name,
+#                         'lname': user.last_name,
+#                         'email': user.email,
+#                         'address': user.address,
+#                         'dob': user.dob,
+#                         'country': user.country,
+#                         'city': user.city,
+#                         'zipcode': user.zipcode,
+#                         'gender': user.gender,
+#                         'weight': user.weight,
+#                         'height': user.height
+#                     })
+#             else:
+#                 print('login first')
+#         else:
+#             return render(request, 'app/userProfile.html')
+
+#     else:
+#         return render(request, 'app/userProfile.html')
+
+>>>>>>> origin/Deployment
 # def register(request):
 #     if request.method == 'POST':
 #         fName = request.POST['first_name']
@@ -679,6 +725,7 @@ def update_Profile(request):
         gender = request.POST['gender']
         weight = request.POST['weight']
         height = request.POST['height']
+<<<<<<< HEAD
 
         print(request.session['user_id'])
         if (request.session.has_key('user_id')):
@@ -719,6 +766,48 @@ def update_Profile(request):
         else:
             return render(request, 'app/new_userProfile.html')
 
+=======
+
+        print(request.session['user_id'])
+        if (request.session.has_key('user_id')):
+            userid = request.session['user_id']
+
+            if User_profile.objects.filter(email=userid).exists():
+                User_profile.objects.filter(email=userid).update(
+                    address=address,
+                    city=city,
+                    country=country,
+                    zipcode=zipcode,
+                    dob=dob,
+                    gender=gender,
+                    weight=weight,
+                    height=height)
+
+                messages.success(request, '*Profile details updated.*')
+                print('user details')
+                # user.save()
+                user = User_profile.objects.filter(email=userid)[0]
+                print('user updated')
+                return render(
+                    request, 'app/new_userProfile.html', {
+                        'fname': user.first_name,
+                        'lname': user.last_name,
+                        'email': user.email,
+                        'address': user.address,
+                        'dob': user.dob,
+                        'country': user.country,
+                        'city': user.city,
+                        'zipcode': user.zipcode,
+                        'gender': user.gender,
+                        'weight': user.weight,
+                        'height': user.height
+                    })
+            else:
+                print('login first')
+        else:
+            return render(request, 'app/new_userProfile.html')
+
+>>>>>>> origin/Deployment
     else:
         return render(request, 'app/new_userProfile.html')
 
@@ -909,8 +998,13 @@ def getDetails(request):
     }
     return JsonResponse(data, safe=False)
     #return render(request,'app/diagnosticTool.html',{'entries_list':nxtSymptom})
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> origin/Deployment
 def userProfile(request):
     if request.method == 'GET':
         userid = request.session['user_id']
@@ -948,6 +1042,7 @@ def updatePassword(request):
                 User_profile.objects.filter(email=userid).update(
                     password=cpass, confirm_password=cpass)
                 messages.success(request, '*Your Password is updated successfully*')
+<<<<<<< HEAD
 
                 print('pass updated')
                 return render(request, 'app/new_changePassword.html', {
@@ -966,6 +1061,26 @@ def updatePassword(request):
                 'lname': user.last_name
             })
 
+=======
+
+                print('pass updated')
+                return render(request, 'app/new_changePassword.html', {
+                    'fname': user.first_name,
+                    'lname': user.last_name
+                })
+
+            else:
+                print('password not matches')
+                messages.success(request, '*Your Password does not matched*')
+                return render(request, 'app/new_changePassword.html')
+        else:
+            messages.success(request, '*Your Password should be minimun of six characters*')
+            return render(request, 'app/new_changePassword.html', {
+                'fname': user.first_name,
+                'lname': user.last_name
+            })
+
+>>>>>>> origin/Deployment
     else:
         return render(request, 'app/userProfile.html')
 
@@ -1074,6 +1189,11 @@ def assessmentDetails(request):
                     forSympPresent.append(Sname) 
             assessDic['symPresent'] = forSympPresent
             assessDic['symAbsent'] = forSympAbsent
+            # For description part
+            diseaseDesc = Disease.objects.filter(disease_name=assess.userResults)[0].disease_description
+            descParts = Diagnosis.splitDescription(diseaseDesc)
+            assessDic['disDesc1'] = descParts[0]
+            assessDic['disDesc2'] = descParts[1]
 
             assessList.append(assessDic)
 
@@ -1082,6 +1202,59 @@ def assessmentDetails(request):
         return render(request,'app/new_assessments.html',{'assessmentList':list(),'isExists':False,'fname':user.first_name,'lname':user.last_name})   
 
 
+<<<<<<< HEAD
+def getChartsDetails(request):
+    #symptomName = request.GET.get('symp', None)
+    #nxtSymptom = list()
+    pieChart = list()
+    diseases = User_diagnosis.objects.filter(create_date__lte=datetime.today(), create_date__gt=datetime.today()-timedelta(days=30)).values('userResults').annotate(disease_count=Count('userResults')).order_by('-disease_count')[:3]
+
+    for dis in diseases:
+        disDict = dict()
+        disDict['disease'] = dis['userResults']
+        disDict['percent'] = dis['disease_count']
+        pieChart.append(disDict)
+
+    # Bar chart
+    userid = request.session['user_id']
+    months_before = 6
+    now = datetime.utcnow()
+    from_datetime = now - relativedelta(months=months_before)
+    modified_from_datetime = from_datetime.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    all_records = User_diagnosis.objects.filter(user_id=userid, create_date__gte=modified_from_datetime)
+    #all_records_dates = all_records.values_list('create_date')
+
+    monthDict = dict()
+    now = datetime.now()
+    result = []
+    for _ in range(0, 6):
+        now = now.replace(day=1) - timedelta(days=1)
+        monthName = now.strftime("%B")
+        monthDict[monthName] = 0
+
+    for rec in all_records:
+        if(rec.create_date.strftime("%B") in monthDict):
+            monthDict[rec.create_date.strftime("%B")] += 1
+        # else:
+        #     monthDict[symp_det['symptom_id']] = 1
+    
+    barChart = list()
+    for k,v in monthDict.items():
+        visitDict = dict()
+        visitDict['month'] = k
+        visitDict['count'] = v
+        barChart.append(visitDict)    
+
+
+    data = {
+        'is_taken': True,
+        'pieChart_list': pieChart, 'barChart_list': barChart
+    }
+    return JsonResponse(data, safe=False)
+
+    
+=======
+>>>>>>> origin/Deployment
 
 #### For NEW pages END ####
 
