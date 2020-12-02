@@ -46,10 +46,10 @@
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
-      right: 10;
+      left: 1;
       position: absolute;
       top: 0;
-      width: 440px;
+      width: 40px;
       z-index: 1;
     }
 
@@ -74,20 +74,24 @@
     }
 
     #locationField {
-      -webkit-box-flex: 1 1 80px;
-      -ms-flex: 1 1 80px;
-      flex: 1 1 80px;
+      -webkit-box-flex: 0 0 10px;
+      -ms-flex: 0 0 10px;
+      flex: 0 0 10px;
       margin: 0 8px;
+      width: 10;
+      height: 10;
     }
 
     #controls {
       -webkit-box-flex: 1 1 80px;
       -ms-flex: 1 1 80px;
       flex: 1 1 80px;
+      width: 10;
+      height: 10;
     }
 
     #autocomplete {
-      width: 100%;
+      width: 90% !important;
     }
 
     #country {
@@ -140,13 +144,15 @@
     <title>Place Autocomplete GP Search</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="./index.js"></script>
+    <!--link rel="stylesheet" type="text/css" href="" />
+    <script src=""></script-->
   </head>
   
   <body>
     <div class="GP-search">
-      <div id="findGPs">Find GPs in:</div>
+      <div id="findGPs">
+        Find GPs in:
+      </div>
   
       <div id="locationField">
         <input id="autocomplete" placeholder="Enter a city" type="text" />

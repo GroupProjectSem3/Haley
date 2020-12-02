@@ -997,7 +997,7 @@ def predictions(request):
 def GPList(request):
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/GPList.html',{'fname':user.first_name,'lname':user.last_name})   
+    return render(request,'app/new_GPList.html',{'fname':user.first_name,'lname':user.last_name})   
 
      
 def feedback(request):
