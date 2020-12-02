@@ -1189,6 +1189,11 @@ def assessmentDetails(request):
                     forSympPresent.append(Sname) 
             assessDic['symPresent'] = forSympPresent
             assessDic['symAbsent'] = forSympAbsent
+            # For description part
+            diseaseDesc = Disease.objects.filter(disease_name=assess.userResults)[0].disease_description
+            descParts = Diagnosis.splitDescription(diseaseDesc)
+            assessDic['disDesc1'] = descParts[0]
+            assessDic['disDesc2'] = descParts[1]
 
             assessList.append(assessDic)
 

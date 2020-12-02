@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 <style>
-  #more {display: none;}
+  .more {display: none;}
 </style>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,9 +26,6 @@
                     Assessment Details
                 </span>
             </div>
-            <!-- <div class="col-sm-6" id="welcome">
-                Welcome to Haley <b>Avi Peruboina</b>
-            </div> -->
     </div>
 </div>
 
@@ -55,58 +52,46 @@
                     <div class="timeline-item" style="margin-right:0px;">
                       <span class="time"><i class="fas fa-clock"></i>{{assess.dTime}}</span>
                       <div class="timeline-tools"></div>
-                        <h3 class="timeline-header"> <b>{{assess.diseaseName}}</b></h3>
+                        <h3 class="timeline-header" style="font-size: large;"> <b>{{assess.diseaseName}}</b></h3>
                       
                       <div class="timeline-body" >
                         <div class="container-fluid">
                           <div class="row">
                           <div class="col-sm-6" style="border:1px solid rgba(0, 0, 0, 0.125);" >
-                           
-                              <p > The exact cause of attention deficit hyperactivity disorder (ADHD) is not fully understood.<span id="dots">...</span><span id="more">It is thought that ADHD is caused by a mix of genetic (inherited) and environmental factors like genetics, if a woman is exposed to harmful toxins during pregnancy the child may develop ADHD, brain development is the main area of focus when talking about ADHD. </span></p>
-                              <button onclick="myFunction()" id="myBtn" style="border: none;outline: none;">Read more</button>
-                           
-                  
+                            <p > {{assess.disDesc1}}<span id="dots{{assess.id}}">...</span><span class="more" id="more{{assess.id}}">{{assess.disDesc2}}</span></p>
+                              <button onclick="myFunction(this.value)" id="myBtn{{assess.id}}" value="{{assess.id}}" style="border: none;outline: none;">Read more</button>
                           </div>
-                          
-                              
                           <div class="col-sm-6" style="border: 1px solid rgba(0, 0, 0, 0.125);" >
                            
-                            <h6>Symptoms</h6> 
+                            <h6 style="font-weight: bold;">Symptoms</h6> 
                             <div class="container-fluid">
                               <div class="row">
                                 <div class="col-sm-6">
-                            <li>Present</li>
+                            <b><li>Present</li></b>
                             <ul>
                              {% for symp in assess.symPresent%}
-                              <li>{{symp}}</li>
+                              <i><li>{{symp}}</li></i>
                              {% endfor %}
                         
                             </ul>
                            </div>
+                           {% if assess.symAbsent %}
                            <div class="col-sm-6">
-                            <li>Absents</li>
+                            <b><li>Absent</li></b>
                             <ul>
                              {% for symp in assess.symAbsent%}
-                              <li>{{symp}}</li>
+                              <i><li>{{symp}}</li></i>
                              {% endfor %}
-                              <!-- <li>symptom 1  </li>
-                              <li>symptom 1  </li>
-                              <li>symptom 1  </li>
-                              <li>symptom 1  </li> -->
                             </ul>
                             </div>
+                            {% endif %}
                            </div>
                          </div>
-                 
                          </div>
-
                       </div>
-                      
                       </div>
-                      
                     </div>
                   </div>
-                      
                 </div>
                   
                   <div>
@@ -115,28 +100,24 @@
                       {% if assess.isFeedbackGiven == 1 %}
                       <span class="time"><i class="fas fa-clock"></i>{{assess.fTime}}</span>
                       {% endif %}
-                      <h3 class="timeline-header"><b>Feedback</b></h3>
+                      <h3 class="timeline-header" style="font-size: large;"><b>Feedback</b></h3>
                       <div class="timeline-body">
                           <table class="table table-bordered">
                               <tbody>
                                 {% if assess.isFeedbackGiven == 1 %}
                                 <tr>
                                   <td style="width: 30%;">
-                                     <!-- <h3 class="text-left"> Rating </h3> -->
-                                     <!-- <label class="text-left"> Rating </label> -->
-                                     <!-- <div class="text-center">    -->
-                                       <h6 class=""> Rating
+                                       <h6 class="" style="font-weight: bold;"> Rating
                                          <h5 style="text-align: center;">
                                        <img style="text-align: right;" src="{% static 'dist/img/'%}{{ assess.feedbackRatingImage }}" alt="">
                                        <br>
-                                       <label  style="text-align: center; ">{{assess.feedbackRatingDesc}}</label>
+                                       <label  style="text-align: center;font-weight: normal; ">{{assess.feedbackRatingDesc}}</label>
                                       </h5>
-                                      <!-- </div> -->
                                     </h6>
                                   </td>
                                   <td style="width: 70%;">
-                                         <h6>Comments</h6> 
-                                         <label>{{assess.feedbackText}}</label>
+                                         <h6 style="font-weight: bold;">Comments</h6> 
+                                         <label style="font-weight: normal;">{{assess.feedbackText}}</label>
                                   </td>
                                 </tr>
                                 {% else %}
@@ -161,7 +142,6 @@
         </div>
       </div>
       <div class="col-md-1"></div>
-      <!-- /.col -->
     </div>
   </div>
 </div>
@@ -169,7 +149,7 @@
 {% else %}
 
 <h3 id="noAssessMsg" style="color: red;text-align: center;font-size: 22px;"> There are no Assessemnt details till now. 
-    <a href="#"> Click here </a> to start your first diagnosis
+    <a href="{% url 'diagnosticTool' %}"> Click here </a> to start your first diagnosis
 </h3>
 
 {% endif %}
@@ -177,10 +157,10 @@
 {% endblock %}
 {% block javascript %}
 <script>
-  function myFunction() {
-    var dots = document.getElementById("dots");
-    var moreText = document.getElementById("more");
-    var btnText = document.getElementById("myBtn");
+  function myFunction(x) {
+    var dots = document.getElementById("dots"+x);
+    var moreText = document.getElementById("more"+x);
+    var btnText = document.getElementById("myBtn"+x);
   
     if (dots.style.display === "none") {
       dots.style.display = "inline";

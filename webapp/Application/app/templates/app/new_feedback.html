@@ -17,12 +17,13 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row" style="padding-left;:30px">
-            <div class="col-sm-12" id="haley">
+    <div class="row" style="padding-left:30px;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10" id="haley">
                 <form method="POST">
                     {% csrf_token %}
-                <div class="row" id="utext">
-                    <h3>Hi, we appreciate your efforts to give valueable feeedback about Haley's predictions about your diagnosis.</h3>
+                <div class="row" id="utext" style="padding-top: 15px;">
+                    <h5>Hi, we appreciate your efforts to give valueable feeedback about Haley's predictions about your diagnosis.</h5>
                 </div>
                 <hr>
                 <!-- For showing message if no records exists -->
@@ -92,11 +93,10 @@
 
                   </div>
                 </div>
-                  <br>
-
                 <hr>
                 </form>
         </div>
+        <div class="col-sm-1"></div>
     </div>
 </div>
 

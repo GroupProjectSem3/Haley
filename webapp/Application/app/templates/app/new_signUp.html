@@ -64,14 +64,6 @@
                 <div class="row" id="log">
                     Sign Up
                 </div>
-                <!-- {% if messages %}
-                            <ul dir="ltr"  class="messages">
-                                {% for message in messages %}
-                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %} -->
-
                         {% for message in messages %} 
                             <h6> {{message}}</h6>
                              {% endfor %}
@@ -149,41 +141,19 @@
                     </div>
                 </div>
             </form>   
-            <hr> 
-                <div class="row" style="padding:20px">
-                    <div class="col-sm-2">
-                        
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="row">
-                            
-                            <!-- <div class="col-sm-5" id="login">
-                                <input type="submit" name="Sign Up" value="Sign Up" onclick="location.href='{% url 'register' %}'"> <i class="fa fa-user-plus" style="font-size:25px;color:#EC7EDA;"></i>
-                            </div> -->
-                            <div class="col-sm-5"></div>
-                            <div class="col-sm-7">
-                                <span class="dark-color d-inline-block line-height-2">Already Have Account ? <a href="{% url 'login' %}" style="color: #EC7EDA;font-weight: bold;">Log In</a></span>    
-                            </div>
-                            <!-- <div class="col-sm-4" id="login">
-                                <input type="submit" name="Reset" value="Reset"> <i class="fa fa-lock" style="font-size:25px;color:#EC7EDA;"></i>
-                            </div> -->
-                        </div>
-                    </div>
+            <hr style="margin: 0px;"> 
+            <div class="row" style="padding:20px">
+                <div class="col-sm-8">
                 </div>
+                <div class="col-sm-4">
+                    <span class="dark-color d-inline-block line-height-2">Already Have Account ? <a href="{% url 'login' %}" style="color: #EC7EDA;font-weight: bold;">Log In</a></span>    
+                </div>
+            </div>
             </div>
             <div class="col-sm-6" id="bt">
                 <img class="img-fluid" src="{% static 'dist/img/new/symptoms.png' %}" alt="Symptoms" >
             </div>
         </div>
-        <!-- <div class="row" style="padding:30px">
-            <div class="col-sm-6" id="bt">
-                
-            </div>
-            <div class="col-sm-6" id="bt">
-                
-                <img class="img-fluid" src="{% static 'dist/img/new/symptoms.png' %}" alt="Symptoms" >
-            </div>
-        </div> -->
     </div>
 
     

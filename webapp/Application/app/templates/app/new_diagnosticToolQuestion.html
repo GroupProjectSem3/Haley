@@ -44,7 +44,7 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-  
+    font-size: 16px;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
@@ -83,7 +83,7 @@
                 {% csrf_token %}
                 <div class="row" id="it" style="padding:10px"> 
                 <!-- <div id="it"> -->
-                    <br><h5>How do you rate the severity of this symptom - <a href="#"id="tooltip" > <i class="fa fa-info-circle " >  </i> <span class="tooltiptext">Down load jhjj jhghkb kjghukhi kjghluk.hn khojli.hjio khoulho kkholiho ilhoilhol kholiho khouhouh</span> </a> </h5><hr>
+                    <br><h5>How do you rate the severity of this symptom - <a href="#"id="tooltip" > <i class="fa fa-info-circle " >  </i> <span class="tooltiptext" id="spnDesc">{{symptomDescription}}</span> </a> </h5><hr>
                 <!-- </div> -->
                     <label id="lblFirst" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;">{{ question }}</label>
                      <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
@@ -269,6 +269,7 @@
             $("#lblSymp").html(data.nextSymptom)
             //$("input[name='wt']:radio:checked").prop('checked',false);
             $("#lblFirst").hide();
+            $("#spnDesc").html(data.symptomDescription);
             // $("#lblNewCardName").html(data.nextSymptom)
             // $("#lblCardName").hide();
             // $("#lblNewCardDesc").html(data.symptomDescription)
