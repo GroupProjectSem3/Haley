@@ -1106,7 +1106,7 @@ def getChartsDetails(request):
     now = datetime.utcnow()
     from_datetime = now - relativedelta(months=months_before)
     modified_from_datetime = from_datetime.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    all_records = User_diagnosis.objects.filter(user_id='katie.patel@gmail.com', create_date__gte=modified_from_datetime)
+    all_records = User_diagnosis.objects.filter(user_id=userid, create_date__gte=modified_from_datetime)
     #all_records_dates = all_records.values_list('create_date')
 
     monthDict = dict()
