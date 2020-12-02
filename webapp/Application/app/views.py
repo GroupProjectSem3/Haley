@@ -19,10 +19,7 @@ from django.template.loader import render_to_string
 from .diagnosisPrediction import DiagnosisPrediction
 from django.contrib.auth.decorators import login_required
 from .common import common
-<<<<<<< HEAD
 from dateutil.relativedelta import relativedelta
-=======
->>>>>>> origin/Deployment
 
 # def home(request):
 #     """Renders the home page."""
@@ -141,7 +138,6 @@ from dateutil.relativedelta import relativedelta
 #         print(request.session['user_id'])
 #         if (request.session.has_key('user_id')):
 #             userid = request.session['user_id']
-<<<<<<< HEAD
 
 #             if User_profile.objects.filter(email=userid).exists():
 #                 User_profile.objects.filter(email=userid).update(
@@ -181,47 +177,6 @@ from dateutil.relativedelta import relativedelta
 #     else:
 #         return render(request, 'app/userProfile.html')
 
-=======
-
-#             if User_profile.objects.filter(email=userid).exists():
-#                 User_profile.objects.filter(email=userid).update(
-#                     address=address,
-#                     city=city,
-#                     country=country,
-#                     zipcode=zipcode,
-#                     dob=dob,
-#                     gender=gender,
-#                     weight=weight,
-#                     height=height)
-
-#                 messages.success(request, '*Profile details updated.*')
-#                 print('user details')
-#                 # user.save()
-#                 user = User_profile.objects.filter(email=userid)[0]
-#                 print('user updated')
-#                 return render(
-#                     request, 'app/userProfile.html', {
-#                         'fname': user.first_name,
-#                         'lname': user.last_name,
-#                         'email': user.email,
-#                         'address': user.address,
-#                         'dob': user.dob,
-#                         'country': user.country,
-#                         'city': user.city,
-#                         'zipcode': user.zipcode,
-#                         'gender': user.gender,
-#                         'weight': user.weight,
-#                         'height': user.height
-#                     })
-#             else:
-#                 print('login first')
-#         else:
-#             return render(request, 'app/userProfile.html')
-
-#     else:
-#         return render(request, 'app/userProfile.html')
-
->>>>>>> origin/Deployment
 # def register(request):
 #     if request.method == 'POST':
 #         fName = request.POST['first_name']
@@ -725,7 +680,6 @@ def update_Profile(request):
         gender = request.POST['gender']
         weight = request.POST['weight']
         height = request.POST['height']
-<<<<<<< HEAD
 
         print(request.session['user_id'])
         if (request.session.has_key('user_id')):
@@ -766,48 +720,6 @@ def update_Profile(request):
         else:
             return render(request, 'app/new_userProfile.html')
 
-=======
-
-        print(request.session['user_id'])
-        if (request.session.has_key('user_id')):
-            userid = request.session['user_id']
-
-            if User_profile.objects.filter(email=userid).exists():
-                User_profile.objects.filter(email=userid).update(
-                    address=address,
-                    city=city,
-                    country=country,
-                    zipcode=zipcode,
-                    dob=dob,
-                    gender=gender,
-                    weight=weight,
-                    height=height)
-
-                messages.success(request, '*Profile details updated.*')
-                print('user details')
-                # user.save()
-                user = User_profile.objects.filter(email=userid)[0]
-                print('user updated')
-                return render(
-                    request, 'app/new_userProfile.html', {
-                        'fname': user.first_name,
-                        'lname': user.last_name,
-                        'email': user.email,
-                        'address': user.address,
-                        'dob': user.dob,
-                        'country': user.country,
-                        'city': user.city,
-                        'zipcode': user.zipcode,
-                        'gender': user.gender,
-                        'weight': user.weight,
-                        'height': user.height
-                    })
-            else:
-                print('login first')
-        else:
-            return render(request, 'app/new_userProfile.html')
-
->>>>>>> origin/Deployment
     else:
         return render(request, 'app/new_userProfile.html')
 
@@ -888,7 +800,7 @@ def addButton(request):
                 })
         else:
             messages.info(request, 'Please Select from list')
-            return render(request, 'app/diagnosticTool.html',
+            return render(request, 'app/new_diagnosticTool.html',
                           {'testing': 'tesing textttt'})
 
 
@@ -998,13 +910,8 @@ def getDetails(request):
     }
     return JsonResponse(data, safe=False)
     #return render(request,'app/diagnosticTool.html',{'entries_list':nxtSymptom})
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> origin/Deployment
 def userProfile(request):
     if request.method == 'GET':
         userid = request.session['user_id']
@@ -1042,7 +949,6 @@ def updatePassword(request):
                 User_profile.objects.filter(email=userid).update(
                     password=cpass, confirm_password=cpass)
                 messages.success(request, '*Your Password is updated successfully*')
-<<<<<<< HEAD
 
                 print('pass updated')
                 return render(request, 'app/new_changePassword.html', {
@@ -1061,26 +967,6 @@ def updatePassword(request):
                 'lname': user.last_name
             })
 
-=======
-
-                print('pass updated')
-                return render(request, 'app/new_changePassword.html', {
-                    'fname': user.first_name,
-                    'lname': user.last_name
-                })
-
-            else:
-                print('password not matches')
-                messages.success(request, '*Your Password does not matched*')
-                return render(request, 'app/new_changePassword.html')
-        else:
-            messages.success(request, '*Your Password should be minimun of six characters*')
-            return render(request, 'app/new_changePassword.html', {
-                'fname': user.first_name,
-                'lname': user.last_name
-            })
-
->>>>>>> origin/Deployment
     else:
         return render(request, 'app/userProfile.html')
 
@@ -1111,7 +997,7 @@ def predictions(request):
 def GPList(request):
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
-    return render(request,'app/GPList.html',{'fname':user.first_name,'lname':user.last_name})   
+    return render(request,'app/new_GPList.html',{'fname':user.first_name,'lname':user.last_name})   
 
      
 def feedback(request):
@@ -1202,7 +1088,6 @@ def assessmentDetails(request):
         return render(request,'app/new_assessments.html',{'assessmentList':list(),'isExists':False,'fname':user.first_name,'lname':user.last_name})   
 
 
-<<<<<<< HEAD
 def getChartsDetails(request):
     #symptomName = request.GET.get('symp', None)
     #nxtSymptom = list()
@@ -1253,8 +1138,6 @@ def getChartsDetails(request):
     return JsonResponse(data, safe=False)
 
     
-=======
->>>>>>> origin/Deployment
 
 #### For NEW pages END ####
 

@@ -15,7 +15,8 @@ class DiagnosisPrediction:
         #For local deployment
         #data = pd.read_csv(settings.STATIC_ROOT+"/Training.csv")
         #For deployment only
-        data = pd.read_csv("https://deployment-haley.ew.r.appspot.com/static/styles/Training.csv")
+        data = pd.read_csv("https://final-haley.nw.r.appspot.com/static/styles/Training.csv")
+        
         df = pd.DataFrame(data)
         cols = df.columns
         cols = cols[:-1]
