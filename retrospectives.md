@@ -196,3 +196,32 @@
 
 - Settling down on a particular branch to deploy the system.
 - Putting a google drive link instead of the static file.
+
+## Project Retrospective Board - Sprint 11
+
+## Liked / Glad
+
+- Color scheme changes.
+- Deployment- Free Domain .
+
+## Learned
+
+- Learnt Docker deployment.
+- Got an indepth knowledge on the inner workings of API and network.
+
+## Lacked / Mad
+
+- Team members not commiting work on time
+- Number of conflicts due to members not pulling first ( not making a PR first before pushing their updates).
+- Not being able to push a static file to the cloud.
+
+## Longed For/ Sad
+
+- More structured tutorials on mongodb atlas.
+- More reading material on deployments and networking
+
+## Action Items
+
+- Settling down on a particular branch to deploy the system.
+- Putting a google drive link instead of the static file.
+
