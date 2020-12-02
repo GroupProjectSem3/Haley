@@ -71,3 +71,13 @@ class Diagnosis:
         # if(request.session.has_key('previous_symptom_list')):
         #     del request.session['previous_symptom_list']        
 
+
+    @staticmethod
+    def splitDescription(fullDesc):
+        desc = list()
+        count = len(fullDesc.split())
+        part1 = fullDesc.rsplit(" ",count-15)[0]
+        part2 = fullDesc[len(part1):]
+        desc.append(part1)
+        desc.append(part2)
+        return desc

@@ -79,7 +79,7 @@
     background: linear-gradient(134.17deg, #EEF0F5 4.98%, #E6E9EF 94.88%);
     box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 24px rgba(166, 180, 200, 0.7);
     border-radius: 40px;
-    margin : 50px;
+    margin-top: 50px;
   }
 
   #results{
@@ -255,7 +255,7 @@
 #login-pane{
   /* position: absolute; */
   width: 600px;
-  height: 575px;
+  height: 450px;
   /* left: 120px;
   top: 229px; */
   text-align: left;
@@ -406,7 +406,7 @@ position: relative;
 width: 526px;
 height: 50px;
 
-background: linear-gradient(134.17deg, #EEF1F5 4.98%, #E6E9EF 94.88%);
+/* background: linear-gradient(134.17deg, #EEF1F5 4.98%, #E6E9EF 94.88%); */
 box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.75), inset 5px 5px 10px rgba(166, 180, 200, 0.75);
 border-radius: 40px;
 
@@ -520,8 +520,6 @@ border-radius: 100px;
   background-color: #EC7EDA;
   -webkit-transform: scale(1.5);
 }
-
-
 
 
 /******************************* Pie CHart  *******************************/

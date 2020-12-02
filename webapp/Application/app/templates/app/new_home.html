@@ -5,6 +5,8 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}" >
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
@@ -29,11 +31,11 @@
     </div>
     <div class="row" style="padding: 30px;">
         <div class="col-sm-12" id="utext">
-            <p>
+            
                 <span class="span">
-                    ABOUT:
+                    ABOUT!
                     </span>
-                Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of 
+                    <p>  Haley provides a general diagnosis of your symptoms and makes prediction of possible diseases and gives a list of 
                 General Physicians, present near by you. You just need to click on start diagnosis to proceed for your diagnosis.
             </p>
         </div>
@@ -188,6 +190,10 @@ $(document).ready(function () {
             for( var i=0; i <data.barChart_list.length; i++) {
               barArry.push([data.barChart_list[i].month, data.barChart_list[i].count]);
             }
+
+            drawDiseaseChart();
+            drawVisitsChart();
+
           }
         }
       });
@@ -196,10 +202,10 @@ $(document).ready(function () {
 google.charts.load('current', {'packages':['corechart']});
 
 // Draw the pie chart for Sarah's pizza when Charts is loaded.
-google.charts.setOnLoadCallback(drawDiseaseChart);
+//google.charts.setOnLoadCallback(drawDiseaseChart);
 
 // Draw the pie chart for the Anthony's pizza when Charts is loaded.
-google.charts.setOnLoadCallback(drawVisitsChart);
+//google.charts.setOnLoadCallback(drawVisitsChart);
 
 });
 

@@ -1075,6 +1075,11 @@ def assessmentDetails(request):
                     forSympPresent.append(Sname) 
             assessDic['symPresent'] = forSympPresent
             assessDic['symAbsent'] = forSympAbsent
+            # For description part
+            diseaseDesc = Disease.objects.filter(disease_name=assess.userResults)[0].disease_description
+            descParts = Diagnosis.splitDescription(diseaseDesc)
+            assessDic['disDesc1'] = descParts[0]
+            assessDic['disDesc2'] = descParts[1]
 
             assessList.append(assessDic)
 
@@ -1101,7 +1106,7 @@ def getChartsDetails(request):
     now = datetime.utcnow()
     from_datetime = now - relativedelta(months=months_before)
     modified_from_datetime = from_datetime.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    all_records = User_diagnosis.objects.filter(user_id='katie.patel@gmail.com', create_date__gte=modified_from_datetime)
+    all_records = User_diagnosis.objects.filter(user_id=userid, create_date__gte=modified_from_datetime)
     #all_records_dates = all_records.values_list('create_date')
 
     monthDict = dict()
