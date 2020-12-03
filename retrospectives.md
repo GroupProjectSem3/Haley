@@ -203,15 +203,18 @@
 
 - Color scheme changes.
 - Deployment- Free Domain .
+- Integrated backend code of all the pages into the new theme.
+- Implemented new approach to select symptoms in diagnostic tool page.
+- Made all the pages to mobile compatible
 
 ## Learned
 
 - Learnt Docker deployment.
 - Got an indepth knowledge on the inner workings of API and network.
+- Learnt how to make the pages in such a way that they are compatible in mobile view also.
 
 ## Lacked / Mad
 
-- Team members not commiting work on time
 - Number of conflicts due to members not pulling first ( not making a PR first before pushing their updates).
 - Not being able to push a static file to the cloud.
 
@@ -219,9 +222,9 @@
 
 - More structured tutorials on mongodb atlas.
 - More reading material on deployments and networking
+- Not able to get result from the model in cloud
 
 ## Action Items
 
-- Settling down on a particular branch to deploy the system.
-- Putting a google drive link instead of the static file.
-
+- Able to provide the path to fetch the static files from the cloud
+- Deployment is done successfully and trying to review the pages in the deployment server.
