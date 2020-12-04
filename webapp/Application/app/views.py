@@ -659,7 +659,7 @@ def userHome(request):
             }
         )  
     else:
-        return render(request, 'app/userProfile.html')
+        return render(request, 'app/new_userProfile.html')
 
 
 def logout(request):
@@ -932,7 +932,7 @@ def userProfile(request):
                 'height': user.height
             })
     else:
-        return render(request, 'app/userHome.html')
+        return render(request, 'app/new_userProfile.html')
 
 
 def updatePassword(request):
@@ -968,7 +968,7 @@ def updatePassword(request):
             })
 
     else:
-        return render(request, 'app/userProfile.html')
+        return render(request, 'app/new_userProfile.html')
 
 
 def changePassword(request):
@@ -983,7 +983,7 @@ def changePassword(request):
             }
         )  
     else:
-        return render(request, 'app/userProfile.html')
+        return render(request, 'app/new_userProfile.html')
 
 
 def forgotPassword(request):

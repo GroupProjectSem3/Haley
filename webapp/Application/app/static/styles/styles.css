@@ -74,6 +74,27 @@
     border-radius: 40px;
   }
 
+  #new_landing{
+    font-family: KoHo;
+    font-style: bold;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 62px;
+    text-align: center;
+    vertical-align:middle; 
+    justify-content:center;
+     align-items: center;
+    
+    padding-top: 50px;
+    margin-top: 15px;
+
+  
+    
+   background:  rgba(196, 196, 196, 0.5);
+    box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 24px rgba(166, 180, 200, 0.7);
+    border-radius: 40px;
+  }
+
   #assess{
 
     background: linear-gradient(134.17deg, #EEF0F5 4.98%, #E6E9EF 94.88%);
