@@ -861,6 +861,7 @@ def symptom_nextClick(request):
         forDesc = disease_details.disease_description
         forCauses = disease_details.disease_causes
         forLink = disease_details.link
+        forRemedies = disease_details.remedies.split('|')
         # For symptoms with its details
         forSympPresent = list()    
         forSympAbsent = list()
@@ -873,7 +874,7 @@ def symptom_nextClick(request):
         data = {
             'is_taken': False,
             'forDiseases': forDiseases, 'forDesc': forDesc, 'forCauses': forCauses,'forLink': forLink,
-            'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,
+            'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,'forRemedies':forRemedies
         }
 
     return JsonResponse(data, safe=False)
