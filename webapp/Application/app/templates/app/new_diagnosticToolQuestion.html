@@ -156,12 +156,23 @@
                   </div>
                 </div>
                 <hr>
-                <div class="post clearfix">
+                <!-- <div class="post clearfix">
                     <div class="expandableCollapsibleDiv">
                      <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
                         <h5>Possible Causes</h5>
                         <div id="utext"><p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
                        </div>
+                </div>
+                <hr> -->
+                <div class="post">
+                  <div class="expandableCollapsibleDiv">
+                    <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
+                    <h5>Home Remedies</h5>
+                  <div id="utext">
+                      <ul id="ulRemedies" style="color: black;"> 
+                       </ul>
+                    </div>
+                  </div>
                 </div>
                 <hr>
                 <div class="post">
@@ -188,7 +199,9 @@
 
   $(document).ready(function () {
 
-    var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
+    // var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
+    // defaultElementDescription.hide("fast", "swing");
+    var defaultElementDescription = $(".expandableCollapsibleDiv").find("div");
     defaultElementDescription.hide("fast", "swing");
     var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
     defaultElementDescription2.hide("fast", "swing");
@@ -197,7 +210,8 @@
 
     $(".expandableCollapsibleDiv > img").click(function (e) {
       var showElementDescription = 
-        $(this).parents(".expandableCollapsibleDiv").find("p");
+        //$(this).parents(".expandableCollapsibleDiv").find("p");
+        $(this).parents(".expandableCollapsibleDiv").find("div");
   
       if ($(showElementDescription).is(":visible")) {
         showElementDescription.hide("fast", "swing");
@@ -286,7 +300,7 @@
             //$("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
 
             var list_html1 = "";
-            //var list_html2 = "";
+            var list_html2 = "";
                 if(data.forSympPresent.length>0)
                 {
                   list_html1 += "<li>Present <ul>";
@@ -308,7 +322,17 @@
                 }
                 //$("#liAbsent").html(list_html2);
                 $("#ulSymptoms").html(list_html1);
-
+                // For Remedies
+                if(data.forRemedies.length>0)
+                {
+                  //list_html1 += "<li>Present <ul>";
+                  for(var i=0;i<data.forRemedies.length;i++)
+                  {
+                      list_html2 +="<li>" + data.forRemedies[i] +"</li>";
+                  }  
+                  //list_html2 += "</ul> </li>";
+                }
+                $("#ulRemedies").html(list_html2);
           }
           myDiv.style.display = "none";
         }
