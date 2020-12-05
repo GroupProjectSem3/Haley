@@ -19,7 +19,7 @@
                 Welcome to Haley <b>Avi Peruboina</b>
             </div>
     </div> -->
-    <div class="row" style="padding: 30px;">
+    <div class="row" style="padding: 20px;">
         <div class="col-sm-12" id="utext">
             <span class="span">
                 NOTE!
@@ -29,7 +29,7 @@
             </p>
         </div>
     </div>
-    <div class="row" style="padding: 30px;">
+    <div class="row" style="padding: 20px;">
         <div class="col-sm-12" id="utext">
             
                 <span class="span">
@@ -172,6 +172,7 @@
 
 var pieArry = [];
 var barArry = [];
+google.charts.load('current', {'packages':['corechart']});
 
 $(document).ready(function () {
   
@@ -190,7 +191,7 @@ $(document).ready(function () {
             for( var i=0; i <data.barChart_list.length; i++) {
               barArry.push([data.barChart_list[i].month, data.barChart_list[i].count]);
             }
-
+            google.charts.load('current', {'packages':['corechart']});
             drawDiseaseChart();
             drawVisitsChart();
 
@@ -199,7 +200,7 @@ $(document).ready(function () {
       });
       
       // Load Charts and the corechart package.
-google.charts.load('current', {'packages':['corechart']});
+//google.charts.load('current', {'packages':['corechart']});
 
 // Draw the pie chart for Sarah's pizza when Charts is loaded.
 //google.charts.setOnLoadCallback(drawDiseaseChart);
