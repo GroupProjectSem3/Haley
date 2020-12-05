@@ -801,7 +801,7 @@ def addButton(request):
                 })
         else:
             messages.info(request, 'Please Select from list')
-            return render(request, 'app/diagnosticTool.html',
+            return render(request, 'app/new_diagnosticTool.html',
                           {'testing': 'tesing textttt'})
 
 
