@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-    <title>Haley | Login</title>
+    <title>Haley | Sign Up</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=KoHo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
@@ -38,7 +38,10 @@
                    
                     <i class="fa fa-heartbeat" aria-hidden="true"></i> Haley
                  </div></a>
+                 &nbsp;&nbsp;&nbsp;
             </div>
+            
+            
             <div class="col-sm-2">
                 <a href="{% url 'register' %}">
                     <div class="col-sm-8" id="login">
@@ -47,7 +50,9 @@
                         <!-- <input type="submit" name="Sign Up" value="Sign Up" onclick="location.href='{% url 'register' %}'"> <i class="fa fa-user-plus" style="font-size:25px;color:#EC7EDA;"></i> -->
                     </div>
                 </a>
+                &nbsp;&nbsp;&nbsp;
             </div>
+        
             <div class="col-sm-2">
                 <a href="{% url 'login' %}">
                     <div class="col-sm-8" id="login">
@@ -55,6 +60,7 @@
                     </div>
                 </a>
             </div>
+            &nbsp;&nbsp;&nbsp;
         </div>
 
 
@@ -71,29 +77,39 @@
             <form action="register" method="POST">
                 {% csrf_token %}                            
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="validate_f">
-                        <input type="text" class="username" id="fname" name = "first_name" placeholder="Your First Name" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="validate_f">
+                        <input type="text" class="username" id="fname"  style="width:100%;" name = "first_name" placeholder="Your First Name" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="validate_l">
-                        <input type="text" class="username" id="lname" name = "last_name" placeholder="Your Last Name" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="validate_l">
+                        <input type="text" class="username" id="lname" style="width:100%;" name = "last_name" placeholder="Your Last Name" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="validate">
-                        <input type="email" class="username" id="email" name = "email" placeholder="Enter email" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="validate">
+                        <input type="email" class="username" id="email" style="width:100%;" name = "email" placeholder="Enter email" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="validate_p">
-                        <input type="password" class="username" id="password" name ="password" placeholder="Password" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="validate_p">
+                        <input type="password" class="username" id="password" style="width:100%;" name ="password" placeholder="Password" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="validate_cp">
-                        <input type="password" class="username" id="cpassword" name ="confirmPassword" placeholder="Confirm Password" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="validate_cp">
+                        <input type="password" class="username" id="cpassword" style="width:100%;" name ="confirmPassword" placeholder="Confirm Password" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
                     <div class="col-sm-3" style="text-align: left;"></div>
