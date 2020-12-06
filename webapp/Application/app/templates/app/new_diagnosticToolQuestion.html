@@ -97,32 +97,32 @@
                 <hr style="margin-top: 0rem;">    
                 <div class="row" style="padding: 30px;">
                         <div class="col-sm-2">
-                            <p><button type="button" value="0" id="smiley" style="border: none; background-image: url('static/dist/img/new/0.png')";></button></p>
+                            <p><button type="button" value="0" id="smiley" style="border: none; outline: none; background-image: url('static/dist/img/new/0.png')";></button></p>
                             <p class="span1">0</p>
                             <p class="span1">- No Hurt</p>
                         </div>
                         <div class="col-sm-2">
-                            <p><button type="button" value="1" id="smiley" style="border: none;background-image: url('static/dist/img/new/1.png')";></button></p>
+                            <p><button type="button" value="1" id="smiley" style="border: none; outline: none;background-image: url('static/dist/img/new/1.png')";></button></p>
                             <p class="span1">1</p>
                             <p class="span1">- Hurts Little Bit</p>
                         </div>
                         <div class="col-sm-2">
-                            <p><button type="button" value="2" id="smiley" style="border: none;background-image: url('static/dist/img/new/2.png')";></button></p>
+                            <p><button type="button" value="2" id="smiley" style="border: none; outline: none;background-image: url('static/dist/img/new/2.png')";></button></p>
                             <p class="span1">2</p>
                             <p class="span1">- Hurts Little More</p>
                         </div>
                         <div class="col-sm-2">
-                            <p><button type="button" value="3" id="smiley" style="border: none;background-image: url('static/dist/img/new/3.png')";></button></p>
+                            <p><button type="button" value="3" id="smiley" style="border: none; outline: none;background-image: url('static/dist/img/new/3.png')";></button></p>
                             <p class="span1">3</p>
                             <p class="span1">- Hurts Even More</p>
                         </div>
                         <div class="col-sm-2">
-                            <p><button type="button" value="4" id="smiley" style="border: none;background-image: url('static/dist/img/new/4.png')";></button></p>
+                            <p><button type="button" value="4" id="smiley" style="border: none; outline: none;background-image: url('static/dist/img/new/4.png')";></button></p>
                             <p class="span1">4</p>
                             <p class="span1">- Hurts Whole Lot</p>
                         </div>
                         <div class="col-sm-2">
-                            <p><button type="button" value="5" id="smiley" style="border: none;background-image: url('static/dist/img/new/5.png')";></button></p>
+                            <p><button type="button" value="5" id="smiley" style="border: none; outline: none;background-image: url('static/dist/img/new/5.png')";></button></p>
                             <p class="span1">5</p>
                             <p class="span1">- Hurts Worst</p>
                         </div>
@@ -143,9 +143,29 @@
                 </div>	
                 <hr style="margin: 0rem;">
                 <h5 id="utext" style="color: black;"> <i class="fa fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</h5>
-                <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large">ASTHMA</label>
+                <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large"></label>
 
                 <div class="post">
+                  <div class="expandableCollapsibleDiv3">
+                    <img src="../../static/dist/img/UpArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                    <h5>Description</h5>
+                    <div class="row">
+                      <div class="col-sm-7">
+                        <div id="utext"><p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
+                        <p style="text-align: center;">
+                          <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fa fa-link mr-1"></i> Tell me more</a>
+                        </p>
+                      </div>
+                      <div class="col-sm-5">
+                        <h5 style="text-decoration: underline; text-align: center;">Possible Diseases</h5>
+                        <canvas id="donutChart" style="min-height: 200px; height: 200px; max-height:200px; max-width: 100%; width: 100%;"></canvas>
+                      </div>
+                </div>
+                  </div>
+                </div>   
+                
+              <hr>
+                <!-- <div class="post">
                     <div class="expandableCollapsibleDiv3">
                       <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
                         <h5>Description</h5>
@@ -155,7 +175,7 @@
                     </p>
                   </div>
                 </div>
-                <hr>
+                <hr> -->
                 <!-- <div class="post clearfix">
                     <div class="expandableCollapsibleDiv">
                      <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
@@ -194,8 +214,13 @@
 {% endblock %} 
 
 {% block javascript %}
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
+
+  var forChartDiseases = [];
+  var forChartValues = [];
 
   $(document).ready(function () {
 
@@ -205,8 +230,9 @@
     defaultElementDescription.hide("fast", "swing");
     var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
     defaultElementDescription2.hide("fast", "swing");
-    var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("p");
-    defaultElementDescription3.hide("fast", "swing");
+    var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("div");
+    //defaultElementDescription3.hide("fast", "swing");
+    defaultElementDescription3.show("fast", "swing");
 
     $(".expandableCollapsibleDiv > img").click(function (e) {
       var showElementDescription = 
@@ -235,7 +261,7 @@
     });
     $(".expandableCollapsibleDiv3 > img").click(function (e) {
       var showElementDescription = 
-        $(this).parents(".expandableCollapsibleDiv3").find("p");
+        $(this).parents(".expandableCollapsibleDiv3").find("div");
   
       if ($(showElementDescription).is(":visible")) {
         showElementDescription.hide("fast", "swing");
@@ -333,6 +359,32 @@
                   //list_html2 += "</ul> </li>";
                 }
                 $("#ulRemedies").html(list_html2);
+                //For Chart
+                forChartDiseases = data.forChartDiseases;
+                forChartValues = data.forChartValues;
+                var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+                //var donutChartCanvas =  document.querySelector("#donutChart");
+                var donutData        = {
+                  labels: forChartDiseases,
+                  datasets: [
+                    {
+                    // data: [700,500,400,600,300,100],
+                    // backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                    data: forChartValues,
+                    backgroundColor : ['#00a65a','#f56954', '#f39c12'],
+                    } 
+                  ]
+                }
+                var donutOptions     = {
+                  maintainAspectRatio : false,
+                  responsive : true,
+                }
+                //Create douhnut chart
+                var donutChart = new Chart(donutChartCanvas, {
+                  type: 'doughnut',
+                  data: donutData,
+                  options: donutOptions      
+                })
           }
           myDiv.style.display = "none";
         }
@@ -340,6 +392,41 @@
 
 });
 
+
+  //For chart
+  $(function () {
+    // //-------------
+    // //- DONUT CHART -
+    // //-------------
+    // // Get context with jQuery - using jQuery's .get() method.
+    // var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+    // //alert($('#donutChart').get(0))
+    // //var donutChartCanvas =  document.querySelector("#donutChart");
+    // alert(forChartDiseases);
+    // alert(forChartValues);
+    // var donutData        = {
+    //   labels: forChartDiseases,
+    //   datasets: [
+    //     {
+    //      // data: [700,500,400,600,300,100],
+    //      // backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+    //      data: forChartValues,
+    //      backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
+    //     }
+    //   ]
+    // }
+    // var donutOptions     = {
+    //   maintainAspectRatio : false,
+    //   responsive : true,
+    // }
+    // //Create pie or douhnut chart
+    // // You can switch between pie and douhnut using the method below.
+    // var donutChart = new Chart(donutChartCanvas, {
+    //   type: 'doughnut',
+    //   data: donutData,
+    //   options: donutOptions      
+    // })
+  })
 
 </script>
 {% endblock %}
