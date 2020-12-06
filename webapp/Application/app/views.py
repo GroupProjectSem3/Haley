@@ -633,12 +633,21 @@ def login(request):
         if User_profile.objects.filter(email=email, password=pwd).exists():
             request.session['user_id'] = user.get().email
             print(request.session['user_id'])
-            return render(
-                request, 'app/new_home.html', {
+            if(request.session['user_id']=='guest@gmail.com'):
+               return render(
+                            request, 'app/guest_dt.html', {
+                            'fname': user.get().first_name,
+                            'lname': user.get().last_name
+                            }
+                             )  
+             
+            else:
+               return render(
+                     request, 'app/new_home.html', {
                     'fname': user.get().first_name,
                     'lname': user.get().last_name
-                }
-            )  
+                     }
+                       )  
         else:
             messages.info(request, 'invalid credentials ')
             return render(request, 'app/new_login.html')
@@ -774,11 +783,17 @@ def diagnosticTool(request):
     print('Inside diagnostic tool first page')
     userid = request.session['user_id']
     user = User_profile.objects.filter(email=userid)[0]
-    return render(request, 'app/new_diagnosticTool.html', {
+    if (userid=='guest@gmail.com'):
+        return render(request, 'app/guest_dt.html', {
         'fname': user.first_name,
         'lname': user.last_name
-    })  
+         }) 
 
+    else: 
+        return render(request, 'app/new_diagnosticTool.html', {
+        'fname': user.first_name,
+        'lname': user.last_name
+         })
 
 def addButton(request):
     if request.method == 'POST':
@@ -790,15 +805,29 @@ def addButton(request):
             user = User_profile.objects.filter(email=userid)[0]
             sympDesc = symptom.objects.filter(
                 symptom_name=symptomName)[0].symptom_description
-            return render(
-                request, 'app/new_diagnosticToolQuestion.html', {
+            
+            if(userid=='guest@gmail.com'):
+                return render(
+                     request, 'app/guest_dtQuestions.html', {
                     'question': symptomName,
                     'symptomId': symptomName,
                     'symptomDescription': sympDesc,
                     'fname': user.first_name,
                     'lname': user.last_name,
                     'test': 'SHOW'
-                })
+                      })
+             
+            else:
+                return render(
+                     request, 'app/new_diagnosticToolQuestion.html', {
+                    'question': symptomName,
+                    'symptomId': symptomName,
+                    'symptomDescription': sympDesc,
+                    'fname': user.first_name,
+                    'lname': user.last_name,
+                    'test': 'SHOW'
+                       })
+
         else:
             messages.info(request, 'Please Select from list')
             return render(request, 'app/new_diagnosticTool.html',

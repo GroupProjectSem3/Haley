@@ -88,7 +88,33 @@
                         </div>
                     </div>
                 </div>
-            </form>  
+            </form>
+            <form id="form2" action="login" method="post" style="display:none">
+                {% csrf_token %}                            
+                <div class="row" style="padding: 20px;">
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-12" id="">
+                        <input type="email" class="username" id="email" style="width:100%;" name = "email" value="guest@gmail.com" placeholder="Enter email" required>
+                    </div>
+                    <div class="col-sm-3" id=""></div>
+                </div>
+                <div class="row" style="padding: 20px;">
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-12" id="">
+                        <input type="password" class="username" id="password" style="width:100%;" name ="password" value="guest123" placeholder="Password" required>
+                    </div>
+                    <div class="col-sm-3" id=""></div>
+                </div>
+                <div class="row" style="padding:20px">
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col-sm-12" id="login">
+                            <input type="submit" name="Login" value="Login"> <i class="fa fa-sign-in" style="font-size:25px;color:#EC7EDA;"></i>
+                        </div>
+                    </div>
+                </div>
+            </form>   
             <!-- guest form -->
              
             <hr>
@@ -96,7 +122,10 @@
                 <div class="col-sm-8">
                 </div>
                 <div class="col-sm-4">
+                    <span class="dark-color d-inline-block line-height-2" > Login as <a href="#" name="submit" type="submit" id="contact-submit"  data-submit="">Guest</a></span>    
+
                     <span class="dark-color d-inline-block line-height-2">Not Registered ? <a href="{% url 'register' %}" style="color: #EC7EDA;font-weight: bold;">Sign Up</a></span>    
+                
                 </div>
             </div> 
                 <!-- <div class="row" style="padding:20px">
@@ -129,7 +158,15 @@
     {% endblock content %}
     <script src="{% static 'js/main.js' %}"></script>
 
-   
+    {% block javascript %}
+    <script>
+    $("#contact-submit").on("click", function(e) {
+        e.preventDefault();
+        $("#form1").css('display','none');
+        $("#form2").css('display','inline-block');
+      });
+    </script>
+    {% endblock %}
     
   </body>
 </html>
