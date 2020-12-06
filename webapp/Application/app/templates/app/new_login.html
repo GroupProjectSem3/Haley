@@ -27,6 +27,7 @@
                    
                     <i class="fa fa-heartbeat" aria-hidden="true"></i> Haley
                 </div></a> 
+                &nbsp;&nbsp;&nbsp;
             </div>
             <div class="col-sm-2">
                 <a href="{% url 'register' %}">
@@ -36,6 +37,7 @@
                         <!-- <input type="submit" name="Sign Up" value="Sign Up" onclick="location.href='{% url 'register' %}'"> <i class="fa fa-user-plus" style="font-size:25px;color:#EC7EDA;"></i> -->
                     </div>
                 </a>
+                &nbsp;&nbsp;&nbsp;
             </div> 
             <div class="col-sm-2">
                 <a href="{% url 'login' %}">
@@ -43,6 +45,7 @@
                         Login <i class="fa fa-sign-in" style="font-size:25px;color:#EC7EDA;"></i>
                     </div>
                 </a>
+                &nbsp;&nbsp;&nbsp;
             </div>
         </div>
 
@@ -60,18 +63,21 @@
                             </ul>
                         {% endif %}
                             
-            <form action="login" method="post">
+            <form id="form1" action="login" method="post" style="opacity: 1;">
                 {% csrf_token %}                            
                 <div class="row" style="padding: 20px;">
-
-                    <div class="col-sm-12" id="">
-                        <input type="email" class="username" id="email" name = "email" placeholder="Enter email" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="">
+                        <input type="email" class="username" id="email" style="width:100%;" name = "email"  placeholder="Enter email" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="">
-                        <input type="password" class="username" id="password" name ="password" placeholder="Password" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="">
+                        <input type="password" class="username" id="password" style="width:100%;" name ="password"  placeholder="Password" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding:20px">
                     <div class="col-sm-3">
@@ -82,7 +88,9 @@
                         </div>
                     </div>
                 </div>
-            </form>   
+            </form>  
+            <!-- guest form -->
+             
             <hr>
             <div class="row" style="padding:20px">
                 <div class="col-sm-8">
@@ -120,6 +128,8 @@
     
     {% endblock content %}
     <script src="{% static 'js/main.js' %}"></script>
+
+   
     
   </body>
 </html>
