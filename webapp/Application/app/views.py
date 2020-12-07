@@ -1036,8 +1036,11 @@ def forgotPassword(request):
     return render(request, 'app/forgotPassword.html')
 
 
-def predictions(request):
-    return render(request,'app/predictions.html') 
+def settings(request):
+    userid = request.session['user_id']
+    user =User_profile.objects.filter(email = userid)[0]
+    return render(request,'app/settings.html',{'fname':user.first_name,'lname':user.last_name})   
+
 
 
 def GPList(request):
