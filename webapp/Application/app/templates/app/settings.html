@@ -1,0 +1,80 @@
+{% extends "app/new_layout.html" %}
+
+{% load static %}
+
+{% block css %}
+
+
+  {% endblock %}
+  
+  {% block content %}
+
+  <div class="container-fluid">
+    <div class="row" style="padding: 20px;">
+            <div class="col-sm-6">
+                <span class="span">
+                    Settings
+                </span>
+            </div>
+    </div>
+</div>
+    <div class="container-fluid">
+        <div class="row" style="padding:20px">
+            <div class="col-sm-12" id="haley">
+               
+                    <div class="row" id="it" style="padding:10px"> 
+                    <!-- <div id="it"> -->
+                        <br><h5 style=" text-decoration: underline;">About Us</h5>   
+                    </div>	
+                
+                    <!-- </div> -->
+                    <div class="row" style="padding: 25px;">
+                        
+                            <h5 style="text-align: left;color:black;font-family: Lato;" >What do we do?</h5>
+                            <h6 style="text-align: left;color:black;font-family: Lato;">We are students who are making this system for educational purpose only. 
+                            This is a healthcare system which deals with taking some data about their symptoms from the user and provide them some diagnosis on the basis of their inputs.</h6>
+                            <h5 style="text-align: left;color:black;font-family: Lato;" >What data do we collect?</h5>
+                            <h6 style="text-align: left;color:black;font-family: Lato;">At the time of sign-Up users are asked to provide their full name, email and a passoword which they will need to make a profile.
+                            Other than this the user will be able to enter details like thier height, weight, address, phone number, date of birth and gender.</h6>
+                            <h5 style="text-align: left;color:black;font-family: Lato;" >How are we using the data?</h5>
+                            <h6 style="text-align: left;color:black;font-family: Lato;">The system will use the email address and password for authenticating the user befor they can use the features provided by the system.
+                            The system will use the address of the user to provide a map of the GPs' near the users location. 
+                            No other personal information will be used in any kind of processing.</h6>
+                            <h5 style="text-align: left;color:black;font-family: Lato;" >How are we storing the data?</h5>
+                            <h6 style="text-align: left;color:black;font-family: Lato;">The system is storing the data in a cloud environment which is not accessable to users without admin roles.
+                            The data is also encryted using an alogrithm before being stored in the database.
+                            Only proper keys will be able to decrypt the data and view it.</h6>
+                            
+                            <h5 style="text-align: left;color:black;font-family: Lato;" >Why do you need to provide concent?</h5>
+                            <h6 style="text-align: left;color:black;font-family: Lato;">According to the General Data Protection Regulation(GDPR) any business or system operating in the EU region needs to provide full discloser of any
+                            personal identifiable information of the user which is collected or used by the system in any way or form.</h6>
+                          
+                        
+                    </div>
+                        
+                  
+    
+                 
+    
+                 
+                  
+            </div>
+           
+        </div>
+    </div>
+
+  {% endblock %} 
+
+  {% block javascript %}
+  
+  
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+
+
+  
+  {% endblock %}
