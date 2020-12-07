@@ -17,6 +17,7 @@ from .symptomEnum import symptomEnum
 from django.db.models import Q, Count
 from django.template.loader import render_to_string
 from .diagnosisPrediction import DiagnosisPrediction
+from .diagnosisPrediction_new import diagnosisPrediction_new
 from django.contrib.auth.decorators import login_required
 from .common import common
 from dateutil.relativedelta import relativedelta
@@ -122,7 +123,6 @@ from dateutil.relativedelta import relativedelta
 #         del request.session['user_id']
 #     return render(request, 'app/signIn.html')
 
-
 # def update_Profile(request):
 #     print('inside update')
 #     if request.method == 'POST':
@@ -176,6 +176,7 @@ from dateutil.relativedelta import relativedelta
 
 #     else:
 #         return render(request, 'app/userProfile.html')
+
 
 # def register(request):
 #     if request.method == 'POST':
@@ -633,12 +634,21 @@ def login(request):
         if User_profile.objects.filter(email=email, password=pwd).exists():
             request.session['user_id'] = user.get().email
             print(request.session['user_id'])
-            return render(
-                request, 'app/new_home.html', {
+            if(request.session['user_id']=='guest@gmail.com'):
+               return render(
+                            request, 'app/guest_dt.html', {
+                            'fname': user.get().first_name,
+                            'lname': user.get().last_name
+                            }
+                             )  
+             
+            else:
+               return render(
+                     request, 'app/new_home.html', {
                     'fname': user.get().first_name,
                     'lname': user.get().last_name
-                }
-            )  
+                     }
+                       )  
         else:
             messages.info(request, 'invalid credentials ')
             return render(request, 'app/new_login.html')
@@ -723,6 +733,7 @@ def update_Profile(request):
     else:
         return render(request, 'app/new_userProfile.html')
 
+
 def register(request):
     if request.method == 'POST':
         fName = request.POST['first_name']
@@ -773,11 +784,17 @@ def diagnosticTool(request):
     print('Inside diagnostic tool first page')
     userid = request.session['user_id']
     user = User_profile.objects.filter(email=userid)[0]
-    return render(request, 'app/new_diagnosticTool.html', {
+    if (userid=='guest@gmail.com'):
+        return render(request, 'app/guest_dt.html', {
         'fname': user.first_name,
         'lname': user.last_name
-    })  
+         }) 
 
+    else: 
+        return render(request, 'app/new_diagnosticTool.html', {
+        'fname': user.first_name,
+        'lname': user.last_name
+         })
 
 def addButton(request):
     if request.method == 'POST':
@@ -789,18 +806,32 @@ def addButton(request):
             user = User_profile.objects.filter(email=userid)[0]
             sympDesc = symptom.objects.filter(
                 symptom_name=symptomName)[0].symptom_description
-            return render(
-                request, 'app/new_diagnosticToolQuestion.html', {
+            
+            if(userid=='guest@gmail.com'):
+                return render(
+                     request, 'app/guest_dtQuestions.html', {
                     'question': symptomName,
                     'symptomId': symptomName,
                     'symptomDescription': sympDesc,
                     'fname': user.first_name,
                     'lname': user.last_name,
                     'test': 'SHOW'
-                })
+                      })
+             
+            else:
+                return render(
+                     request, 'app/new_diagnosticToolQuestion.html', {
+                    'question': symptomName,
+                    'symptomId': symptomName,
+                    'symptomDescription': sympDesc,
+                    'fname': user.first_name,
+                    'lname': user.last_name,
+                    'test': 'SHOW'
+                       })
+
         else:
             messages.info(request, 'Please Select from list')
-            return render(request, 'app/diagnosticTool.html',
+            return render(request, 'app/new_diagnosticTool.html',
                           {'testing': 'tesing textttt'})
 
 
@@ -847,9 +878,13 @@ def symptom_nextClick(request):
         for resp in userResp:
             if resp.split('_')[1] !='0':
                 response_list.append(resp.split('_')[0])
-        # To get the predictions        
-        userResu = DiagnosisPrediction.predict(response_list)
-        user_results = userResu[0]
+        # To get the predictions old one without percentage      
+        #userResu = DiagnosisPrediction.predict(response_list)
+        #user_results = userResu[0]
+        # To get the predictions NEW one with percentages
+        userResu = diagnosisPrediction_new.predict(response_list)
+        user_results = userResu[0].split('_')[0]
+        # For user Responses
         user_responses = '|'.join(userResp)
         userid=request.session['user_id']
         user_diag = User_diagnosis.objects.create(user_id=userid,userResponses=user_responses,userResults=user_results,create_date=datetime.today(),modify_date=datetime.today(),isFeedbackGiven=0) 
@@ -860,6 +895,7 @@ def symptom_nextClick(request):
         forDesc = disease_details.disease_description
         forCauses = disease_details.disease_causes
         forLink = disease_details.link
+        forRemedies = disease_details.remedies.split('|')
         # For symptoms with its details
         forSympPresent = list()    
         forSympAbsent = list()
@@ -868,11 +904,21 @@ def symptom_nextClick(request):
             if resp.split('_')[1] == '0':
                 forSympAbsent.append(Sname)
             else:
-                forSympPresent.append(Sname)    
+                forSympPresent.append(Sname)
+        # For Chart
+        #forChartDiseases =['D1','D2','D3']
+        #forChartValues = [60,20,20]   
+        forChartDiseases = list()
+        forChartValues = list()
+        for o in userResu:
+            forChartDiseases.append(o.split('_')[0])
+            forChartValues.append(o.split('_')[1])
+
         data = {
             'is_taken': False,
             'forDiseases': forDiseases, 'forDesc': forDesc, 'forCauses': forCauses,'forLink': forLink,
-            'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,
+            'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,'forRemedies':forRemedies,
+            'forChartDiseases':forChartDiseases,'forChartValues':forChartValues
         }
 
     return JsonResponse(data, safe=False)
@@ -910,7 +956,6 @@ def getDetails(request):
     }
     return JsonResponse(data, safe=False)
     #return render(request,'app/diagnosticTool.html',{'entries_list':nxtSymptom})
-
 
 def userProfile(request):
     if request.method == 'GET':
@@ -968,7 +1013,8 @@ def updatePassword(request):
             })
 
     else:
-        return render(request, 'app/userProfile.html')
+        return render(request, 'app/new_userProfile.html')
+
 
 
 def changePassword(request):
@@ -1137,7 +1183,6 @@ def getChartsDetails(request):
     }
     return JsonResponse(data, safe=False)
 
-    
 
 #### For NEW pages END ####
 

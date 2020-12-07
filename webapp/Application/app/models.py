@@ -28,6 +28,7 @@ class Disease(models.Model):
     disease_description = models.CharField(max_length=2000,default="")
     disease_causes = models.CharField(max_length=2000,default="")
     link = models.CharField(max_length=500,default="")
+    remedies = models.CharField(max_length=500, default="")
 
 
 class symptom(models.Model):

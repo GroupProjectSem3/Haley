@@ -27,6 +27,7 @@
                    
                     <i class="fa fa-heartbeat" aria-hidden="true"></i> Haley
                 </div></a> 
+                &nbsp;&nbsp;&nbsp;
             </div>
             <div class="col-sm-2">
                 <a href="{% url 'register' %}">
@@ -36,6 +37,7 @@
                         <!-- <input type="submit" name="Sign Up" value="Sign Up" onclick="location.href='{% url 'register' %}'"> <i class="fa fa-user-plus" style="font-size:25px;color:#EC7EDA;"></i> -->
                     </div>
                 </a>
+                &nbsp;&nbsp;&nbsp;
             </div> 
             <div class="col-sm-2">
                 <a href="{% url 'login' %}">
@@ -43,6 +45,7 @@
                         Login <i class="fa fa-sign-in" style="font-size:25px;color:#EC7EDA;"></i>
                     </div>
                 </a>
+                &nbsp;&nbsp;&nbsp;
             </div>
         </div>
 
@@ -60,18 +63,47 @@
                             </ul>
                         {% endif %}
                             
-            <form action="login" method="post">
+            <form id="form1" action="login" method="post" style="opacity: 1;">
                 {% csrf_token %}                            
                 <div class="row" style="padding: 20px;">
-
-                    <div class="col-sm-12" id="">
-                        <input type="email" class="username" id="email" name = "email" placeholder="Enter email" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="">
+                        <input type="email" class="username" id="email" style="width:100%;" name = "email"  placeholder="Enter email" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding: 20px;">
-                    <div class="col-sm-12" id="">
-                        <input type="password" class="username" id="password" name ="password" placeholder="Password" required>
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-6" id="">
+                        <input type="password" class="username" id="password" style="width:100%;" name ="password"  placeholder="Password" required>
                     </div>
+                    <div class="col-sm-3" id=""></div>
+                </div>
+                <div class="row" style="padding:20px">
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col-sm-12" id="login">
+                            <input type="submit" name="Login" value="Login"> <i class="fa fa-sign-in" style="font-size:25px;color:#EC7EDA;"></i>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form id="form2" action="login" method="post" style="display:none">
+                {% csrf_token %}                            
+                <div class="row" style="padding: 20px;">
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-12" id="">
+                        <input type="email" class="username" id="email" style="width:100%;" name = "email" value="guest@gmail.com" placeholder="Enter email" required>
+                    </div>
+                    <div class="col-sm-3" id=""></div>
+                </div>
+                <div class="row" style="padding: 20px;">
+                    <div class="col-sm-3" id=""></div>
+                    <div class="col-sm-12" id="">
+                        <input type="password" class="username" id="password" style="width:100%;" name ="password" value="guest123" placeholder="Password" required>
+                    </div>
+                    <div class="col-sm-3" id=""></div>
                 </div>
                 <div class="row" style="padding:20px">
                     <div class="col-sm-3">
@@ -83,12 +115,17 @@
                     </div>
                 </div>
             </form>   
+            <!-- guest form -->
+             
             <hr>
             <div class="row" style="padding:20px">
                 <div class="col-sm-8">
                 </div>
                 <div class="col-sm-4">
+                    <span class="dark-color d-inline-block line-height-2" > Login as <a href="#" name="submit" type="submit" id="contact-submit"  data-submit="">Guest</a></span>    
+
                     <span class="dark-color d-inline-block line-height-2">Not Registered ? <a href="{% url 'register' %}" style="color: #EC7EDA;font-weight: bold;">Sign Up</a></span>    
+                
                 </div>
             </div> 
                 <!-- <div class="row" style="padding:20px">
@@ -108,54 +145,28 @@
                     </div>
                 </div> -->
             </div>
+
             <div class="col-sm-6" id="bt">
-                <!-- <img class="img-fluid" src="{% static 'dist/img/new/symptoms.png' %}" alt="Symptoms" > -->
-                <!--********Slider*******-->
-                <div id="demo" class="carousel slide" data-ride="carousel">
-                    <ul class="carousel-indicators">
-                      <li data-target="#demo" data-slide-to="0" class="active"></li>
-                      <li data-target="#demo" data-slide-to="1"></li>
-                      <li data-target="#demo" data-slide-to="2"></li>
-                    </ul>
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="{% static 'dist/img/login/1.png' %}" alt="Los Angeles" width="500" height="400">
-                        <div class="carousel-caption" style="font-family: Lato; color:#EC7EDA">
-                          <!-- <h3>Haley</h3>
-                          <p>Its Simple and accurate!</p> -->
-                        </div>   
-                      </div>
-                      <div class="carousel-item">
-                        <img src="{% static 'dist/img/login/2.png' %}" alt="Chicago" width="500" height="400">
-                        <div class="carousel-caption" style="font-family: Lato; color:#EC7EDA">
-                            <!-- <h3>Haley</h3>
-                            <p>Its Simple and accurate!</p> -->
-                          </div>   
-                        </div>
-                        <div class="carousel-item">
-                          <img src="{% static 'dist/img/login/3.png' %}" alt="New York" width="500" height="400">
-                          <div class="carousel-caption" style="font-family: Lato; color:#EC7EDA">
-                            <!-- <h3>Haley</h3>
-                            <p>Its Simple and accurate!</p> -->
-                          </div>   
-                        </div>
-                      </div>
-                      <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                      </a>
-                      <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                      </a>
-                    </div>
-        
-  
+                <img class="img-fluid" src="{% static 'dist/img/new/symptoms.png' %}" alt="Symptoms" >
             </div>
+
+            
         </div>
     </div>
 
     
     {% endblock content %}
     <script src="{% static 'js/main.js' %}"></script>
+
+    {% block javascript %}
+    <script>
+    $("#contact-submit").on("click", function(e) {
+        e.preventDefault();
+        $("#form1").css('display','none');
+        $("#form2").css('display','inline-block');
+      });
+    </script>
+    {% endblock %}
     
   </body>
 </html>

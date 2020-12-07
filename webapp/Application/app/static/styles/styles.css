@@ -10,9 +10,9 @@
   }
   #welcome{
     font-family: lato;
-    text-align: right;
+    text-align: center;
     color: #4e4e4e;
-    font-size: 18px;
+    font-size: 24px;
   }
   #utext{
     font-family: Lato;
@@ -99,6 +99,28 @@
     box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 24px rgba(166, 180, 200, 0.7);
     border-radius: 40px;
   }
+
+  #new_landing{
+    font-family: KoHo;
+    font-style: bold;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 62px;
+    text-align: center;
+    vertical-align:middle; 
+    justify-content:center;
+     align-items: center;
+    
+    
+
+  
+    
+   background:  rgba(196, 196, 196, 0.5);
+    box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 24px rgba(166, 180, 200, 0.7);
+    border-radius: 40px;
+  }
+
+
 
   #diagnosis{
     font-family: KoHo;
@@ -255,7 +277,7 @@
 #login-pane{
   /* position: absolute; */
   width: 600px;
-  height: 450px;
+  /* height: 450px; */
   /* left: 120px;
   top: 229px; */
   text-align: left;
@@ -263,15 +285,15 @@
   vertical-align:middle;
   justify-content:center;
   align-items: center;
-
   background: rgba(196, 196, 196, 0.5);
-  border-radius: 30px;
+  box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 24px rgba(166, 180, 200, 0.7);
+  border-radius: 40px;
 }
 
 #signup-pane{
   /* position: absolute; */
   width: 600px;
-  height: 750px;
+  /* height: 750px; */
   /* left: 120px;
   top: 229px; */
   text-align: left;
@@ -281,7 +303,8 @@
   align-items: center;
 
   background: rgba(196, 196, 196, 0.5);
-  border-radius: 30px;
+  box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 10px 10px 24px rgba(166, 180, 200, 0.7);
+  border-radius: 40px;
 }
 
 #log{
@@ -301,8 +324,8 @@
 }
 
 .username{
-  width: 350px;
-  height: 50px;
+  /* width: 350px;
+  height: 50px; */
   font-family: KoHo;
   font-style: normal;
   font-weight: 500;
@@ -523,3 +546,4 @@ border-radius: 100px;
 
 
 /******************************* Pie CHart  *******************************/
+

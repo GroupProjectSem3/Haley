@@ -228,4 +228,3 @@
 
 - Able to provide the path to fetch the static files from the cloud
 - Deployment is done successfully and trying to review the pages in the deployment server.
-

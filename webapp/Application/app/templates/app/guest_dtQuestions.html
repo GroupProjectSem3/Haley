@@ -1,0 +1,360 @@
+{% extends "app/guest_layout.html" %}
+
+{% block content %}
+
+{% load static %}
+<style type="text/css">
+
+  #spinner {
+      display: none;
+  }
+
+  .loading {
+    margin-top: 5px;
+    border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#tooltip {
+    position: relative;
+    display: inline-block;
+   
+  }
+  
+  #tooltip .tooltiptext {
+    visibility: hidden;
+    width: 600px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 16px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  
+  }
+  
+  #tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+</style>
+
+
+<div class="container-fluid">
+    <div class="row" style="padding: 30px;">
+            <div class="col-sm-6">
+                <span class="span">
+                    Diagnostic Tool
+                </span>
+            </div>
+            <!-- <div class="col-sm-6" id="welcome">
+                Welcome to Haley <b>Avi Peruboina</b>
+            </div> -->
+    </div>
+</div>
+
+
+<div class="container-fluid" id="divQuestions" >
+    <div class="row" style="padding:30px">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" id="haley">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row" id="it" style="padding:10px"> 
+                <!-- <div id="it"> -->
+                    <br><h5>How do you rate the severity of this symptom - <a href="#"id="tooltip" > <i class="fa fa-info-circle " >  </i> <span class="tooltiptext" id="spnDesc">{{symptomDescription}}</span> </a> </h5><hr>
+                <!-- </div> -->
+                    <label id="lblFirst" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;">{{ question }}</label>
+                     <label id="lblSymp" style="font-family: inherit;font-size: 1.2rem;font-weight: bold;"></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;    
+                <label id="spinner" class="loading" ></label>
+                  
+                </div>	
+
+             
+
+                <hr style="margin-top: 0rem;">    
+                <div class="row" style="padding: 30px;">
+                        <div class="col-sm-2">
+                            <p><button type="button" value="0" id="smiley" style="border: none; background-image: url('static/dist/img/new/0.png')";></button></p>
+                            <p class="span1">0</p>
+                            <p class="span1">- No Hurt</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><button type="button" value="1" id="smiley" style="border: none;background-image: url('static/dist/img/new/1.png')";></button></p>
+                            <p class="span1">1</p>
+                            <p class="span1">- Hurts Little Bit</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><button type="button" value="2" id="smiley" style="border: none;background-image: url('static/dist/img/new/2.png')";></button></p>
+                            <p class="span1">2</p>
+                            <p class="span1">- Hurts Little More</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><button type="button" value="3" id="smiley" style="border: none;background-image: url('static/dist/img/new/3.png')";></button></p>
+                            <p class="span1">3</p>
+                            <p class="span1">- Hurts Even More</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><button type="button" value="4" id="smiley" style="border: none;background-image: url('static/dist/img/new/4.png')";></button></p>
+                            <p class="span1">4</p>
+                            <p class="span1">- Hurts Whole Lot</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><button type="button" value="5" id="smiley" style="border: none;background-image: url('static/dist/img/new/5.png')";></button></p>
+                            <p class="span1">5</p>
+                            <p class="span1">- Hurts Worst</p>
+                        </div>
+                </div>
+                <label id="lblBtnValue" style="visibility: hidden; height: 20px;"></label>
+                <hr>
+            </form>
+        </div>
+        <div class="col-sm-2" ></div>
+    </div>
+</div>
+
+<div class="container-fluid" id="divResults" style="display: none;">
+    <div class="row" style="padding:30px">
+            <div class="col-sm-12" id="results">
+                <div class="row" id="it" style="padding:10px"> 
+                    <h3 style="font-family: inherit;font-weight: bold;">Predictions</h3>
+                </div>	
+                <hr style="margin: 0rem;">
+                <h5 id="utext" style="color: black;"> <i class="fa fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</h5>
+                <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large">ASTHMA</label>
+
+                <div class="post">
+                    <div class="expandableCollapsibleDiv3">
+                      <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                        <h5>Description</h5>
+                    <div id="utext"><p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
+                    <p style="text-align: center;">
+                      <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fa fa-link mr-1"></i> Tell me more</a>
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                <!-- <div class="post clearfix">
+                    <div class="expandableCollapsibleDiv">
+                     <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                        <h5>Possible Causes</h5>
+                        <div id="utext"><p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
+                       </div>
+                </div>
+                <hr> -->
+                <div class="post">
+                  <div class="expandableCollapsibleDiv">
+                    <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
+                    <h5>Home Remedies</h5>
+                  <div id="utext">
+                      <ul id="ulRemedies" style="color: black;"> 
+                       </ul>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="post">
+                    <div class="expandableCollapsibleDiv2">
+                      <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
+                      <h5>Symptoms</h5>
+                    <div id="utext">
+                        <ul id="ulSymptoms" style="color: black;"> 
+                         </ul>
+                      </div>
+                    </div>
+                  </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %} 
+
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+         $("#guest_Profile").click(function(e) {
+           alert("Please register with Haley to access it's full functionality. Thanks");
+          });
+
+          $("#guest_GP").click(function(e) {
+           alert("Please register with Haley to access it's full functionality. Thanks");
+          });
+
+          $("#guest_Assessments").click(function(e) {
+           alert("Please register with Haley to access it's full functionality. Thanks");
+          });
+
+          $("#guest_Feedback").click(function(e) {
+           alert("Please register with Haley to access it's full functionality. Thanks");
+          });
+
+  $(document).ready(function () {
+
+    // var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
+    // defaultElementDescription.hide("fast", "swing");
+    var defaultElementDescription = $(".expandableCollapsibleDiv").find("div");
+    defaultElementDescription.hide("fast", "swing");
+    var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
+    defaultElementDescription2.hide("fast", "swing");
+    var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("p");
+    defaultElementDescription3.hide("fast", "swing");
+
+    $(".expandableCollapsibleDiv > img").click(function (e) {
+      var showElementDescription = 
+        //$(this).parents(".expandableCollapsibleDiv").find("p");
+        $(this).parents(".expandableCollapsibleDiv").find("div");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
+    $(".expandableCollapsibleDiv2 > img").click(function (e) {
+      var showElementDescription = 
+        $(this).parents(".expandableCollapsibleDiv2").find("div");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
+    $(".expandableCollapsibleDiv3 > img").click(function (e) {
+      var showElementDescription = 
+        $(this).parents(".expandableCollapsibleDiv3").find("p");
+  
+      if ($(showElementDescription).is(":visible")) {
+        showElementDescription.hide("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/DownArrow.png");
+      } else {
+        showElementDescription.show("fast", "swing");
+        $(this).attr("src", "../../static/dist/img/UpArrow.png");
+      }
+    });
+  
+});
+
+
+  $(jQuery).on('click', "#smiley", function() {
+    $("#lblBtnValue").html($(this).val());
+ 
+    if($("#lblBtnValue").html() == ""){
+         alert('please select one severity..');
+         return false; } 
+    var symptom = '';
+    if($("#lblFirst").is(":visible"))
+    {
+      symptom = $("#lblFirst").html();
+    }
+    else
+    {
+      symptom = $("#lblSymp").html();
+    }
+    $(this).blur();
+    //
+    var myDiv = document.getElementById("spinner")
+    myDiv.style.display = "block";
+    //
+      $.ajax({
+        url: '/ajax/symptom_nextClick/',
+        data: {
+          'wt': $("#lblBtnValue").html(),
+          // 'symp' : $("#lblSymp").val(),
+          'symp' : symptom,
+        },
+        dataType: 'json',
+        success: function (data) {
+          $("#lblBtnValue").html("")
+          if (data.is_taken) {
+            $("#lblSymp").html(data.nextSymptom)
+            //$("input[name='wt']:radio:checked").prop('checked',false);
+            $("#lblFirst").hide();
+            $("#spnDesc").html(data.symptomDescription);
+            // $("#lblNewCardName").html(data.nextSymptom)
+            // $("#lblCardName").hide();
+            // $("#lblNewCardDesc").html(data.symptomDescription)
+            // $("#lblCardDesc").hide();
+            $("#divResults").hide();
+          }
+          else{
+            $("#divResults").show();
+            $("#divQuestions").hide();
+            $("#lblDiseaseName").html(data.forDiseases);
+            $("#pDesc").html(data.forDesc);
+            $("#pCauses").html(data.forCauses);
+            $("a[href='http://www.default.com/']").attr('href', data.forLink);
+            //$("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
+
+            var list_html1 = "";
+            var list_html2 = "";
+                if(data.forSympPresent.length>0)
+                {
+                  list_html1 += "<li>Present <ul>";
+                  for(var i=0;i<data.forSympPresent.length;i++)
+                  {
+                      list_html1 +="<li>" + data.forSympPresent[i] +"</li>";
+                  }  
+                  list_html1 += "</ul> </li>";
+                }
+                //$("#liPresent").html(list_html1);
+                if(data.forSympAbsent.length>0)
+                {
+                  list_html1 += "<li>Absent<ul>";
+                  for(var i=0;i<data.forSympAbsent.length;i++)
+                  {
+                      list_html1 +="<li>" + data.forSympAbsent[i] +"</li>";
+                  }
+                  list_html1 += "</ul> </li>";
+                }
+                //$("#liAbsent").html(list_html2);
+                $("#ulSymptoms").html(list_html1);
+                // For Remedies
+                if(data.forRemedies.length>0)
+                {
+                  //list_html1 += "<li>Present <ul>";
+                  for(var i=0;i<data.forRemedies.length;i++)
+                  {
+                      list_html2 +="<li>" + data.forRemedies[i] +"</li>";
+                  }  
+                  //list_html2 += "</ul> </li>";
+                }
+                $("#ulRemedies").html(list_html2);
+          }
+          myDiv.style.display = "none";
+        }
+      });
+
+});
+
+
+</script>
+{% endblock %}
