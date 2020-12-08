@@ -91,7 +91,8 @@
                
                 <div class="row" style="padding-left:20px ;padding-right: 20px;">
                     <div class="col-sm-6" >
-                        <input type="date" class="username" id="date" style="width:100%;" name = "dob" placeholder=" Your Date Of Birth" required>
+                        <!-- <input type="date" class="username" id="date" style="width:100%;" name = "dob" placeholder=" Your Date Of Birth" required> -->
+                        <input type="text" class="username" id="date" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" style="width:100%;" name = "dob" placeholder=" Your Date Of Birth" required>
                    &nbsp; </div>
                     <div class="col-sm-6" id="validate">
                         <input type="email" class="username" id="email" style="width:100%;" name = "email" placeholder="Enter email" required>
