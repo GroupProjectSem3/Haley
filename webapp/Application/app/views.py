@@ -738,6 +738,7 @@ def register(request):
     if request.method == 'POST':
         fName = request.POST['first_name']
         lName = request.POST['last_name']
+        dob=request.POST['dob']
         emailId = request.POST['email']
         pwd = request.POST['password']
         confirmPassword = request.POST['confirmPassword']
@@ -762,6 +763,7 @@ def register(request):
                 user = User_profile.objects.create(
                     first_name=fName,
                     last_name=lName,
+                    dob=dob,
                     email=emailId,
                     password=pwd,
                     confirm_password=confirmPassword)
@@ -977,7 +979,7 @@ def userProfile(request):
                 'height': user.height
             })
     else:
-        return render(request, 'app/userHome.html')
+        return render(request, 'app/new_userProfile.html')
 
 
 def updatePassword(request):
@@ -1032,9 +1034,8 @@ def changePassword(request):
         return render(request, 'app/userProfile.html')
 
 
-def forgotPassword(request):
-    return render(request, 'app/forgotPassword.html')
-
+def forget_Password(request):
+    return render(request, 'app/forget_Password.html')
 
 def settings(request):
     userid = request.session['user_id']
@@ -1185,6 +1186,51 @@ def getChartsDetails(request):
         'pieChart_list': pieChart, 'barChart_list': barChart
     }
     return JsonResponse(data, safe=False)
+
+
+def check_email(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        dob = request.POST['dob']
+       
+        if User_profile.objects.filter(email=email, dob=dob).exists():
+            return render(
+                            request, 'app/resetPassword.html', {'user_email':email}
+                             )
+        else:
+            messages.info(request, 'Record Not Found')
+            return render(request, 'app/forget_Password.html')
+
+def reset_Password(request):
+    print('inside ne_password')
+    if request.method == 'POST':
+        email = request.POST['lblemail']
+        print('email is '+email)
+        npass = request.POST['pass1']
+        cpass = request.POST['pass2']
+    
+        if User_profile.objects.filter(email=email).exists():
+          if (len(npass) >=5 ) :
+             if (npass == cpass):
+                print('password change')
+                User_profile.objects.filter(email=email).update(
+                    password=cpass, confirm_password=cpass)
+                messages.success(request, '*Your Password is updated successfully*')
+
+                print('pass updated')
+                return render(request, 'app/new_login.html')
+
+             else:
+                print('password not matches')
+                messages.success(request, '*Your Password does not matched*')
+                return render(request, 'app/resetPassword.html')
+          else:
+              messages.success(request, '*Your Password should be minimun of six characters*')
+              return render(request, 'app/resetPassword.html')
+
+        else:
+              messages.success(request, '*Email Not found*')
+              return render(request, 'app/resetPassword.html')
 
 
 #### For NEW pages END ####
