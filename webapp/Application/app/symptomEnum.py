@@ -1,5 +1,5 @@
 from enum import Enum
-
+# Dictionary of symptoms
 class symptomEnum(Enum):
     S1 = "Sneezing"
     S2 = "Stuffy Nose"
