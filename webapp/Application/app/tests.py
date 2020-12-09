@@ -139,7 +139,7 @@ class ViewTest(TestCase):
             self.assertEqual(response.status_code, 200)
 
  #updating the existing users profile
-   def test_update_Profile(self):
+    def test_update_Profile(self):
         address = 'Lucan'
         country = 'Ireland'
         city = 'Dublin'
@@ -168,39 +168,39 @@ class ViewTest(TestCase):
     
         
  #user logout from system
-   def test_logout(self):
+    def test_logout(self):
         response = self.client.get('/logout')
         self.assertEqual(response.status_code, 200)
     
 #redirecting to user profile 
-   def test_load_userProfile(self,request):
+    def test_load_userProfile(self,request):
         response = self.client.get('/userProfile')
         self.assertEqual(response.status_code, 200)
 
 #user changing the password
-   def test_updatePassword(self):
+    def test_updatePassword(self):
         npass = 'katie111'
         cpass = 'katie111'
 
         userid='Katie.patel@gmail.com'
 
-         if (npass == cpass):
+        if (npass == cpass):
                 
                 User_profile.objects.filter(email=userid).update(password=cpass, confirm_password=cpass)
                 response = self.client.get('/updatePassword')
                 self.assertEqual(response.status_code, 200)
 
-         else:
+        else:
                 response = self.client.get('/updatePassword')
                 self.assertEqual(response.status_code, 200)
 
    #redirecting to update password page
-   def test_changePassword(self):
+    def test_changePassword(self):
         response = self.client.get('/changePassword')
         self.assertEqual(response.status_code, 200)
 
  #redirecting to Find Nearby GP's page
-   def test_GPList(self):
+    def test_GPList(self):
         response = self.client.get('/GPList')
         self.assertEqual(response.status_code, 200)
 
@@ -390,4 +390,35 @@ class ViewTest(TestCase):
         self.assertEqual(assessData_mk.isFeedbackGiven, assessList[0].isFeedbackGiven)
         self.assertJSONEqual(response.content, {'status': 'success'})                 
 
-            
+    def test_forget_Password(self):
+        response = self.client.get('/forget_Password')
+        self.assertEqual(response.status_code, 200)
+
+    def test_settings(self):
+        response = self.client.get('/settings')
+        self.assertEqual(response.status_code, 200)
+
+    def test_check_email(self):
+        email='Katie.patel@gmail.com'
+        dob = '02/12/99'
+        if User_profile.objects.filter(email=email, dob=dob).exists():
+            #request.session['user_id'] = emailid
+            response = self.client.get('/check_email')
+            self.assertEqual(response.status_code, 200)
+        
+        else:
+             response = self.client.get('/check_email')
+             self.assertEqual(response.status_code, 200)
+
+    def test_reset_Password(self):
+        email='Katie.patel@gmail.com'
+        npass = 'katie111'
+        cpass = 'katie111'
+        if (npass == cpass):
+                User_profile.objects.filter(email=email).update(password=cpass, confirm_password=cpass)
+                response = self.client.get('/reset_Password')
+                self.assertEqual(response.status_code, 200)
+
+        else:
+                response = self.client.get('/reset_Password')
+                self.assertEqual(response.status_code, 200)            
