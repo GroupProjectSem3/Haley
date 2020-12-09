@@ -228,3 +228,31 @@
 
 - Able to provide the path to fetch the static files from the cloud
 - Deployment is done successfully and trying to review the pages in the deployment server.
+
+## Project Retrospective Board - Sprint 12
+
+## Liked / Glad
+
+- New Working UI
+- Help in debugging from Group 3.
+- Appropriate Pr's from the team members
+
+## Learned
+
+- How to produce multiple outputs with their probabilities for a specific input within neural network structure.
+
+## Lacked / Mad
+
+- Not able to give appropriate time to the documentation.
+- Too hung up on development
+
+## Longed For/ Sad
+
+- More structured tutorials on mongodb atlas.
+- More reading material on deployments and networking
+
+## Action Items
+
+- User evaluation of the final application.
+- Complete atleast 60 - 70 % of the final report.
+
