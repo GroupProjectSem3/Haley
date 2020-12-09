@@ -47,6 +47,8 @@ urlpatterns = [
     #path('accounts/login/', auth_views.LoginView.as_view()),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
     url(r'^ajax/getChartsDetails/$', app.views.getChartsDetails, name='getChartsDetails'),
+    url(r'^ajax/getTowns/$', app.views.getTowns, name='getTowns'),
+    url(r'^ajax/getGP/$', app.views.getGP, name='getGP'),
     
     url(r'^index$', app.views.index, name='index'), 
     # url(r'^about', app.views.about, name='about'),
