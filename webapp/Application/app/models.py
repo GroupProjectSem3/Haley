@@ -65,3 +65,18 @@ class User_diagnosis(models.Model):
     isFeedbackGiven = models.IntegerField()
     feedbackRating = models.IntegerField()
     feedbackText = models.CharField(max_length=5000)
+
+
+class GP_details(models.Model):
+    name = models.CharField(max_length=100)
+    address1 = models.CharField(max_length=800)
+    town = models.CharField(max_length=100)
+    county = models.CharField(max_length=50)
+    mapLink = models.CharField(max_length=1000)
+    phone = models.CharField(max_length=50)
+
+
+class County_details(models.Model):
+    county_name = models.CharField(max_length=50)
+    all_towns = models.CharField(max_length=1000)
+          

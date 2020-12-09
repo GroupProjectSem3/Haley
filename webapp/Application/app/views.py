@@ -8,7 +8,7 @@ from django.template import RequestContext
 from datetime import datetime, timedelta
 from .models import User_profile
 from django.contrib import messages
-from .models import Disease, Disease_symptom, symptom, Symptom_detail, User_diagnosis
+from .models import Disease, Disease_symptom, symptom, Symptom_detail, User_diagnosis, GP_details, County_details
 from .diagnosis import Diagnosis
 from django.http import JsonResponse
 from django.core.cache import cache
@@ -1048,6 +1048,7 @@ def GPList(request):
     userid = request.session['user_id']
     user =User_profile.objects.filter(email = userid)[0]
     return render(request,'app/new_GPList.html',{'fname':user.first_name,'lname':user.last_name})   
+    #return render(request,'app/new_gpDetails.html',{'fname':user.first_name,'lname':user.last_name})   
 
      
 def feedback(request):
@@ -1234,5 +1235,32 @@ def reset_Password(request):
 
 
 #### For NEW pages END ####
+
+def getTowns(request):
+    #userid = request.session['user_id']
+    #user = User_profile.objects.filter(email = userid)[0]
+    if request.is_ajax():
+        county = request.GET.get('county', None)
+        towns = County_details.objects.filter(county_name=county)[0]
+        town_list = towns.all_towns.split('|')
+        data = {'is_taken': True,'townsList':town_list }
+        return JsonResponse(data, safe=False)
+
+
+def getGP(request):
+    #userid = request.session['user_id']
+    #user = User_profile.objects.filter(email = userid)[0]
+    if request.is_ajax():
+        county = request.GET.get('county', None)
+        town = request.GET.get('town', None)
+        gp_details = GP_details.objects.filter(county=county,town=town)
+        gp_list= gp_details.values('name','address1','town','county','mapLink','phone')
+        countType = 'ODD'
+        if gp_details.__len__()%2 == 0:
+            countType = 'EVEN'
+        data = {'is_taken': True,'GPList': list(gp_list), 'countType':countType }
+        return JsonResponse(data, safe=False)
+
+
 
 
