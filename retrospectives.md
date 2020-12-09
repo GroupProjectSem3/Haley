@@ -235,16 +235,19 @@
 
 - New Working UI
 - Help in debugging from Group 3.
-- Appropriate Pr's from the team members
+- Appropriate Pr's from the team members.
+- Implemented the guest user functionality where user caan access dignostic tool as guest.
 
 ## Learned
 
 - How to produce multiple outputs with their probabilities for a specific input within neural network structure.
+- Learnt more api's and methods with respect to using the maps api.
 
 ## Lacked / Mad
 
 - Not able to give appropriate time to the documentation.
-- Too hung up on development
+- Too hung up on development.
+- Using the google api key where it is expiring very often.
 
 ## Longed For/ Sad
 
@@ -255,4 +258,4 @@
 
 - User evaluation of the final application.
 - Complete atleast 60 - 70 % of the final report.
-
+- Implemented another approach for GP details feature.
