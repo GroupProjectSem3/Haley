@@ -228,3 +228,35 @@
 
 - Able to provide the path to fetch the static files from the cloud
 - Deployment is done successfully and trying to review the pages in the deployment server.
+
+## Project Retrospective Board - Sprint 12
+
+## Liked / Glad
+
+- New Working UI
+- Help in debugging from Group 3.
+- Appropriate Pr's from the team members.
+- Implemented the guest user functionality where user caan access dignostic tool as guest.
+- Implemented another approach for GP details feature.
+
+## Learned
+
+- How to produce multiple outputs with their probabilities for a specific input within neural network structure.
+- Learnt more api's and methods with respect to using the maps api.
+
+## Lacked / Mad
+
+- Not able to give appropriate time to the documentation.
+- Too hung up on development.
+- Using the google api key where it is expiring very often.
+
+## Longed For/ Sad
+
+- More reading material on deployments and networking
+- Solution on reading a file through URL using tenserflow
+
+## Action Items
+
+- User evaluation of the final application.
+- Complete atleast 60 - 70 % of the final report.
+- Expanding scope on number of diseases.
