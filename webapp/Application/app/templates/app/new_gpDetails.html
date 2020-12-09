@@ -1,0 +1,316 @@
+{% extends "app/new_layout.html" %}
+
+{% load static %}
+{% block css %}
+<style type="text/css">
+
+    #spinner {
+        display: none;
+    }
+  
+    .loading {
+      margin-top: 5px;
+      border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row" style="padding: 20px;">
+        <div class="col-sm-6">
+            <span class="span">
+                GP Details
+            </span>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="padding:40px" >
+    
+    <div class="row" style="padding:40px" id="haley">
+        
+         <div class="col-sm-2">    <h5 >
+                Find GPs in:
+            </h5></div> 
+            <div class="col-sm-4">
+                <div class="form-group" style="padding-top:10px ;">
+                    <select id="ddlCounty"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" aria-placeholder="Select ">
+                
+                    <option value="-1">Select County...</option>
+                    <option value="Dublin 1">Dublin 1</option>
+                    <option value="Dublin 4">Dublin 4</option>
+   
+                </select>
+            </div>
+        </div>
+            <div class="col-sm-4" style="padding-top:10px ;">
+                <div class="form-group" >
+                    <select id="ddlTown" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" aria-placeholder="Select" disabled>
+                
+                        <option value='-1'> Select Location ...</option>
+                   
+                </select>
+            </div>
+            </div>
+             
+
+         <div class="col-sm-2">
+                    <!-- <input type="submit" name="" value="Search">  -->
+                    <label id="spinner" class="loading" ></label>
+         </div>
+          
+            <hr>
+     
+         <!-- <div class="timeline-body" > -->
+        <div id="gpData"  style="padding:20px ;width: 100%;" class="gp" >
+            
+            <!-- <div class="row"  style="padding:20px ;width: 100%;"  >
+                <div class="col-sm-1"></div>
+                <div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-11">
+                        <label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
+                        <br>
+                        <label>Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
+                        <label>Glasnevin ,</label> 
+                        <label>Dublin 11</label><br>
+                        <label>01 8344611</label>
+                        </div>
+        
+                        <div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-11">
+                        <label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
+                        <br>
+                        <label>Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
+                        <label>Glasnevin ,</label> 
+                        <label>Dublin 11</label><br>
+                        <label>01 8344611</label>
+                        </div>
+        
+                        <div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+<div class="row"  style="padding:20px ;width: 100%;"   >
+    <div class="col-sm-1"></div>
+<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-11">
+<label for="" style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
+<br>
+<label for="">Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
+<label for="">Glasnevin ,</label> 
+<label for="">Dublin 11</label><br>
+
+<label for="">01 8344611</label>
+</div>
+
+<div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
+</div></div>
+</div>
+
+
+<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-11">
+<label  style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
+<br>
+<label >Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
+<label >Glasnevin ,</label> 
+<label >Dublin 11</label><br>
+
+<label >01 8344611</label>
+</div>
+
+<div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
+</div></div>
+</div>
+
+</div>
+
+<div class="row gp"  style="padding:20px ;width: 100%;" >
+    <div class="col-sm-1"></div>
+<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-11">
+<label for="" style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
+<br>
+<label for="">Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
+<label for="">Glasnevin ,</label> 
+<label for="">Dublin 11</label><br>
+
+<label for="">01 8344611</label>
+</div>
+
+<div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
+</div></div>
+</div>
+
+
+</div> -->
+            </div>
+           
+</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+<script>
+$("#ddlCounty").change(function () {
+
+    var county = this.value;
+    //alert(county);
+    //var firstDropVal = $('#pick').val();
+    if(county == "-1")
+    {
+        $("#ddlTown").val($("#ddlTown option:first").val());
+        $("#ddlTown").prop("disabled", true);
+    }
+    else
+    {
+	$.ajax({
+        url: '/ajax/getTowns/',
+        data: {
+          'county' : county,
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            var list_html = "<option value='-1'> Select Location ...</option>";
+            if(data.townsList.length > 0)
+            {
+              for( var i=0; i <data.townsList.length; i++) {
+                  list_html += "<option value='"+data.townsList[i]+"'>"+data.townsList[i]+"</option>";                  
+                 }
+              $("#ddlTown").prop("disabled", false);              
+            }
+            else{              
+              $("#ddlTown").prop("disabled", true);
+            }
+            $("#ddlTown").html(list_html);
+          }
+        }
+      });
+    }
+    });
+
+
+$("#ddlTown").change(function () {
+
+    var myDiv = document.getElementById("spinner")
+    myDiv.style.display = "block";
+
+    var town = this.value;
+    var county = $('#ddlCounty').val(); 
+
+    $.ajax({
+        url: '/ajax/getGP/',
+        data: {
+        'county' : county,
+        'town' : town 
+        },
+        dataType: 'json',
+        success: function (data) {
+        if (data.is_taken) {
+            var list_html = "";
+            if(data.GPList.length > 0)
+            {
+                part1 = '<div class="row"  style="padding:20px ;width: 100%;">'+
+                        '<div class="col-sm-1"></div>';
+                part2 = '<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;">'+
+                        '<div class="container-fluid">'+
+                            '<div class="row"> <div class="col-sm-11">';
+                part3 = ' </div> </div> </div>';                                
+            if(data.GPList.length > 1)
+            {                             
+            for(var i=0; i <data.GPList.length-1; i=i+2) {
+                list_html1 ='';
+                list_html2 ='';
+
+                list_html1 = part1 + part2 + '<label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>'+data.GPList[i].name+'</b> </label> <br>'; 
+                list_html1 += '<label>'+data.GPList[i].address1+'</label>  <br>';
+                list_html1 += '<label>'+data.GPList[i].town+' , </label>';
+                list_html1 += '<label>'+data.GPList[i].county+'</label>  <br>';
+                list_html1 += '<label>'+data.GPList[i].phone+'</label> </div>';
+                list_html1 += '<div class="col-sm-1" style="margin-top:10px ;"> <a href="'+data.GPList[i].mapLink+'" target="_blank"><img src="{% static "dist/img/new/map_icon.png" %}" alt=""></a></div>';
+                list_html1 += part3;   
+                
+                list_html2 = part2 + '<label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>'+data.GPList[i+1].name+'</b> </label> <br>'; 
+                list_html2 += '<label>'+data.GPList[i+1].address1+'</label>  <br>';
+                list_html2 += '<label>'+data.GPList[i+1].town+' , </label>';
+                list_html2 += '<label>'+data.GPList[i+1].county+'</label>  <br>';
+                list_html2 += '<label>'+data.GPList[i+1].phone+'</label> </div>';
+                list_html2 += '<div class="col-sm-1" style="margin-top:10px ;"> <a href="'+data.GPList[i+1].mapLink+'" target="_blank"><img src="{% static "dist/img/new/map_icon.png" %}" alt=""></a></div>';
+                list_html2 += part3 +'</div>'; 
+
+                list_html += list_html1 + list_html2
+                }
+            }
+                //for odd number case - last record
+                if(data.countType == 'ODD')
+                {
+                    j = data.GPList.length-1;
+                    list_html1 = '<div class="row gp"  style="padding:20px ;width: 100%;"> <div class="col-sm-1"></div>';
+                    list_html1 += part2 + '<label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>'+data.GPList[j].name+'</b> </label> <br>'; 
+                    list_html1 += '<label>'+data.GPList[j].address1+'</label>  <br>';
+                    list_html1 += '<label>'+data.GPList[j].town+' , </label>';
+                    list_html1 += '<label>'+data.GPList[j].county+'</label>  <br>';
+                    list_html1 += '<label>'+data.GPList[j].phone+'</label> </div>';
+                    list_html1 += '<div class="col-sm-1" style="margin-top:10px ;"> <a href="'+data.GPList[j].mapLink+'" target="_blank"><img src="{% static "dist/img/new/map_icon.png" %}" alt=""></a></div>';
+                    list_html1 += part3 +'</div>'; 
+
+                    list_html += list_html1;
+                }
+
+            }
+            else{              
+                //$("#ddlSelect").prop("disabled", true);
+            }
+            myDiv.style.display = "none";
+            $("#gpData").html(list_html);
+        }
+        
+        }
+    });
+    
+});    
+
+</script>    
+
+{% endblock %}
