@@ -12,9 +12,6 @@ Original file is located at
 from google.colab import drive
 drive.mount('/content/drive')
 
-import numpy as np # linear algebra
-import pandas as pd
-
 import tensorflow as tf
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
@@ -43,7 +40,7 @@ from sklearn.preprocessing import LabelEncoder
 from keras.utils import np_utils
 import tensorflow as tf
 from keras.models import *
-from keras.layers import *
+from keras.layers import Dense, Dropout, Activation
 from keras.callbacks import *
 from sklearn.model_selection import  ShuffleSplit, cross_val_score, cross_val_predict
 from sklearn.metrics import confusion_matrix, classification_report
@@ -106,12 +103,14 @@ for x in y_test:
                 Y_test[k]=tmp
                 k+=1
 
-indices = [i for i in range(100)]
+indices = [i for i in range(100)] #index of symptoms
 symptoms = df.columns.values[:-1]
 
-dictionary = dict(zip(symptoms,indices))
+dictionary = dict(zip(symptoms,indices))#dictionary of all target diseases
 
+#Modified function for displaying top three diseases with probability of occurences
 def dosomething(symptom):
+    prediction = []
     user_input_symptoms = symptom
     user_input_label = [0 for i in range(100)]
     for i in user_input_symptoms:
@@ -120,28 +119,12 @@ def dosomething(symptom):
 
     user_input_label = np.array(user_input_label)
     user_input_label = user_input_label.reshape((-1,1)).transpose()
-    return(disease_prediction.predict(user_input_label))
-
+    ds = disease_prediction.predict(user_input_label)
+    L = np.argsort(-ds, axis=1)
+    return(values[L[:,0]],"Percentage:",((ds[0,L[:,0]]*100)),values[L[:,1]],"Percentage:",(ds[0,L[:,1]]*100),values[L[:,2]],"Percentage:",(ds[0,L[:,2]]*100))
+    
 ds = dosomething(['Sneezing', 'Sore Throat', 'Stuffy Nose' ])
-
-ds = dosomething(['Fatigue','Diarrhea','Constipation']) #doing something
-
-L = np.argsort(-ds, axis=1)
-
-#for printing 3 values
-print(values[L[:,0]])
-print(values[L[:,1]])
-print(values[L[:,2]])
-
-cc = L[:,1]
-
-cc1 = L[:,1]
-
-# for printing percentage of the occurences
-print(ds[0,cc]*100)
-print(ds[0,L[:,1]]*100)
-print(ds[0,L[:,2]]*100)
-
+#calculating accuracy on 20% test data
 pre=model.predict(x_test)
 
 acc=0;
@@ -152,30 +135,3 @@ for i in range(len(pre)):
 
 acc=acc/len(pre)
 acc
-
-pre[8].max()
-
-acc=0;
-for i in range(len(pre)):
-    if pre[i].argmax() == Y_test[i].argmax() :
-        if pre[i].max() >= 0.80:
-            acc+=1
-
-acc=acc/len(pre)
-acc
-#below this line not imp.
-'''
-for i in range(len(pre)):
-    pre[i] = pre[i].argmax()
-    y_test[i] = y_test[i].argmax()
-
-pre = np.argmax(pre)
-y_test = np.argmax(y_test, axis=1)
-
-from sklearn.metrics import accuracy_score
-print(accuracy_score(y_test, pre)*100)
-
-for i in range(len(pre)):
-  conf[i] = confusion_matrix(y_test[i],pre[i])
-print(conf[1])
-'''
