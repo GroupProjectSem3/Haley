@@ -255,8 +255,10 @@
 - More reading material on deployments and networking
 - Solution on reading a file through URL using tenserflow
 
+
 ## Action Items
 
 - User evaluation of the final application.
 - Complete atleast 60 - 70 % of the final report.
 - Expanding scope on number of diseases.
+
