@@ -136,66 +136,89 @@
 </div>
 
 <div class="container-fluid" id="divResults" style="display: none;">
-    <div class="row" style="padding:30px">
-            <div class="col-sm-12" id="results">
-                <div class="row" id="it" style="padding:10px"> 
-                    <h3 style="font-family: inherit;font-weight: bold;">Predictions</h3>
-                </div>	
-                <hr style="margin: 0rem;">
-                <h5 id="utext" style="color: black;"> <i class="fa fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</h5>
-                <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large">ASTHMA</label>
+  <div class="row" style="padding:30px">
+          <div class="col-sm-12" id="results">
+              <div class="row" id="it" style="padding:10px"> 
+                  <h3 style="font-family: inherit;font-weight: bold;">Predictions</h3>
+              </div>	
+              <hr style="margin: 0rem;">
+              <h5 id="utext" style="color: black;"> <i class="fa fa-info-circle"></i> Hi, based on the responses you provided here is Haley's prediction.</h5>
+              <label id="lblDiseaseName" style="color: limegreen;font-family:inherit;font-size:x-large"></label>
 
-                <div class="post">
-                    <div class="expandableCollapsibleDiv3">
-                      <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
-                        <h5>Description</h5>
-                    <div id="utext"><p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
-                    <p style="text-align: center;">
-                      <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fa fa-link mr-1"></i> Tell me more</a>
-                    </p>
+              <div class="post">
+                <div class="expandableCollapsibleDiv3">
+                  <img src="../../static/dist/img/UpArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                  <h5>Description</h5>
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <div id="utext"><p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
+                      <p style="text-align: center;">
+                        <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fa fa-link mr-1"></i> Tell me more</a>
+                      </p>
+                    </div>
+                    <div class="col-sm-5">
+                      <h5 style="text-decoration: underline; text-align: center;">Possible Diseases</h5>
+                      <canvas id="donutChart" style="min-height: 200px; height: 200px; max-height:200px; max-width: 100%; width: 100%;"></canvas>
+                    </div>
+              </div>
+                </div>
+              </div>   
+              
+            <hr>
+              <!-- <div class="post">
+                  <div class="expandableCollapsibleDiv3">
+                    <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                      <h5>Description</h5>
+                  <div id="utext"><p id="pDesc" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
+                  <p style="text-align: center;">
+                    <a href="http://www.default.com/" target="_blank" class="link-black text-sm" style="color: #007bff; font-size: 17px;"><i class="fa fa-link mr-1"></i> Tell me more</a>
+                  </p>
+                </div>
+              </div>
+              <hr> -->
+              <!-- <div class="post clearfix">
+                  <div class="expandableCollapsibleDiv">
+                   <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
+                      <h5>Possible Causes</h5>
+                      <div id="utext"><p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
+                     </div>
+              </div>
+              <hr> -->
+              <div class="post">
+                <div class="expandableCollapsibleDiv">
+                  <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
+                  <h5>Home Remedies</h5>
+                <div id="utext">
+                    <ul id="ulRemedies" style="color: black;"> 
+                     </ul>
                   </div>
                 </div>
-                <hr>
-                <!-- <div class="post clearfix">
-                    <div class="expandableCollapsibleDiv">
-                     <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>
-                        <h5>Possible Causes</h5>
-                        <div id="utext"><p id="pCauses" style="font-family: inherit; font-weight: 500; padding-left: 45px; color: black;"></p></div>
-                       </div>
-                </div>
-                <hr> -->
-                <div class="post">
-                  <div class="expandableCollapsibleDiv">
+              </div>
+              <hr>
+              <div class="post">
+                  <div class="expandableCollapsibleDiv2">
                     <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
-                    <h5>Home Remedies</h5>
+                    <h5>Symptoms</h5>
                   <div id="utext">
-                      <ul id="ulRemedies" style="color: black;"> 
+                      <ul id="ulSymptoms" style="color: black;"> 
                        </ul>
                     </div>
                   </div>
                 </div>
-                <hr>
-                <div class="post">
-                    <div class="expandableCollapsibleDiv2">
-                      <img src="../../static/dist/img/DownArrow.png" style="float: left;width:30px;padding-right: 10px;height: 22px;"/>  
-                      <h5>Symptoms</h5>
-                    <div id="utext">
-                        <ul id="ulSymptoms" style="color: black;"> 
-                         </ul>
-                      </div>
-                    </div>
-                  </div>
 
 
-        </div>
-    </div>
+      </div>
+  </div>
 </div>
 
 {% endblock %} 
 
 {% block javascript %}
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
+
          $("#guest_Profile").click(function(e) {
            alert("Please register with Haley to access it's full functionality. Thanks");
           });
@@ -212,59 +235,63 @@
            alert("Please register with Haley to access it's full functionality. Thanks");
           });
 
+  var forChartDiseases = [];
+  var forChartValues = [];
+
   $(document).ready(function () {
 
-    // var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
-    // defaultElementDescription.hide("fast", "swing");
-    var defaultElementDescription = $(".expandableCollapsibleDiv").find("div");
-    defaultElementDescription.hide("fast", "swing");
-    var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
-    defaultElementDescription2.hide("fast", "swing");
-    var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("p");
-    defaultElementDescription3.hide("fast", "swing");
+// var defaultElementDescription = $(".expandableCollapsibleDiv").find("p");
+// defaultElementDescription.hide("fast", "swing");
+var defaultElementDescription = $(".expandableCollapsibleDiv").find("div");
+defaultElementDescription.hide("fast", "swing");
+var defaultElementDescription2 = $(".expandableCollapsibleDiv2").find("div");
+defaultElementDescription2.hide("fast", "swing");
+var defaultElementDescription3 = $(".expandableCollapsibleDiv3").find("div");
+//defaultElementDescription3.hide("fast", "swing");
+defaultElementDescription3.show("fast", "swing");
 
-    $(".expandableCollapsibleDiv > img").click(function (e) {
-      var showElementDescription = 
-        //$(this).parents(".expandableCollapsibleDiv").find("p");
-        $(this).parents(".expandableCollapsibleDiv").find("div");
-  
-      if ($(showElementDescription).is(":visible")) {
-        showElementDescription.hide("fast", "swing");
-        $(this).attr("src", "../../static/dist/img/DownArrow.png");
-      } else {
-        showElementDescription.show("fast", "swing");
-        $(this).attr("src", "../../static/dist/img/UpArrow.png");
-      }
-    });
-    $(".expandableCollapsibleDiv2 > img").click(function (e) {
-      var showElementDescription = 
-        $(this).parents(".expandableCollapsibleDiv2").find("div");
-  
-      if ($(showElementDescription).is(":visible")) {
-        showElementDescription.hide("fast", "swing");
-        $(this).attr("src", "../../static/dist/img/DownArrow.png");
-      } else {
-        showElementDescription.show("fast", "swing");
-        $(this).attr("src", "../../static/dist/img/UpArrow.png");
-      }
-    });
-    $(".expandableCollapsibleDiv3 > img").click(function (e) {
-      var showElementDescription = 
-        $(this).parents(".expandableCollapsibleDiv3").find("p");
-  
-      if ($(showElementDescription).is(":visible")) {
-        showElementDescription.hide("fast", "swing");
-        $(this).attr("src", "../../static/dist/img/DownArrow.png");
-      } else {
-        showElementDescription.show("fast", "swing");
-        $(this).attr("src", "../../static/dist/img/UpArrow.png");
-      }
-    });
-  
+$(".expandableCollapsibleDiv > img").click(function (e) {
+  var showElementDescription = 
+    //$(this).parents(".expandableCollapsibleDiv").find("p");
+    $(this).parents(".expandableCollapsibleDiv").find("div");
+
+  if ($(showElementDescription).is(":visible")) {
+    showElementDescription.hide("fast", "swing");
+    $(this).attr("src", "../../static/dist/img/DownArrow.png");
+  } else {
+    showElementDescription.show("fast", "swing");
+    $(this).attr("src", "../../static/dist/img/UpArrow.png");
+  }
+});
+$(".expandableCollapsibleDiv2 > img").click(function (e) {
+  var showElementDescription = 
+    $(this).parents(".expandableCollapsibleDiv2").find("div");
+
+  if ($(showElementDescription).is(":visible")) {
+    showElementDescription.hide("fast", "swing");
+    $(this).attr("src", "../../static/dist/img/DownArrow.png");
+  } else {
+    showElementDescription.show("fast", "swing");
+    $(this).attr("src", "../../static/dist/img/UpArrow.png");
+  }
+});
+$(".expandableCollapsibleDiv3 > img").click(function (e) {
+  var showElementDescription = 
+    $(this).parents(".expandableCollapsibleDiv3").find("div");
+
+  if ($(showElementDescription).is(":visible")) {
+    showElementDescription.hide("fast", "swing");
+    $(this).attr("src", "../../static/dist/img/DownArrow.png");
+  } else {
+    showElementDescription.show("fast", "swing");
+    $(this).attr("src", "../../static/dist/img/UpArrow.png");
+  }
+});
+
 });
 
 
-  $(jQuery).on('click', "#smiley", function() {
+$(jQuery).on('click', "#smiley", function() {
     $("#lblBtnValue").html($(this).val());
  
     if($("#lblBtnValue").html() == ""){
@@ -348,6 +375,32 @@
                   //list_html2 += "</ul> </li>";
                 }
                 $("#ulRemedies").html(list_html2);
+                //For Chart
+                forChartDiseases = data.forChartDiseases;
+                forChartValues = data.forChartValues;
+                var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+                //var donutChartCanvas =  document.querySelector("#donutChart");
+                var donutData        = {
+                  labels: forChartDiseases,
+                  datasets: [
+                    {
+                    // data: [700,500,400,600,300,100],
+                    // backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                    data: forChartValues,
+                    backgroundColor : ['#00a65a','#f56954', '#f39c12'],
+                    } 
+                  ]
+                }
+                var donutOptions     = {
+                  maintainAspectRatio : false,
+                  responsive : true,
+                }
+                //Create douhnut chart
+                var donutChart = new Chart(donutChartCanvas, {
+                  type: 'doughnut',
+                  data: donutData,
+                  options: donutOptions      
+                })
           }
           myDiv.style.display = "none";
         }

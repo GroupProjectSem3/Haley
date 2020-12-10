@@ -634,7 +634,7 @@ def login(request):
         if User_profile.objects.filter(email=email, password=pwd).exists():
             request.session['user_id'] = user.get().email
             print(request.session['user_id'])
-            if(request.session['user_id']=='guest@gmail.com'):
+            if(request.session['user_id']=='Guest'):
                return render(
                             request, 'app/guest_dt.html', {
                             'fname': user.get().first_name,
@@ -786,7 +786,7 @@ def diagnosticTool(request):
     print('Inside diagnostic tool first page')
     userid = request.session['user_id']
     user = User_profile.objects.filter(email=userid)[0]
-    if (userid=='guest@gmail.com'):
+    if (userid=='Guest'):
         return render(request, 'app/guest_dt.html', {
         'fname': user.first_name,
         'lname': user.last_name
@@ -809,7 +809,7 @@ def addButton(request):
             sympDesc = symptom.objects.filter(
                 symptom_name=symptomName)[0].symptom_description
             
-            if(userid=='guest@gmail.com'):
+            if(userid=='Guest'):
                 return render(
                      request, 'app/guest_dtQuestions.html', {
                     'question': symptomName,
