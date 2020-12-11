@@ -34,7 +34,7 @@
         <div class="row" style="padding:30px">
             <div class="col-sm-8">
                 <a href="{% url 'home' %}"> 
-                <div class="col-sm-4" id="haley">
+                <div class="col-sm-3" id="haley">
                    
                     <i class="fa fa-heartbeat" aria-hidden="true"></i> Haley
                  </div></a>
@@ -70,9 +70,9 @@
                 <div class="row" id="log">
                     Sign Up
                 </div>
-                        {% for message in messages %} 
-                            <h6> {{message}}</h6>
-                             {% endfor %}
+                {% for message in messages %} 
+                <h5 > {{message}}</h5>
+                {% endfor %}
                             
            
             <form action="register" method="POST">
