@@ -650,7 +650,7 @@ def login(request):
                      }
                        )  
         else:
-            messages.info(request, 'invalid credentials ')
+            messages.success(request, 'Invalid credentials')
             return render(request, 'app/new_login.html')
     else:
         return render(request, 'app/new_login.html')
@@ -669,7 +669,7 @@ def userHome(request):
             }
         )  
     else:
-        return render(request, 'app/userProfile.html')
+        return render(request, 'app/new_userProfile.html')
 
 
 def logout(request):
@@ -745,18 +745,18 @@ def register(request):
        
         if pwd == confirmPassword:
             if User_profile.objects.filter(email=emailId).exists():
-                messages.info(request, 'Email Taken')
+                messages.info(request, 'Email is already taken')
                 return redirect('register')
             elif len(fName) <= 2 :
-                 messages.info(request, 'Name must be at least three characters')
+                 messages.info(request, 'Name must be at least three characters long')
                  return redirect('register')
 
             elif len(lName) <= 2 :
-                 messages.info(request, 'Name must be at least three characters')
+                 messages.info(request, 'Name must be at least three characters long')
                  return redirect('register')  
 
             elif len(pwd) <=5 :
-                 messages.info(request, 'Password must be at least six characters')
+                 messages.info(request, 'Password must be at least six characters long')
                  return redirect('register') 
             
             else:
@@ -774,7 +774,7 @@ def register(request):
                 
                 return render(request, 'app/new_login.html')
         else:
-            messages.info(request, 'password not matching...')
+            messages.info(request, 'Password does not matched.')
             return redirect('register')
         return redirect('register')
 

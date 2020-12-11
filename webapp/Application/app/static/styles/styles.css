@@ -12,7 +12,7 @@
     font-family: lato;
     text-align: center;
     color: #4e4e4e;
-    font-size: 24px;
+    font-size: 22px;
   }
   #utext{
     font-family: Lato;
@@ -32,9 +32,9 @@
 
   .span{
     font-family: Lato;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 16px;
     text-align: left;
     letter-spacing: 0.02em;
     vertical-align:middle;
@@ -59,9 +59,9 @@
   #haley{
     font-family: KoHo;
     font-style: bold;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 62px;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 50px;
     text-align: center;
     vertical-align:middle; 
     justify-content:center;
@@ -352,9 +352,9 @@ button:focus {
 }
 
 #Profile{
-  font-family: KoHo;
+  font-family: Lato;
   font-style: bold;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 48px;
   line-height: 62px;
     text-align:left;
