@@ -215,7 +215,8 @@ $("#btnFeedbackSubmit").click(function () {
             // $("#pCauses").html(data.forCauses);
             // $("a[href='http://www.default.com/']").attr('href', data.forLink);
             // $("#diseaseImage").attr("src", "../../static/dist/img/disease/"+data.forDiseases+".jpg");
-
+            alert('Please login to the system to proceed further');
+              window.location.replace("{% url 'login' %}");  
           }
         }
       });

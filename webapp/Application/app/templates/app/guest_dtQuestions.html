@@ -333,6 +333,7 @@ $(jQuery).on('click', "#smiley", function() {
             $("#divResults").hide();
           }
           else{
+            if(data.session){
             $("#divResults").show();
             $("#divQuestions").hide();
             $("#lblDiseaseName").html(data.forDiseases);
@@ -401,6 +402,11 @@ $(jQuery).on('click', "#smiley", function() {
                   data: donutData,
                   options: donutOptions      
                 })
+              }
+              else{
+                alert('Please login to the system to proceed further');
+                window.location.replace("{% url 'login' %}");
+              }
           }
           myDiv.style.display = "none";
         }
