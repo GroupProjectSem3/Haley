@@ -176,8 +176,12 @@
                         <br><h5 style="font-size: x-large;">Let's start with the symptoms troubling you the most?</h5>
                         <h6 style="text-align: right;">(* You can select symptom either by typing in below search box (or) from images *)</h6>
                         <hr>
+                        <div class="row">
+                          <div class="col-sm-3"></div>  
                         <input class="col-sm-6"  type="text" id="symptom" name="txtSymptom" placeholder="Type your symptom.." style="width: 100%;">
-                        <label id="spinner" class="loading" ></label>
+                      <div class="col-sm-1" style="padding-top:10px ;" >  <label id="spinner" class="loading" ></label>
+                      </div>         
+                     </div>
                     </div>
                     {% for message in messages %} 
                     <!-- <h6> {{message}}</h6> -->
@@ -344,6 +348,8 @@ $(document).on("click","a[name='lnkSymp']", function (e) {
         //alert(ui.item.label)
   
         //
+        var myDiv = document.getElementById("spinner")
+        myDiv.style.display = "block";
         $.ajax({
           url: '/ajax/getDetails/',
           data: {
@@ -375,6 +381,7 @@ $(document).on("click","a[name='lnkSymp']", function (e) {
               alert('Please login to the system to proceed further');
               window.location.replace("{% url 'login' %}");
             }
+            myDiv.style.display = "none";
           }
         });
         //
