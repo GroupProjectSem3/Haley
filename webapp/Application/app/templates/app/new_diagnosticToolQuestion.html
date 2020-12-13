@@ -317,6 +317,7 @@
             $("#divResults").hide();
           }
           else{
+            if(data.session){
             $("#divResults").show();
             $("#divQuestions").hide();
             $("#lblDiseaseName").html(data.forDiseases);
@@ -385,6 +386,11 @@
                   data: donutData,
                   options: donutOptions      
                 })
+              }
+              else{
+                alert('Please login to the system to proceed further');
+                window.location.replace("{% url 'login' %}");
+              }
           }
           myDiv.style.display = "none";
         }

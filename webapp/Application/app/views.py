@@ -784,19 +784,22 @@ def register(request):
 # @login_required
 def diagnosticTool(request):
     print('Inside diagnostic tool first page')
-    userid = request.session['user_id']
-    user = User_profile.objects.filter(email=userid)[0]
-    if (userid=='Guest'):
-        return render(request, 'app/guest_dt.html', {
-        'fname': user.first_name,
-        'lname': user.last_name
-         }) 
+    if(request.session.has_key('user_id')):
+        userid = request.session['user_id']
+        user = User_profile.objects.filter(email=userid)[0]
+        if (userid=='Guest'):
+            return render(request, 'app/guest_dt.html', {
+            'fname': user.first_name,
+            'lname': user.last_name
+            }) 
 
-    else: 
-        return render(request, 'app/new_diagnosticTool.html', {
-        'fname': user.first_name,
-        'lname': user.last_name
-         })
+        else: 
+            return render(request, 'app/new_diagnosticTool.html', {
+            'fname': user.first_name,
+            'lname': user.last_name
+            })
+    else:
+        return render(request, 'app/new_login.html')        
 
 def addButton(request):
     if request.method == 'POST':
@@ -839,89 +842,92 @@ def addButton(request):
 
 # NEW ONE 
 def symptom_nextClick(request):
-    weight = int(request.GET.get('wt', None))
-    symptomName = request.GET.get('symp', None)
-    sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
-    symp_wt = sympId+'_'+ str(weight)
+    if(request.session.has_key('user_id')):
+        weight = int(request.GET.get('wt', None))
+        symptomName = request.GET.get('symp', None)
+        sympId = symptom.objects.filter(symptom_name=symptomName)[0].symptom_id
+        symp_wt = sympId+'_'+ str(weight)
 
-    equipment_list = cache.get('disease_symptom_list')
-    if not equipment_list:
-       #disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
-       disease_symptoms_list = Disease_symptom.objects.filter(Q(all_symptoms__icontains=symp_wt))
+        equipment_list = cache.get('disease_symptom_list')
+        if not equipment_list:
+            #disease_symptoms_list = Disease_symptom.objects.filter(symptom_details = {'symptom_id':sympId})
+            disease_symptoms_list = Disease_symptom.objects.filter(Q(all_symptoms__icontains=symp_wt))
+        else:
+            disease_symptoms_list = cache.get('disease_symptom_list')
+            disease_symptoms_list = disease_symptoms_list.filter(Q(all_symptoms__icontains=symp_wt))
+
+        cache.set('disease_symptom_list',disease_symptoms_list)   
+
+        x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
+        #nxtSymptom = symptomEnum[x].value
+
+        #For saving response data
+        if(request.session.has_key('response_list')):
+            resp_list = request.session['response_list'] 
+        else:
+            resp_list = list()
+        resp = symptomName+'_'+str(weight)
+        resp_list.append(resp)
+        request.session['response_list'] = resp_list
+
+        if x != "SUBMITNOW":
+            nxtSymptom = symptomEnum[x].value
+            sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
+            data = {
+                'is_taken': True, 
+                'nextSymptom': nxtSymptom,
+                'question':nxtSymptom,'symptomDescription':sympDesc,
+            }
+        elif x == "SUBMITNOW":
+            userResp = request.session['response_list']
+            response_list = list()
+            for resp in userResp:
+                if resp.split('_')[1] !='0':
+                    response_list.append(resp.split('_')[0])
+            # To get the predictions old one without percentage      
+            #userResu = DiagnosisPrediction.predict(response_list)
+            #user_results = userResu[0]
+            # To get the predictions NEW one with percentages
+            userResu = diagnosisPrediction_new.predict(response_list)
+            user_results = userResu[0].split('_')[0]
+            # For user Responses
+            user_responses = '|'.join(userResp)
+            userid=request.session['user_id']
+            user_diag = User_diagnosis.objects.create(user_id=userid,userResponses=user_responses,userResults=user_results,create_date=datetime.today(),modify_date=datetime.today(),isFeedbackGiven=0) 
+            user_diag.save()
+            # For Diseases with its details
+            disease_details = Disease.objects.filter(disease_name=user_results)[0]
+            forDiseases = user_results
+            forDesc = disease_details.disease_description
+            forCauses = disease_details.disease_causes
+            forLink = disease_details.link
+            forRemedies = disease_details.remedies.split('|')
+            # For symptoms with its details
+            forSympPresent = list()    
+            forSympAbsent = list()
+            for resp in userResp:
+                Sname = resp.split('_')[0]
+                if resp.split('_')[1] == '0':
+                    forSympAbsent.append(Sname)
+                else:
+                    forSympPresent.append(Sname)
+            # For Chart
+            #forChartDiseases =['D1','D2','D3']
+            #forChartValues = [60,20,20]   
+            forChartDiseases = list()
+            forChartValues = list()
+            for o in userResu:
+                forChartDiseases.append(o.split('_')[0])
+                forChartValues.append(o.split('_')[1])
+
+            data = {
+                'is_taken': False, 'session' : True,
+                'forDiseases': forDiseases, 'forDesc': forDesc, 'forCauses': forCauses,'forLink': forLink,
+                'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,'forRemedies':forRemedies,
+                'forChartDiseases':forChartDiseases,'forChartValues':forChartValues
+            }
     else:
-       disease_symptoms_list = cache.get('disease_symptom_list')
-       disease_symptoms_list = disease_symptoms_list.filter(Q(all_symptoms__icontains=symp_wt))
-
-    cache.set('disease_symptom_list',disease_symptoms_list)   
-
-    x = Diagnosis.getNextSymptom(request,disease_symptoms_list,sympId,weight)
-    #nxtSymptom = symptomEnum[x].value
-
-    #For saving response data
-    if(request.session.has_key('response_list')):
-        resp_list = request.session['response_list'] 
-    else:
-        resp_list = list()
-    resp = symptomName+'_'+str(weight)
-    resp_list.append(resp)
-    request.session['response_list'] = resp_list
-
-    if x != "SUBMITNOW":
-        nxtSymptom = symptomEnum[x].value
-        sympDesc = symptom.objects.filter(symptom_name=nxtSymptom)[0].symptom_description
-        data = {
-            'is_taken': True, 
-            'nextSymptom': nxtSymptom,
-            'question':nxtSymptom,'symptomDescription':sympDesc,
-         }
-    elif x == "SUBMITNOW":
-        userResp = request.session['response_list']
-        response_list = list()
-        for resp in userResp:
-            if resp.split('_')[1] !='0':
-                response_list.append(resp.split('_')[0])
-        # To get the predictions old one without percentage      
-        #userResu = DiagnosisPrediction.predict(response_list)
-        #user_results = userResu[0]
-        # To get the predictions NEW one with percentages
-        userResu = diagnosisPrediction_new.predict(response_list)
-        user_results = userResu[0].split('_')[0]
-        # For user Responses
-        user_responses = '|'.join(userResp)
-        userid=request.session['user_id']
-        user_diag = User_diagnosis.objects.create(user_id=userid,userResponses=user_responses,userResults=user_results,create_date=datetime.today(),modify_date=datetime.today(),isFeedbackGiven=0) 
-        user_diag.save()
-        # For Diseases with its details
-        disease_details = Disease.objects.filter(disease_name=user_results)[0]
-        forDiseases = user_results
-        forDesc = disease_details.disease_description
-        forCauses = disease_details.disease_causes
-        forLink = disease_details.link
-        forRemedies = disease_details.remedies.split('|')
-        # For symptoms with its details
-        forSympPresent = list()    
-        forSympAbsent = list()
-        for resp in userResp:
-            Sname = resp.split('_')[0]
-            if resp.split('_')[1] == '0':
-                forSympAbsent.append(Sname)
-            else:
-                forSympPresent.append(Sname)
-        # For Chart
-        #forChartDiseases =['D1','D2','D3']
-        #forChartValues = [60,20,20]   
-        forChartDiseases = list()
-        forChartValues = list()
-        for o in userResu:
-            forChartDiseases.append(o.split('_')[0])
-            forChartValues.append(o.split('_')[1])
-
-        data = {
-            'is_taken': False,
-            'forDiseases': forDiseases, 'forDesc': forDesc, 'forCauses': forCauses,'forLink': forLink,
-            'forSympPresent': forSympPresent, 'forSympAbsent' : forSympAbsent,'forRemedies':forRemedies,
-            'forChartDiseases':forChartDiseases,'forChartValues':forChartValues
-        }
+        data = { 'is_taken': False, 'session' :False }        
 
     return JsonResponse(data, safe=False)
 
@@ -942,20 +948,27 @@ def symptom_autocomplete(request):
 
 
 def getDetails(request):
-    symptomName = request.GET.get('symp', None)
-    nxtSymptom = list()
-    #symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_description__icontains=symptomName))
-    symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName))
-    for symp in symptoms:
-        sympDict = dict()
-        sympDict['symptom'] = symp.symptom_name
-        sympDict['desc'] = symp.symptom_description
-        nxtSymptom.append(sympDict)
+    if(request.session.has_key('user_id')):
+        symptomName = request.GET.get('symp', None)
+        nxtSymptom = list()
+        #symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName) | Q(symptom_description__icontains=symptomName))
+        symptoms = symptom.objects.filter(Q(symptom_name__icontains=symptomName))
+        for symp in symptoms:
+            sympDict = dict()
+            sympDict['symptom'] = symp.symptom_name
+            sympDict['desc'] = symp.symptom_description
+            nxtSymptom.append(sympDict)
 
-    data = {
-        'is_taken': True,
-        'entries_list': nxtSymptom,
-    }
+        data = {
+            'is_taken': True,
+            'entries_list': nxtSymptom,
+        }
+    else:
+        data = {
+            'is_taken': False,
+            'entries_list': [],
+        }
+
     return JsonResponse(data, safe=False)
     #return render(request,'app/diagnosticTool.html',{'entries_list':nxtSymptom})
 
@@ -1045,50 +1058,63 @@ def settings(request):
 
 
 def GPList(request):
-    userid = request.session['user_id']
-    user =User_profile.objects.filter(email = userid)[0]
-    #return render(request,'app/new_GPList.html',{'fname':user.first_name,'lname':user.last_name})   
-    return render(request,'app/new_gpDetails.html',{'fname':user.first_name,'lname':user.last_name})   
+    if(request.session.has_key('user_id')):
+        userid = request.session['user_id']
+        user =User_profile.objects.filter(email = userid)[0]
+        #return render(request,'app/new_GPList.html',{'fname':user.first_name,'lname':user.last_name})   
+        return render(request,'app/new_gpDetails.html',{'fname':user.first_name,'lname':user.last_name})   
+    else:
+        return render(request,'app/new_login.html')
 
      
 def feedback(request):
-    userid = request.session['user_id']
-    user = User_profile.objects.filter(email = userid)[0]
-    if request.is_ajax():
-        actionType = request.GET.get('type', None)
-        if actionType == 'LOAD':
-            user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
-            #user_diag = User_diagnosis.objects.filter(user_id=userid)
-            if user_diag.__len__() > 0:
-                diag = user_diag.values('id','userResults','create_date')
-                lstDiag = list(diag)
-                for d in lstDiag:
-                    d['create_date'] = d['create_date'].strftime("%d %h, %Y %I:%M %p")
-                data = {
-                    'is_taken': True,'diag':list(lstDiag),
-                    }
+    #if(request.session.has_key('user_id')):
+        #userid = request.session['user_id']
+        #user = User_profile.objects.filter(email = userid)[0]
+        if request.is_ajax():
+            if(request.session.has_key('user_id')):
+                userid = request.session['user_id']
+                actionType = request.GET.get('type', None)
+                if actionType == 'LOAD':
+                    user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
+                    #user_diag = User_diagnosis.objects.filter(user_id=userid)
+                    if user_diag.__len__() > 0:
+                        diag = user_diag.values('id','userResults','create_date')
+                        lstDiag = list(diag)
+                        for d in lstDiag:
+                            d['create_date'] = d['create_date'].strftime("%d %h, %Y %I:%M %p")
+                        data = {
+                            'is_taken': True,'diag':list(lstDiag),
+                            }
+                    else:
+                        data = {'is_taken': True,'diag':[],}
+                    return JsonResponse(data, safe=False)
+                elif actionType == 'SUBMIT':
+                        unq_id = request.GET.get('unique_id', None)
+                        rating = request.GET.get('rating', None)
+                        ratingText = request.GET.get('ratingText', None)
+                        User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=rating,feedbackText=ratingText,modify_date=datetime.today())
+                        user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
+                        if user_diag.__len__() > 0:
+                            diag = user_diag.values('id','userResults','create_date')
+                            lstDiag = list(diag)
+                            for d in lstDiag:
+                                d['create_date'] = d['create_date'].strftime("%d %h, %Y %I:%M %p")
+                            data = {
+                                'is_taken': True,'diag':list(lstDiag),
+                                }
+                        else:   
+                            data = {'is_taken': True,'diag':[],}
+                        return JsonResponse(data, safe=False) 
             else:
-                data = {'is_taken': True,'diag':[],}
-            return JsonResponse(data, safe=False)
-        elif actionType == 'SUBMIT':
-            unq_id = request.GET.get('unique_id', None)
-            rating = request.GET.get('rating', None)
-            ratingText = request.GET.get('ratingText', None)
-            User_diagnosis.objects.filter(user_id=userid,id=unq_id).update(isFeedbackGiven=1, feedbackRating=rating,feedbackText=ratingText,modify_date=datetime.today())
-            user_diag = User_diagnosis.objects.filter(user_id=userid,isFeedbackGiven=0)
-            if user_diag.__len__() > 0:
-                diag = user_diag.values('id','userResults','create_date')
-                lstDiag = list(diag)
-                for d in lstDiag:
-                    d['create_date'] = d['create_date'].strftime("%d %h, %Y %I:%M %p")
-                data = {
-                    'is_taken': True,'diag':list(lstDiag),
-                    }
-            else:   
-                data = {'is_taken': True,'diag':[],}
-            return JsonResponse(data, safe=False)
-    elif request.method == 'GET' :
-        return render(request,'app/new_feedback.html',{'fname':user.first_name,'lname':user.last_name})
+                data = {'is_taken': False,'diag':[],}  
+                return JsonResponse(data, safe=False)
+        elif request.method == 'GET' :
+            userid = request.session['user_id']
+            user = User_profile.objects.filter(email = userid)[0]
+            return render(request,'app/new_feedback.html',{'fname':user.first_name,'lname':user.last_name})
+    #else:
+     #   return render(request,'app/new_login.html')
        
 
 def assessmentDetails(request):

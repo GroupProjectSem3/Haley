@@ -128,11 +128,28 @@
 
 .newdropdown:hover .dropdown-content {display: block;}
 
+/* .newdropdown:click .dropdown-content {display: hidden;} */
+
 /* .newdropdown:hover .dropbtn {background-color: #3e8e41;} */
 
 .listpad {
   padding-bottom: 4px;
   padding-top: 4px;
+}
+
+#spinner {
+      display: none;
+  }
+
+.loading {
+    margin-top: 5px;
+    border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
 }
   
   </style>
@@ -160,6 +177,7 @@
                         <h6 style="text-align: right;">(* You can select symptom either by typing in below search box (or) from images *)</h6>
                         <hr>
                         <input class="col-sm-6"  type="text" id="symptom" name="txtSymptom" placeholder="Type your symptom.." style="width: 100%;">
+                        <label id="spinner" class="loading" ></label>
                     </div>
                     {% for message in messages %} 
                     <!-- <h6> {{message}}</h6> -->
@@ -282,7 +300,9 @@
 $(document).on("click","a[name='lnkSymp']", function (e) {
     event.preventDefault();
     var sympName = $(this).attr('href');
-
+    var myDiv = document.getElementById("spinner")
+    myDiv.style.display = "block";
+    
     $.ajax({
           url: '/ajax/getDetails/',
           data: {
@@ -303,6 +323,11 @@ $(document).on("click","a[name='lnkSymp']", function (e) {
                   $("#symptom").val("");
                   //$(".newdropdown").css("display","none");
             }
+            else{
+              alert('Please login to the system to proceed further');
+              window.location.replace("{% url 'login' %}");
+            }
+            myDiv.style.display = "none";
           }
         });
 });
@@ -345,6 +370,10 @@ $(document).on("click","a[name='lnkSymp']", function (e) {
                    }
                   //list_html += "</ol>"
                   $("#playlist").html(list_html);
+            }
+            else{
+              alert('Please login to the system to proceed further');
+              window.location.replace("{% url 'login' %}");
             }
           }
         });
