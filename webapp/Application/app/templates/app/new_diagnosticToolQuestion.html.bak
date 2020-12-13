@@ -157,7 +157,7 @@
                         </p>
                       </div>
                       <div class="col-sm-5">
-                        <h5 style="text-decoration: underline; text-align: center;">Possible Diagnosis</h5>
+                        <h5 style="text-decoration: underline; text-align: center;">Possible Diseases</h5>
                         <canvas id="donutChart" style="min-height: 200px; height: 200px; max-height:200px; max-width: 100%; width: 100%;"></canvas>
                       </div>
                 </div>
