@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^logout', app.views.logout, name='logout'),
     url(r'^diagnosticTool', app.views.diagnosticTool, name='diagnosticTool'),
     url(r'^addButton', app.views.addButton, name='addButton'),
-    # url(r'^newDiagnosticPageClick/(?:(?P<question>.+)/)?$', app.views.newDiagnosticPageClick, name='newDiagnosticPageClick'),
     url(r'^ajax/symptom_nextClick/$',
         app.views.symptom_nextClick,
         name='symptom_nextClick'),
@@ -37,43 +36,13 @@ urlpatterns = [
     url(r'^forget_Password', app.views.forget_Password, name='forget_Password'),
     url(r'^check_email', app.views.check_email, name='check_email'),
     url(r'^reset_Password', app.views.reset_Password, name='reset_Password'),
-    #url(r'^ajax/new_Password/$', app.views.new_Password, name='new_Password'),
-    # url(r'^ajax/validate_email/$', app.views.validate_email, name='validate_email'),
     url(r'^ajax/getDetails/$', app.views.getDetails, name='getDetails'),
     url(r'^settings', app.views.settings, name='settings'),
     url(r'^GPList', app.views.GPList, name='GPList'),
     url(r'^feedback', app.views.feedback, name='feedback'),
-    #url('accounts/login/', app.views.home, name ='home'),
-    #path('accounts/login/', auth_views.LoginView.as_view()),
     url(r'^assessmentDetails', app.views.assessmentDetails, name='assessmentDetails'),
     url(r'^ajax/getChartsDetails/$', app.views.getChartsDetails, name='getChartsDetails'),
     url(r'^ajax/getTowns/$', app.views.getTowns, name='getTowns'),
     url(r'^ajax/getGP/$', app.views.getGP, name='getGP'),
     
-    url(r'^index$', app.views.index, name='index'), 
-    # url(r'^about', app.views.about, name='about'),
-    # url(r'^login/$',
-    #     django.contrib.auth.views.login,
-    #     {
-    #         'template_name': 'app/login.html',
-    #         'authentication_form':     #app.forms.BootstrapAuthenticationForm,
-    #         'extra_context':
-    #         {
-    #             'title': 'Log in',
-    #             'year': datetime.now().year,
-    #         }
-    #     },
-    #     name='login'),
-    # url(r'^logout$',
-    #     django.contrib.auth.views.logout,
-    #     {
-    #         'next_page': '/',
-    #     },
-    #     name='logout'),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 ]

@@ -151,6 +151,15 @@
   -webkit-animation: spin 1s linear infinite; /* Safari */
   animation: spin 1s linear infinite;
 }
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
   
   </style>
   
@@ -217,7 +226,7 @@
                                     <li class="list-group-item listpad"> <a name="lnkSymp" href="Chest Discomfort"> Chest Discomfort </a></li>
                                     <li class="list-group-item listpad"> <a name="lnkSymp" href="Shortness of Breath"> Shortness of Breath </a></li>
                                     <li class="list-group-item listpad"> <a name="lnkSymp" href="High blood pressure"> High blood pressure </a></li>
-                                    <li class="list-group-item listpad"> <a name="lnkSymp" href="Low Blood pressure"> Low Blood pressure </a></li>
+                                    <!-- <li class="list-group-item listpad"> <a name="lnkSymp" href="Low Blood pressure"> Low Blood pressure </a></li> -->
                                   </ul>
                                 </div>
                                 <p class="span1">Chest</p>
