@@ -18,6 +18,15 @@
     -webkit-animation: spin 1s linear infinite; /* Safari */
     animation: spin 1s linear infinite;
   }
+  @-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
   </style>
 {% endblock %}
 
@@ -85,106 +94,7 @@
           
             <hr>
      
-         <!-- <div class="timeline-body" > -->
         <div id="gpData"  style="width: 100%;" class="gp" >
-            
-            <!-- <div class="row"  style="padding:20px ;width: 100%;"  >
-                <div class="col-sm-1"></div>
-                <div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-11">
-                        <label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
-                        <br>
-                        <label>Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
-                        <label>Glasnevin ,</label> 
-                        <label>Dublin 11</label><br>
-                        <label>01 8344611</label>
-                        </div>
-        
-                        <div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
-                    </div>
-                </div>
-              </div>
-
-              <div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-11">
-                        <label style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
-                        <br>
-                        <label>Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
-                        <label>Glasnevin ,</label> 
-                        <label>Dublin 11</label><br>
-                        <label>01 8344611</label>
-                        </div>
-        
-                        <div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
-                    </div>
-                </div>
-              </div>
-            </div>
-
-<div class="row"  style="padding:20px ;width: 100%;"   >
-    <div class="col-sm-1"></div>
-<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
-<div class="container-fluid">
-<div class="row">
-    <div class="col-sm-11">
-<label for="" style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
-<br>
-<label for="">Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
-<label for="">Glasnevin ,</label> 
-<label for="">Dublin 11</label><br>
-
-<label for="">01 8344611</label>
-</div>
-
-<div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
-</div></div>
-</div>
-
-
-<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
-<div class="container-fluid">
-<div class="row">
-    <div class="col-sm-11">
-<label  style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
-<br>
-<label >Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
-<label >Glasnevin ,</label> 
-<label >Dublin 11</label><br>
-
-<label >01 8344611</label>
-</div>
-
-<div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
-</div></div>
-</div>
-
-</div>
-
-<div class="row gp"  style="padding:20px ;width: 100%;" >
-    <div class="col-sm-1"></div>
-<div class="col-sm-5" style="  border:1px solid rgba(0, 0, 0, 0.125);background-color: white;" >
-<div class="container-fluid">
-<div class="row">
-    <div class="col-sm-11">
-<label for="" style="color: #EC7EDA;margin-bottom: 20px;font-size: 22px;margin-top: 10px;"> <b>Cremore Clinic Cremore Clinic Cremore  </b> </label> 
-<br>
-<label for="">Ballyfermot & Palmerstown Primary Care Ctr</label>  <br>
-<label for="">Glasnevin ,</label> 
-<label for="">Dublin 11</label><br>
-
-<label for="">01 8344611</label>
-</div>
-
-<div class="col-sm-1" style="margin-top:10px ;">  <a href="#"><img src="{% static 'dist/img/new/map_icon.png' %}" alt=""></a></div>
-</div></div>
-</div>
-
-
-</div> -->
             </div>
            
 </div>
@@ -210,6 +120,8 @@
 
 <script>
 $("#ddlCounty").change(function () {
+    var myDiv = document.getElementById("spinner")
+    myDiv.style.display = "block";
 
     var county = this.value;
     //alert(county);
@@ -241,6 +153,7 @@ $("#ddlCounty").change(function () {
               $("#ddlTown").prop("disabled", true);
             }
             $("#ddlTown").html(list_html);
+            myDiv.style.display = "none";
           }
         }
       });
