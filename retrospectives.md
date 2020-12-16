@@ -290,10 +290,10 @@
 
 - More time for development
 - A range of free tools that we can use for deployment
--More RAM, Storage and higher processing speed.
+- More RAM, Storage and higher processing speed.
 
 ## Action Items
 
--Make the system national to scale up the entire system.
--Improve the space limitations from the current MVP level.
--Make Personalised secured vault for storing medical documents and bills.
+- Make the system national level to scale up the entire system and chart a plan for global level.
+- Improve the space limitations from the current MVP level.
+- Make Personalised secured vault for storing medical documents and bills.
