@@ -262,3 +262,38 @@
 - Complete atleast 60 - 70 % of the final report.
 - Expanding scope on number of diseases.
 
+## Project Retrospective Board - Sprint 13
+
+## Liked / Glad
+
+- Devoted member and team level concern for a common cause
+- Successfully able to deliver the functionality
+- Help received from mentors and members of the other teams.
+
+## Learned
+
+- Team Work
+- In-depth understanding of technologies used
+- How to work in fast-paced Agile development
+- How to make UI presentable
+- Importance of feedback loop
+- How to work with GitHub and ZenHub
+
+
+## Lacked / Mad
+
+- Frustrating number of errors we encountered during development and deployment
+- No face to face interactions
+- Overhead on API calls
+
+## Longed For/ Sad
+
+- More time for development
+- A range of free tools that we can use for deployment
+-More RAM, Storage and higher processing speed.
+
+## Action Items
+
+-Make the system national to scale up the entire system.
+-Improve the space limitations from the current MVP level.
+-Make Personalised secured vault for storing medical documents and bills.
