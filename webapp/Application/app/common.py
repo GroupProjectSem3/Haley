@@ -8,9 +8,9 @@ class common:
     }
 
     ratingImage = {
-        1 : "f1.png",
-        2 : "f2.png",
-        3 : "f3.png",
-        4 : "f4.png",
-        5 : "f5.png"
+        1 : "f1.PNG",
+        2 : "f2.PNG",
+        3 : "f3.PNG",
+        4 : "f4.PNG",
+        5 : "f5.PNG"
     }

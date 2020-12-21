@@ -284,6 +284,11 @@
     var symptom = '';
     if($("#lblFirst").is(":visible"))
     {
+      if($("#lblBtnValue").html()=="0")
+      {
+        alert('Initial symptom value should be greater than 0..');
+        return false;
+      }
       symptom = $("#lblFirst").html();
     }
     else
